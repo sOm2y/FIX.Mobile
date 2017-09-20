@@ -1,29 +1,38 @@
 import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
+import { Font, AppLoading } from 'expo';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
 
 
 export default class App extends React.Component {
-  state = {
-    fontLoaded: false,
-  };
-  async componentDidMount() {
-    await Expo.Font.loadAsync({
-      'Roboto': require('native-base/Fonts/Roboto.ttf'),
-      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-      'Ionicons': require('native-base/Fonts/Ionicons.ttf'),
+  constructor() {
+    super();
+    this.state = {
+      isReady: false
+    };
+  }
+  async componentWillMount() {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
     });
 
-    this.setState({ fontLoaded: true });
+    this.setState({ isReady: true });
   }
   render() {
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
     return (
       <Container>
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
         <Header>
           <Left>
             <Button transparent>
-            {this.state.fontLoaded && <Icon name='menu' />}
+              <Icon name='menu' />
             </Button>
           </Left>
           <Body>
@@ -38,8 +47,21 @@ export default class App extends React.Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
+            <Button vertical>
+              <Icon name="apps" />
+              <Text>Apps</Text>
+            </Button>
+            <Button vertical>
+              <Icon name="camera" />
+              <Text>Camera</Text>
+            </Button>
+            <Button vertical active>
+              <Icon active name="navigate" />
+              <Text>Navigate</Text>
+            </Button>
+            <Button vertical>
+              <Icon name="person" />
+              <Text>Contact</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -47,3 +69,14 @@ export default class App extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  statusBarUnderlay: {
+    height: 24,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+});
