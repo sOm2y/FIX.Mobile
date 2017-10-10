@@ -2,8 +2,13 @@ import React from 'react';
 import { Font, AppLoading } from 'expo';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { StackNavigator } from 'react-navigation';
+import HomeScreen from './screens/HomeScreen';
 
 
+const SimpleApp = StackNavigator({
+  Home: { screen: HomeScreen }
+});
 
 export default class App extends React.Component {
   constructor() {
@@ -40,11 +45,7 @@ export default class App extends React.Component {
           </Body>
           <Right />
         </Header>
-        <Content>
-          <Text>
-            This is Content Section
-          </Text>
-        </Content>
+        <SimpleApp />
         <Footer>
           <FooterTab>
             <Button vertical>
@@ -65,6 +66,7 @@ export default class App extends React.Component {
             </Button>
           </FooterTab>
         </Footer>
+       
       </Container>
     );
   }
