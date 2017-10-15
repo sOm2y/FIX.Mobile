@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19002,
-  "packagerPid": 36758,
-  "expoServerNgrokUrl": "https://cx-uky.som2y.fix-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.cx-uky.som2y.fix-mobile.exp.direct",
-  "ngrokPid": 36781
+  "packagerPort": 19001,
+  "packagerPid": 19822,
+  "expoServerNgrokUrl": "https://z9-nkh.som2y.fix-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.z9-nkh.som2y.fix-mobile.exp.direct",
+  "ngrokPid": 19838
 }
