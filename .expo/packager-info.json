@@ -1,7 +1,7 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 19822,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://z9-nkh.som2y.fix-mobile.exp.direct",
   "packagerNgrokUrl": "https://packager.z9-nkh.som2y.fix-mobile.exp.direct",
   "ngrokPid": 19838

@@ -2,13 +2,7 @@ import React from 'react';
 import { Font, AppLoading } from 'expo';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
-import { StackNavigator } from 'react-navigation';
-import HomeScreen from './screens/HomeScreen';
-
-
-const SimpleApp = StackNavigator({
-  Home: { screen: HomeScreen }
-});
+import Index from "./app/index";
 
 export default class App extends React.Component {
   constructor() {
@@ -34,38 +28,7 @@ export default class App extends React.Component {
       <Container>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          <Right />
-        </Header>
-        <SimpleApp />
-        <Footer>
-          <FooterTab>
-            <Button vertical>
-              <Icon name="apps" />
-              <Text>Apps</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="camera" />
-              <Text>Camera</Text>
-            </Button>
-            <Button vertical active>
-              <Icon active name="navigate" />
-              <Text>Navigate</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="person" />
-              <Text>Contact</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+        <Index/> 
        
       </Container>
     );
