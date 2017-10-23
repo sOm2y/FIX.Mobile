@@ -11,9 +11,13 @@ export const isSignedIn = () => {
     AsyncStorage.getItem(USER_KEY)
       .then(res => {
         if (res !== null) {
-          resolve(true);
+          setTimeout(()=>{
+            resolve(true);
+          }, 2000);
         } else {
-          resolve(false);
+          setTimeout(()=>{
+            resolve(false);
+          }, 2000);
         }
       })
       .catch(err => reject(err));
