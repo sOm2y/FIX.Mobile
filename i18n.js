@@ -27,7 +27,7 @@ i18n
             },
             cn: {
                 home: {
-                title: 'huan yin'
+                title: 'Namaste'
                 }
             },
             // have a initial namespace

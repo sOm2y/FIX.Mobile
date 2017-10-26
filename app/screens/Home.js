@@ -18,6 +18,14 @@ export default class Home extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <Text>{t('title')}</Text>
+        <Button
+          onPress={() => { i18n.changeLanguage('cn') }}>
+          <Text>{t('title')}</Text>
+        </Button>
+        <Button
+          onPress={() => { i18n.changeLanguage('en') }}>
+          <Text>{t('title')}</Text>
+        </Button>
       </View>
     );
   }
