@@ -1,9 +1,12 @@
 import React from "react";
 import { View } from "react-native";
-import { Container, Content, Header, Body, Title, Button, Text } from "native-base";
+import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text } from "native-base";
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import { onSignOut } from "../services/auth";
+import { increment, decrement } from '../actions/index.js';
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
@@ -26,9 +29,33 @@ export default class SignUp extends React.Component {
         >
         <Text>SIGN OUT</Text>
         </Button>
+
+        <Card>
+                <CardItem>
+                            <Text style = {{fontSize: 20, fontWeight: 'bold'}}>
+                                {this.props.count}
+                            </Text>
+                </CardItem>
+                </Card>
+                        <Button dark bordered onPress= {() => this.props.increment()}>
+                             <Text>Increment</Text>
+                         </Button>
+                         <Button dark bordered onPress= {() => this.props.decrement()}>
+                              <Text>Decrement</Text>
+                          </Button>
         </Content>
       </Container>
      
     );
   }
 }
+
+function mapStateToProps(state){
+    return{
+    count : state.count
+    };
+}
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({increment: increment, decrement: decrement}, dispatch)
+}
+export default connect(mapStateToProps, matchDispatchToProps)(SignUp);

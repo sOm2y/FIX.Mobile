@@ -1,7 +1,14 @@
 import React from 'react';
+import allReducers from './app/reducers/index.js';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import { Font, AppLoading } from 'expo';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import Index from "./app/index";
+
+import Index from './app/index';
+
+
+const store = createStore(allReducers);
 
 export default class App extends React.Component {
   constructor() {
@@ -24,7 +31,9 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
     return (
+      <Provider store= {store}>
         <Index/> 
+      </Provider>
     );
   }
 }

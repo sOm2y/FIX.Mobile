@@ -39,7 +39,6 @@ export default class Index extends React.Component {
       bindStore: false
     })(WrappedStack);
 
-
     return (
       <I18nextProvider i18n={ i18n }>
         <ReloadAppOnLanguageChange />
