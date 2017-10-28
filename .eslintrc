@@ -20,6 +20,7 @@
         "react-native/no-inline-styles": 0,
         "react-native/no-color-literals": 1,
         "no-unused-vars": 1,
-        "react/prop-types": 1
+        "react/prop-types": 1,
+        "react/display-name":0
     }
 }

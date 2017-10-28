@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { Content, Button, Text } from "native-base";
+import { Container, Content, Header, Body, Title, Button, Text } from "native-base";
 import { onSignOut } from "../services/auth";
 
 export default class SignUp extends React.Component {
@@ -13,14 +13,22 @@ export default class SignUp extends React.Component {
     const { navigate } = navigation;
     
     return (  
-      <Content>
+      <Container>
+        <Header>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+        </Header>
+        <Content>
         <Button
           block
           onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
         >
         <Text>SIGN OUT</Text>
         </Button>
-      </Content>
+        </Content>
+      </Container>
+     
     );
   }
 }

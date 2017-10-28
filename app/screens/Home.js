@@ -1,7 +1,7 @@
 import React from "react";
+import { StyleSheet } from 'react-native';
 import { translate } from 'react-i18next';
-import { Text, Linking, View } from "react-native";
-import { Card, Button } from "native-base";
+import { Container,Header, Body, Title, Content, List, ListItem, Button, Text } from "native-base";
 
 @translate(['home', 'common'], { wait: true })
 
@@ -16,18 +16,39 @@ export default class Home extends React.Component {
     const { navigate } = navigation;
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
+        <Header>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+        </Header>
+        <Content>
         <Text>{t('title')}</Text>
-        <Button
-          onPress={() => { i18n.changeLanguage('cn') }}>
-          <Text>{t('title')}</Text>
-        </Button>
-        <Button
-          onPress={() => { i18n.changeLanguage('en') }}>
-          <Text>{t('title')}</Text>
-        </Button>
-      </View>
+          <List>
+            <ListItem style={[styles.listItem]}>
+              <Button block
+              onPress={() => { i18n.changeLanguage('cn') }}>
+              <Text>{t('title')}</Text>
+              </Button>
+            </ListItem>
+            <ListItem style={[styles.listItem]}>
+              <Button block
+              onPress={() => { i18n.changeLanguage('en') }}>
+              <Text>{t('title')}</Text>
+              </Button>
+            </ListItem>
+          </List>
+        </Content>
+      </Container>
     );
   }
-  
 }
+
+//TODO: Bug from nativebase
+const styles = StyleSheet.create({
+  listItem:{
+    marginLeft: 0, 
+    paddingLeft: 17
+  }
+ 
+});

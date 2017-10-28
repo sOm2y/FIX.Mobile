@@ -1,58 +1,59 @@
-import React from 'react';
-import { Platform, StatusBar } from 'react-native';
+import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import { Icon } from 'native-base';
+import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 
-const headerStyle = {
-  marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-};
-
 export const SignedOut = StackNavigator({
   SignUp: {
     screen: SignUp,
     navigationOptions: {
-      title: 'Sign Up',
-      headerStyle
+     
     }
   },
   SignIn: {
     screen: SignIn,
     navigationOptions: {
-      title: 'Sign In',
-      headerStyle
+      
     }
   }
+},{
+  headerMode: 'none',
 });
 
 export const SignedIn = TabNavigator(
+
   {
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        tabBarLabel: 'Home',
-        tabBarIcon: ({ tintColor }) =>
-          <Icon name='home' />
-      }
-    },
-    Profile: {
-      screen: Profile,
-      navigationOptions: {
-        tabBarLabel: 'Profile',
-        tabBarIcon: ({ tintColor }) =>
-          <Icon name='home' />
-      }
-    }
+    Home: { screen: Home},
+    Profile: { screen: Profile}
   },
   {
-    tabBarOptions: {
-      style: {
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-      }
+    tabBarPosition: "bottom",
+    tabBarComponent: props => {
+      return (
+        <Footer>
+          <FooterTab>
+            <Button
+              vertical
+              active={props.navigationState.index === 0}
+              onPress={() => props.navigation.navigate("Home")}>
+              <Icon name="bowtie" />
+              <Text>Home</Text>
+            </Button>
+            <Button
+              vertical
+              active={props.navigationState.index === 1}
+              onPress={() => props.navigation.navigate("Profile")}>
+              <Icon name="briefcase" />
+              <Text>Profile</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      );
     }
   }
 );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Font, AppLoading } from 'expo';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 import Index from "./app/index";
 
 export default class App extends React.Component {
@@ -25,23 +24,8 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
     return (
-      <Container>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
         <Index/> 
-       
-      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  statusBarUnderlay: {
-    height: 24,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-  },
-});
