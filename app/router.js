@@ -7,6 +7,7 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
+import Registration from './screens/Registration';
 
 export const SignedOut = StackNavigator({
   SignUp: {
@@ -20,6 +21,10 @@ export const SignedOut = StackNavigator({
     navigationOptions: {
       
     }
+  },
+  Registration: {
+    screen: Registration,
+    navigationOptions: {}
   }
 },{
   headerMode: 'none',
