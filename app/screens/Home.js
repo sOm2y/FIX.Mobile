@@ -37,9 +37,13 @@ export default class Home extends React.Component {
               <Text>{t('title')}</Text>
               </Button>
             </ListItem>
+            
           </List>
+        
         </Content>
+       
       </Container>
+      
     );
   }
 }
