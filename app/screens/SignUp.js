@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Container, Header, Body, Title, Text, Button, Content, Form, Item, Input, Label } from "native-base";
 import { onSignIn } from "../services/auth";
 
@@ -6,8 +7,9 @@ export default class SignUp extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
+
   render(){
-    const { t, i18n, navigation } = this.props;
+    const { t, i18n, navigation, signUp } = this.props;
     const { navigate } = navigation;
     
     return (
@@ -25,7 +27,13 @@ export default class SignUp extends React.Component {
                 onSignIn().then(() => navigation.navigate("SignedIn"));
               }}
             >
-              <Text>SIGN UP</Text>
+              <Text>SIGN UP + {signUp}</Text>
+            </Button>
+            <Button
+              block
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text>Registration</Text>
             </Button>
       
             <Button
@@ -40,3 +48,7 @@ export default class SignUp extends React.Component {
     );
   }
 }
+
+SignUp.propTypes = {
+  signUp : PropTypes.string
+};

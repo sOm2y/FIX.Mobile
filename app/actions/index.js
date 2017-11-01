@@ -4,8 +4,8 @@ export function increment(){
     };
   }
   
-  export function decrement(){
-    return{
-      type: "Decrement"
-    };
-  }
+export function decrement(){
+  return{
+    type: "Decrement"
+  };
+}
