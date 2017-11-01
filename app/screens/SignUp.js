@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Container, Header, Body, Title, Text, Button, Content, Form, Item, Input, Label } from "native-base";
 import { onSignIn } from "../services/auth";
-import StepIndicatorWizard from '../components/wizards/stepIndicator';
 
 export default class SignUp extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -44,7 +43,6 @@ export default class SignUp extends React.Component {
               <Text>SIGN IN</Text>
             </Button>
           </Form>
-          <StepIndicatorWizard />
         </Content>
       </Container>
     );
