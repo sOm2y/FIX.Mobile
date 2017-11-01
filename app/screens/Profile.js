@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
 import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text } from "native-base";
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { onSignOut } from "../services/auth";
 import { increment, decrement } from '../actions/index.js';
 
