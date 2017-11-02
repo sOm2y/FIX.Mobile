@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
@@ -9,7 +9,7 @@ import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Registration from './screens/Registration';
 
-export const SignedOut = StackNavigator({
+export const LoginNavigator = StackNavigator({
   SignUp: {
     screen: SignUp,
     navigationOptions: {
@@ -30,7 +30,7 @@ export const SignedOut = StackNavigator({
   headerMode: 'none',
 });
 
-export const SignedIn = TabNavigator(
+export const HomeNavigator = TabNavigator(
 
   {
     Home: { screen: Home},
@@ -67,13 +67,13 @@ export const createRootNavigator = (signedIn = false) => {
   return StackNavigator(
     {
       SignedIn: {
-        screen: SignedIn,
+        screen: SignedInNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
       },
       SignedOut: {
-        screen: SignedOut,
+        screen: SignedOutNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
