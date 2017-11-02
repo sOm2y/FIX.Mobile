@@ -9,7 +9,7 @@ import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Registration from './screens/Registration';
 
-export const LoginNavigator = StackNavigator({
+export const AppStartNavigator = StackNavigator({
   SignUp: {
     screen: SignUp,
     navigationOptions: {
@@ -27,8 +27,22 @@ export const LoginNavigator = StackNavigator({
     navigationOptions: {}
   }
 },{
-  headerMode: 'none',
+  headerMode: 'none'
 });
+
+// export const RegistrationNavigator = StackNavigator({
+//   PersonalDetail: {
+
+//   },
+
+//   PersonalCredential: {
+
+//   },
+//   Address: {
+
+//   },
+
+// });
 
 export const HomeNavigator = TabNavigator(
 
@@ -38,6 +52,11 @@ export const HomeNavigator = TabNavigator(
   },
   {
     tabBarPosition: "bottom",
+    initialRouteName : 'Home',
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: '#e91e63',
+    },
     tabBarComponent: props => {
       return (
         <Footer>
@@ -47,8 +66,16 @@ export const HomeNavigator = TabNavigator(
               active={props.navigationState.index === 0}
               onPress={() => props.navigation.navigate("Home")}>
               <Icon name="bowtie" />
-              <Text>Home</Text>
+              <Text>Jobs</Text>
+            </Button> 
+            <Button
+              vertical
+              active={props.navigationState.index === 1}
+              onPress={() => props.navigation.navigate("Profile")}>
+              <Icon name="briefcase" />
+              <Text>Notifications</Text>
             </Button>
+
             <Button
               vertical
               active={props.navigationState.index === 1}
@@ -67,13 +94,13 @@ export const createRootNavigator = (signedIn = false) => {
   return StackNavigator(
     {
       SignedIn: {
-        screen: SignedInNavigator,
+        screen: HomeNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
       },
       SignedOut: {
-        screen: SignedOutNavigator,
+        screen: AppStartNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
