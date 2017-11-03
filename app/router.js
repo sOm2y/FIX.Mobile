@@ -7,42 +7,58 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
-import Registration from './screens/Registration';
+import PersonalDetail from './screens/registration/PersonalDetail';
+import PersonalCredential from './screens/registration/PersonalCredential';
+import Address from './screens/registration/Address';
+import Confirmation from './screens/registration/Confirmation';
 
-export const AppStartNavigator = StackNavigator({
-  SignUp: {
-    screen: SignUp,
-    navigationOptions: {
-     
-    }
-  },
-  SignIn: {
-    screen: SignIn,
+//Registration
+
+
+
+export const RegistrationNavigator = StackNavigator({
+  PersonalDetail: {
+    screen:  PersonalDetail,
     navigationOptions: {
       
     }
   },
-  Registration: {
-    screen: Registration,
-    navigationOptions: {}
+  PersonalCredential: {
+    screen:  PersonalCredential,
+    navigationOptions: {
+      
+    }
+  },
+  // BusinessDetail: {
+  //   screen:  Address,
+  //   navigationOptions: {
+      
+  //   }
+  // },
+  // BusinessCredential: {
+  //   screen:  Confirmation,
+  //   navigationOptions: {
+      
+  //   }
+  // },
+  Address: {
+    screen:  Address,
+    navigationOptions: {
+      
+    }
+  },
+  Confirmation:{
+    screen:  Confirmation,
+    navigationOptions: {
+      
+    }
   }
 },{
-  headerMode: 'none'
+  headerMode: 'none',
+  animationEnabled: true,
+  gesturesEnabled:true,
+  initialRouteName : 'PersonalDetail',
 });
-
-// export const RegistrationNavigator = StackNavigator({
-//   PersonalDetail: {
-
-//   },
-
-//   PersonalCredential: {
-
-//   },
-//   Address: {
-
-//   },
-
-// });
 
 export const HomeNavigator = TabNavigator(
 
@@ -54,9 +70,9 @@ export const HomeNavigator = TabNavigator(
     tabBarPosition: "bottom",
     initialRouteName : 'Home',
     animationEnabled: true,
-    tabBarOptions: {
-      activeTintColor: '#e91e63',
-    },
+    // tabBarOptions: {
+    //   activeTintColor: '#e91e63',
+    // },
     tabBarComponent: props => {
       return (
         <Footer>
@@ -89,6 +105,23 @@ export const HomeNavigator = TabNavigator(
     }
   }
 );
+export const AppStartNavigator = StackNavigator({
+  RegistrationNavigator: {
+    screen: RegistrationNavigator,
+    navigationOptions: {
+     
+    }
+  },
+  SignIn: {
+    screen: SignIn,
+    navigationOptions: {
+      
+    }
+  }
+ 
+},{
+  headerMode: 'none',
+});
 
 export const createRootNavigator = (signedIn = false) => {
   return StackNavigator(
@@ -100,7 +133,7 @@ export const createRootNavigator = (signedIn = false) => {
         }
       },
       SignedOut: {
-        screen: AppStartNavigator,
+        screen: SignIn,
         navigationOptions: {
           gesturesEnabled: false
         }

@@ -31,18 +31,18 @@ class SignUp extends React.Component {
         </Button>
 
         <Card>
-                <CardItem>
-                            <Text style = {{fontSize: 20, fontWeight: 'bold'}}>
-                                {this.props.count}
-                            </Text>
-                </CardItem>
-                </Card>
-                        <Button dark bordered onPress= {() => this.props.increment()}>
-                             <Text>Increment</Text>
-                         </Button>
-                         <Button dark bordered onPress= {() => this.props.decrement()}>
-                              <Text>Decrement</Text>
-                          </Button>
+          <CardItem>
+            <Text style = {{fontSize: 20, fontWeight: 'bold'}}>
+                {this.props.count}
+            </Text>
+          </CardItem>
+        </Card>
+        <Button dark bordered onPress= {() => this.props.increment()}>
+          <Text>Increment</Text>
+        </Button>
+        <Button dark bordered onPress= {() => this.props.decrement()}>
+          <Text>Decrement</Text>
+        </Button>
         </Content>
       </Container>
      
