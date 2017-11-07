@@ -35,8 +35,12 @@ export default class SignIn extends React.Component {
             >
               <Text>Log In</Text>
             </Button>
-
-            
+            <Button
+              block
+              onPress={() => navigation.navigate("SignUp")}
+            >
+              <Text>SignUp</Text>
+            </Button>
           </Form>
         </Content>
       </Container>

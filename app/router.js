@@ -11,12 +11,17 @@ import PersonalDetail from './screens/registration/PersonalDetail';
 import PersonalCredential from './screens/registration/PersonalCredential';
 import Address from './screens/registration/Address';
 import Confirmation from './screens/registration/Confirmation';
+import ChooseTradieOrCustomer from './screens/registration/ChooseTradieOrCustomer';
 
 //Registration
 
 
 
 export const RegistrationNavigator = StackNavigator({
+  ChooseTradieOrCustomer: {
+    screen: ChooseTradieOrCustomer,
+    navigationOptions:{}
+  },
   PersonalDetail: {
     screen:  PersonalDetail,
     navigationOptions: {
@@ -106,7 +111,7 @@ export const HomeNavigator = TabNavigator(
   }
 );
 export const AppStartNavigator = StackNavigator({
-  RegistrationNavigator: {
+  SignUp: {
     screen: RegistrationNavigator,
     navigationOptions: {
      
@@ -121,6 +126,7 @@ export const AppStartNavigator = StackNavigator({
  
 },{
   headerMode: 'none',
+  initialRouteName: 'SignIn'
 });
 
 export const createRootNavigator = (signedIn = false) => {
@@ -133,7 +139,7 @@ export const createRootNavigator = (signedIn = false) => {
         }
       },
       SignedOut: {
-        screen: SignIn,
+        screen: AppStartNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
