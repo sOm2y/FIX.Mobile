@@ -13,57 +13,55 @@ import Address from './screens/registration/Address';
 import Confirmation from './screens/registration/Confirmation';
 import ChooseTradieOrCustomer from './screens/registration/ChooseTradieOrCustomer';
 
-//Registration
-
-
-
-export const RegistrationNavigator = StackNavigator({
-  ChooseTradieOrCustomer: {
-    screen: ChooseTradieOrCustomer,
-    navigationOptions:{}
-  },
-  PersonalDetail: {
-    screen:  PersonalDetail,
-    navigationOptions: {
-      
+  
+export const RegistrationNavigator = (isCustomer = false) => {
+  return StackNavigator(
+    { 
+        PersonalDetail: {
+        screen:  PersonalDetail,
+        navigationOptions: {
+          
+        }
+      },
+      PersonalCredential: {
+        screen:  PersonalCredential,
+        navigationOptions: {
+          
+        }
+      },
+      // BusinessDetail: {
+      //   screen:  Address,
+      //   navigationOptions: {
+          
+      //   }
+      // },
+      // BusinessCredential: {
+      //   screen:  Confirmation,
+      //   navigationOptions: {
+          
+      //   }
+      // },
+      Address: {
+        screen:  Address,
+        navigationOptions: {
+          
+        }
+      },
+      Confirmation:{
+        screen:  Confirmation,
+        navigationOptions: {
+          
+        }
+      }
+    },{
+      headerMode: 'none',
+      animationEnabled: true,
+      gesturesEnabled:true,
+      initialRouteName : 'PersonalDetail',
     }
-  },
-  PersonalCredential: {
-    screen:  PersonalCredential,
-    navigationOptions: {
-      
-    }
-  },
-  // BusinessDetail: {
-  //   screen:  Address,
-  //   navigationOptions: {
-      
-  //   }
-  // },
-  // BusinessCredential: {
-  //   screen:  Confirmation,
-  //   navigationOptions: {
-      
-  //   }
-  // },
-  Address: {
-    screen:  Address,
-    navigationOptions: {
-      
-    }
-  },
-  Confirmation:{
-    screen:  Confirmation,
-    navigationOptions: {
-      
-    }
-  }
-},{
-  headerMode: 'none',
-  animationEnabled: true,
-  gesturesEnabled:true,
-  initialRouteName : 'PersonalDetail',
-});
+  );
+}
+ 
 
 export const HomeNavigator = TabNavigator(
 
@@ -110,19 +108,18 @@ export const HomeNavigator = TabNavigator(
     }
   }
 );
+
 export const AppStartNavigator = StackNavigator({
-  SignUp: {
-    screen: RegistrationNavigator,
-    navigationOptions: {
-     
-    }
-  },
   SignIn: {
     screen: SignIn,
     navigationOptions: {
       
     }
-  }
+  },
+  SignUp: {
+    screen: SignUp,
+    navigationOptions:{}
+  },
  
 },{
   headerMode: 'none',

@@ -1,54 +1,72 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { Container, Header, Body, Title, Text, Button, Content, Form, Item, Input, Label } from "native-base";
-import { onSignIn } from "../services/auth";
+import { StyleSheet } from 'react-native';
+import { translate } from 'react-i18next';
+import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
+import { Confirmation } from './Confirmation';
+import { RegistrationNavigator } from '../router'; 
+
+
+@translate(['home', 'common'], { wait: true })
 
 export default class SignUp extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
 
-  render(){
-    const { t, i18n, navigation, signUp } = this.props;
-    const { navigate } = navigation;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isCustomer: false,
+    };
+  }
+
+  componentWillMount() {
     
+  }
+
+  render(){
+    const { isCustomer } = this.state;
+    const { t, i18n, navigation } = this.props;
+    const Registration = RegistrationNavigator(isCustomer);
+
     return (
       <Container>
         <Header>
+        <Left>
+            <Button transparent onPress={() => navigation.navigate("SignIn")}>
+                <Icon name="arrow-back" />
+            </Button>
+            </Left>
           <Body>
-            <Title>Sign Up</Title>
+            <Title>Address</Title>
           </Body>
+          <Right />
         </Header>
         <Content>
-          <Form>
-            <Button 
-              block  
-              onPress={() => {
-                onSignIn().then(() => navigation.navigate("SignedIn"));
-              }}
-            >
-              <Text>SIGN UP + {signUp}</Text>
+            <Button full rounded primary
+                style={{ marginTop: 10 }}
+                onPress={() => { navigation.navigate("PersonalDetail"); navigation.setParams({isCustomer: false}) }}>
+            <Text>Goto Confirmation</Text>
             </Button>
-            <Button
-              block
-              onPress={() => navigation.navigate("Registration")}
-            >
-              <Text>Registration</Text>
-            </Button>
-      
-            <Button
-              block
-              onPress={() => navigation.navigate("SignIn")}
-            >
-              <Text>SIGN IN</Text>
-            </Button>
-          </Form>
+            <Button full rounded primary
+                style={{ marginTop: 10 }}
+                onPress={() => { navigation.navigate("PersonalDetail"); navigation.setParams({isCustomer: true}) }}>
+            <Text>Goto Confirmation</Text>
+            
+
+          </Button>
         </Content>
       </Container>
     );
   }
 }
 
-SignUp.propTypes = {
-  signUp : PropTypes.string
-};
+//TODO: Bug from nativebase
+const styles = StyleSheet.create({
+  listItem:{
+    marginLeft: 0, 
+    paddingLeft: 17
+  }
+ 
+});

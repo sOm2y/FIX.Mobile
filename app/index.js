@@ -28,10 +28,10 @@ export default class Index extends React.Component {
       return null;
     }
 
-    const Layout = createRootNavigator(signedIn);
+    const RootLayout = createRootNavigator(signedIn);
 
     const WrappedStack = () => {
-      return <Layout screenProps={{ t: i18n.getFixedT() }} />;
+      return <RootLayout screenProps={{ t: i18n.getFixedT() }} />;
     }
 
     const ReloadAppOnLanguageChange = translate('common', {
