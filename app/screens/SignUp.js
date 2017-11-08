@@ -46,13 +46,13 @@ export default class SignUp extends React.Component {
         <Content>
             <Button full rounded primary
                 style={{ marginTop: 10 }}
-                onPress={() => { navigation.navigate("PersonalDetail"); navigation.setParams({isCustomer: false}) }}>
-            <Text>Goto Confirmation</Text>
+                onPress={() => { navigation.setParams({isCustomer: false}); navigation.navigate("PersonalDetail"); }}>
+            <Text>Goto Tradie</Text>
             </Button>
             <Button full rounded primary
                 style={{ marginTop: 10 }}
-                onPress={() => { navigation.navigate("PersonalDetail"); navigation.setParams({isCustomer: true}) }}>
-            <Text>Goto Confirmation</Text>
+                onPress={() => { navigation.setParams({isCustomer: true}); navigation.navigate("PersonalDetail"); }}>
+            <Text>Goto Customer</Text>
             
 
           </Button>

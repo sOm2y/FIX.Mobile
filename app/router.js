@@ -14,8 +14,7 @@ import Confirmation from './screens/registration/Confirmation';
 import ChooseTradieOrCustomer from './screens/registration/ChooseTradieOrCustomer';
 
   
-export const RegistrationNavigator = (isCustomer = false) => {
-  return StackNavigator(
+export const RegistrationNavigator = StackNavigator(
     { 
         PersonalDetail: {
         screen:  PersonalDetail,
@@ -58,9 +57,7 @@ export const RegistrationNavigator = (isCustomer = false) => {
       animationEnabled: true,
       gesturesEnabled:true,
       initialRouteName : 'PersonalDetail',
-    }
-  );
-}
+    });
  
 
 export const HomeNavigator = TabNavigator(
