@@ -1,7 +1,8 @@
 import React from 'react';
+import Expo from 'expo';
 import allReducers from './app/reducers/index.js';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 

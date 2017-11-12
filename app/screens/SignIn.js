@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet } from 'react-native';
 import { Container, Header, Body, Title, Text, Button, Content, Form, Item, Input, Label } from "native-base";
 import { onSignIn } from "../services/auth";
 
@@ -18,7 +19,7 @@ export default class SignIn extends React.Component {
             <Title>Sign In</Title>
           </Body>
         </Header>
-        <Content>
+        <Content padder>
           <Form>
             <Item floatingLabel>
               <Label>Username</Label>
@@ -30,13 +31,14 @@ export default class SignIn extends React.Component {
             </Item>
       
             <Button
-              block
+              block primary
               onPress={() => navigation.navigate("Home")}
             >
               <Text>Log In</Text>
             </Button>
-            <Button
-              block
+
+            <Button style={styles.button}
+              block 
               onPress={() => navigation.navigate("SignUp")}
             >
               <Text>SignUp</Text>
@@ -47,3 +49,11 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+//TODO: Bug from nativebase
+const styles = StyleSheet.create({
+  button:{
+    marginTop: 20
+  }
+ 
+});

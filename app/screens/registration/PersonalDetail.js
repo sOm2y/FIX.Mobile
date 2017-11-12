@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { translate } from 'react-i18next';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Icon, Right} from "native-base";
 import { PersonalCredential } from './PersonalCredential';
+import DetailForm from '../../components/registration/DetailForm'
 
 
 @translate(['home', 'common'], { wait: true })
@@ -30,8 +31,9 @@ export default class PersonalDetail extends React.Component {
           </Body>
           <Right />
         </Header>
-        <Content>
-        <Button full rounded primary
+        <Content padder>
+        <DetailForm />
+        <Button block primaryn
                 style={{ marginTop: 10 }}
                 onPress={() => navigation.navigate("PersonalCredential")}>
             <Text>Goto PersonalCredential</Text>

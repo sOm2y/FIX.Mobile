@@ -11,16 +11,21 @@ import PersonalDetail from './screens/registration/PersonalDetail';
 import PersonalCredential from './screens/registration/PersonalCredential';
 import Address from './screens/registration/Address';
 import Confirmation from './screens/registration/Confirmation';
-import ChooseTradieOrCustomer from './screens/registration/ChooseTradieOrCustomer';
 
   
 export const RegistrationNavigator = StackNavigator(
     { 
-        PersonalDetail: {
-        screen:  PersonalDetail,
+      SignUp:{
+        screen: SignUp,
         navigationOptions: {
           
         }
+      },
+      PersonalDetail: {
+      screen:  PersonalDetail,
+      navigationOptions: {
+        
+      }
       },
       PersonalCredential: {
         screen:  PersonalCredential,
@@ -56,7 +61,7 @@ export const RegistrationNavigator = StackNavigator(
       headerMode: 'none',
       animationEnabled: true,
       gesturesEnabled:true,
-      initialRouteName : 'PersonalDetail',
+      initialRouteName : 'SignUp',
     });
  
 
@@ -114,7 +119,7 @@ export const AppStartNavigator = StackNavigator({
     }
   },
   SignUp: {
-    screen: SignUp,
+    screen: RegistrationNavigator,
     navigationOptions:{}
   },
  
