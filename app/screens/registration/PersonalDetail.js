@@ -33,7 +33,7 @@ export default class PersonalDetail extends React.Component {
         </Header>
         <Content padder>
         <DetailForm />
-        <Button block primaryn
+        <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={() => navigation.navigate("PersonalCredential")}>
             <Text>Goto PersonalCredential</Text>
