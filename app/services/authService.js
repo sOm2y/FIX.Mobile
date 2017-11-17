@@ -12,16 +12,6 @@ export const onSignIn = () => AsyncStorage.setItem(USER_KEY, "true");
 
 export const onSignOut = () => AsyncStorage.removeItem(USER_KEY);
 
-const POST_USER = {
-  username: '',
-  fisrtname: '',
-  lastname: '',
-  email: '',
-  phonenumber: '',
-  password: '',
-  confirmpassword:''
-};
-
 export const postUserAccount = ( postUser ) => {
   return axios.post('/api/users', {
           username: postUser.username,
@@ -31,13 +21,6 @@ export const postUserAccount = ( postUser ) => {
           phonenumber: postUser.phonenumber,
           password: postUser.password,
           confirmpassword:postUser.confirmpassword
-        }).then(res => {
-          if(res != null){
-            console.log(res);
-          }
-          
-        }).catch( error => {
-          console.log(error);
         });
 }
 

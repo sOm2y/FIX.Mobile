@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
 import { Container, Header, Body, Title, Text, Button, Content, Form, Item, Input, Label } from "native-base";
-import { onSignIn } from "../services/auth";
+import { onSignIn } from "../services/authService";
 
 export default class SignIn extends React.Component {
   static navigationOptions = ({ navigation}) => ({

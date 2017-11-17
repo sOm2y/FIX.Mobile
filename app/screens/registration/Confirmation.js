@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { translate } from 'react-i18next';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 import { HomeNavigator } from '../../router';
-import authService from '../../services/auth';
+import authService from '../../services/authService';
 
 
 @translate(['home', 'common'], { wait: true })

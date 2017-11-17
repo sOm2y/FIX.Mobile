@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text } from "native-base";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { onSignOut } from "../services/auth";
+import { onSignOut } from "../services/authService";
 import { increment, decrement } from '../actions/index.js';
 
-class SignUp extends React.Component {
+class Profile extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
@@ -58,4 +58,4 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
   return bindActionCreators({increment: increment, decrement: decrement}, dispatch)
 }
-export default connect(mapStateToProps, matchDispatchToProps)(SignUp);
+export default connect(mapStateToProps, matchDispatchToProps)(Profile);
