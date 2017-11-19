@@ -2,6 +2,8 @@ import React from "react";
 import { StyleSheet } from 'react-native';
 import { translate } from 'react-i18next';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Icon, Right} from "native-base";
+import axios from 'axios';
+import qs from 'qs';
 import { PersonalCredential } from './PersonalCredential';
 import PersonalDetailForm from '../../components/forms/PersonalDetailForm'
 
@@ -12,6 +14,26 @@ export default class PersonalDetail extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
+
+  onSubmit = (values, dispatch, navigation) => {
+    console.log(values);
+    axios.defaults.baseURL = 'http://fixwebapi.azurewebsites.net';
+    axios.defaults.headers.common['Authorization'] = '';
+    axios({
+      method: 'post',
+      url: '/api/users',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: values
+    })
+    .then(result => {
+      navigation.navigate("Home");
+    }).catch( error => {
+        console.log(error);
+    });
+}
+
 
   render(){
 
@@ -32,7 +54,8 @@ export default class PersonalDetail extends React.Component {
           <Right />
         </Header>
         <Content padder>
-        <PersonalDetailForm  />
+        <PersonalDetailForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+
         <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={() => navigation.navigate("PersonalCredential")}>

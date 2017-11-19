@@ -2,9 +2,6 @@ import { AsyncStorage } from "react-native";
 import axios from 'axios';
 
 
-axios.defaults.baseURL = 'http://fixwebapi.azurewebsites.net';
-axios.defaults.headers.common['Authorization'] = '';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 export const USER_KEY = "auth-demo-key";
 

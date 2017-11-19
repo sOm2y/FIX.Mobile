@@ -3,6 +3,7 @@ import { I18nextProvider, translate } from 'react-i18next';
 import { createRootNavigator } from "./router";
 import { isSignedIn } from "./services/authService";
 import i18n from '../i18n';
+import axios from 'axios';
 
 export default class Index extends React.Component {
   constructor(props) {

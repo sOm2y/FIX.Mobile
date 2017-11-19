@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item, Input, Text } from 'native-base';
+import { Item, Input, Text, Label } from 'native-base';
 
 export const renderAddress = ({ input, label, type, meta: { touched, error, warning } }) => {
     var hasError= false;
@@ -8,7 +8,7 @@ export const renderAddress = ({ input, label, type, meta: { touched, error, warn
     }
     return ( 
         <Item style= {{ margin: 10 }} error= {hasError}>
-            <Text>Address</Text>
+            <Label>{label}</Label>
             <Input {...input}/>
             {hasError ? <Text>{error}</Text> : <Text />}
         </Item> );

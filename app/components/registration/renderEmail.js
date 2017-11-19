@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item, Input, Text } from 'native-base';
+import { Item, Input, Text, Label } from 'native-base';
 
 export const renderEmail= ({ input, label, type, meta: { touched, error, warning } }) => {
     var hasError= false;
@@ -7,8 +7,8 @@ export const renderEmail= ({ input, label, type, meta: { touched, error, warning
         hasError= true;
     }
     return ( 
-        <Item style= {{ margin: 10 }} error= {hasError}>
-            <Text>Email</Text>
+        <Item floatingLabel style= {{ margin: 10 }} error= {hasError}>
+            <Label>{label}</Label>
             <Input {...input}/>
             {hasError ? <Text>{error}</Text> : <Text />}
         </Item> );
