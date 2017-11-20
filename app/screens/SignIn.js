@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Container, Header, Body, Title, Text, Button, Content, Form, Item, Input, Label } from "native-base";
 import axios from 'axios';
 import qs from 'qs';
-import { onSignIn } from '../services/authService';
+import { postUserAccount } from '../services/authService';
 import LoginForm  from '../components/forms/LoginForm';
 
 
@@ -14,25 +14,30 @@ export default class SignIn extends React.Component {
   });
 
   onSubmit = (values, dispatch, navigation) => {
-    axios.defaults.baseURL = 'http://fixwebapi.azurewebsites.net';
-    axios.defaults.headers.common['Authorization'] = '';
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
     console.log(values);
     values = Object.assign({grant_type:'password'},values);
-    axios({
-      method: 'post',
-      url: '/oauth/token',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: qs.stringify(values)
-    })
-    .then(result => {
-      navigation.navigate("Home");
-    }).catch( error => {
-        console.log(error);
-    });
+    postUserAccount(values)
+      .then(res => {
+        console.log(res)
+        navigation.navigate("Home");
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    // axios({
+    //   method: 'post',
+    //   url: '/oauth/token',
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    //   data: qs.stringify(values)
+    // })
+    // .then(result => {
+    //   navigation.navigate("Home");
+    // }).catch( error => {
+    //     console.log(error);
+    // });
 }
 
   render(){

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item, Input, Text, Label, Icon } from 'native-base';
+import { Item, Input, Icon } from 'native-base';
 
 export const renderEmail= ({ input, label, type, meta: { touched, error, warning } }) => {
     var hasError= false;
