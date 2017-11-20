@@ -7,9 +7,9 @@ export const renderPassword = ({ input, label, type, meta: { touched, error, war
         hasError= true;
     }
     return ( 
-        <Item floatingLabel style= {{ margin: 10 }} error= {hasError}>
+        <Item floatingLabel style= {{ margin: 10 }} error= {hasError} last>
             <Label>{label}</Label>
-            <Input {...input}/>
+            <Input type={type} {...input}/>
             {hasError ? <Text>{error}</Text> : <Text />}
         </Item> );
 };

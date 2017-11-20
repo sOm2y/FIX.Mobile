@@ -9,7 +9,7 @@ export const renderAddress = ({ input, label, type, meta: { touched, error, warn
     return ( 
         <Item style= {{ margin: 10 }} error= {hasError}>
             <Label>{label}</Label>
-            <Input {...input}/>
+            <Input type={type} {...input}/>
             {hasError ? <Text>{error}</Text> : <Text />}
         </Item> );
 };

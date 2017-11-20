@@ -1,13 +1,13 @@
-const validateHelper = values => {
+const validate = values => {
   const error= {};
   error.email= '';
   error.name= '';
   var ema = values.email;
-  var nm = values.name;
+  var nm = values.username;
   if(values.email === undefined){
     ema = '';
   }
-  if(values.name === undefined){
+  if(values.username === undefined){
     nm = '';
   }
   if(ema.length < 8 && ema !== ''){
@@ -18,10 +18,10 @@ const validateHelper = values => {
   }
 
   if(nm.length > 8){
-    error.name= 'max 8 characters';
+    error.username= 'max 8 characters';
   }
 return error;
 };
   
-  export default validateHelper;
+export default validate;
   

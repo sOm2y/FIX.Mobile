@@ -4,7 +4,7 @@ import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
 
-import validateHelper from '../../helpers/validateHelper';
+import validate from '../../helpers/validateHelper';
 import submitPersonalDetailForm from '../../actions/index';
 import authService from '../../services/authService';
 import { renderName } from '../../components/registration/renderUsername';
@@ -83,5 +83,5 @@ export default reduxForm({
   form: 'PersonalDetailForm', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-  validateHelper,
+  validate,
 })(PersonalDetailForm);
