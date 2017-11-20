@@ -7,9 +7,9 @@ export const renderAddress = ({ input, label, type, meta: { touched, error, warn
         hasError= true;
     }
     return ( 
-        <Item style= {{ margin: 10 }} error= {hasError} success={!hasError&&touched}>
+        <Item style= {{ margin: 10 }} error= {hasError} success={!hasError&&touched&&input.value.length>0}>
             <Input type={type} placeholder={label} {...input}/>
-            {!hasError&&touched&& <Icon name='checkmark-circle' />}
+            {!hasError&&touched&&input.value.length>0&& <Icon name='checkmark-circle' />}
             {hasError&& <Icon name='close-circle' />}
         </Item> );
 };

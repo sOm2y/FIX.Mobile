@@ -7,9 +7,12 @@ export const renderName= ({ input, label, type, meta: { touched, error, warning 
         hasError= true;
     }
     return ( 
-        <Item style= {{ margin: 10 }} error= {hasError} success={!hasError&&touched}>
-            <Input type={type} placeholder={label} {...input}/>
-            {!hasError&&touched&& <Icon name='checkmark-circle' />}
+        <Item style= {{ margin: 10 }} error= {hasError} success={!hasError&&touched&&input.value.length>0}>
+            <Input type={type} 
+                placeholder={label}  
+                autoCapitalize="none"
+                autoCorrect={false} {...input}/>
+            {!hasError&&touched&&input.value.length>0&& <Icon name='checkmark-circle' />}
             {hasError&& <Icon name='close-circle' />}
         </Item> );
 };

@@ -99,7 +99,7 @@ export const HomeNavigator = TabNavigator(
 
             <Button
               vertical
-              active={props.navigationState.index === 1}
+              active={props.navigationState.index === 2}
               onPress={() => props.navigation.navigate("Profile")}>
               <Icon name="briefcase" />
               <Text>Profile</Text>

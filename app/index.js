@@ -1,9 +1,10 @@
 import React from "react";
 import { I18nextProvider, translate } from 'react-i18next';
+import { Root } from "native-base";
 import { createRootNavigator } from "./router";
 import { isSignedIn } from "./services/authService";
+import { Toast} from "native-base";
 import i18n from '../i18n';
-import axios from 'axios';
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -18,7 +19,14 @@ export default class Index extends React.Component {
   componentWillMount() {
     isSignedIn()
       .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
-      .catch(err => alert(err));
+      .catch(err => {
+        Toast.show({
+          text: err,
+          type: "danger",
+          buttonText: "Dismiss",
+          duration: 3000
+         }); 
+      });
   }
 
   render() {
@@ -41,9 +49,11 @@ export default class Index extends React.Component {
     })(WrappedStack);
 
     return (
-      <I18nextProvider i18n={ i18n }>
-        <ReloadAppOnLanguageChange />
-      </I18nextProvider>
+      <Root>
+        <I18nextProvider i18n={ i18n }>
+          <ReloadAppOnLanguageChange />
+        </I18nextProvider>
+      </Root>
     );
   }
 }
