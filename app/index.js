@@ -22,7 +22,7 @@ export default class Index extends React.Component {
       .catch(err => {
         Toast.show({
           text: err,
-          type: "danger",
+          type: "success",
           buttonText: "Dismiss",
           duration: 3000
          }); 

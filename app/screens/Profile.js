@@ -12,7 +12,7 @@ class Profile extends React.Component {
   });
   render(){
 
-    const { t, i18n, navigation } = this.props;
+    const { t, i18n, navigation, count } = this.props;
     const { navigate } = navigation;
     
     return (  
@@ -33,7 +33,7 @@ class Profile extends React.Component {
         <Card>
           <CardItem>
             <Text style = {{fontSize: 20, fontWeight: 'bold'}}>
-                {this.props.count}
+              {count}
             </Text>
           </CardItem>
         </Card>
