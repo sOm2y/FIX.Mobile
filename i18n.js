@@ -22,12 +22,12 @@ i18n
         resources: {
             en: {
                 home: {
-                title: 'Welcome'
+                    title: 'Welcome'
                 }
             },
             cn: {
                 home: {
-                title: 'Namaste'
+                    title: '您好'
                 }
             },
             // have a initial namespace

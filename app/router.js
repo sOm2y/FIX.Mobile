@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
@@ -7,25 +7,65 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
+import PersonalDetail from './screens/registration/PersonalDetail';
+import PersonalCredential from './screens/registration/PersonalCredential';
+import Address from './screens/registration/Address';
+import Confirmation from './screens/registration/Confirmation';
 
-export const SignedOut = StackNavigator({
-  SignUp: {
-    screen: SignUp,
-    navigationOptions: {
-     
-    }
-  },
-  SignIn: {
-    screen: SignIn,
-    navigationOptions: {
-      
-    }
-  }
-},{
-  headerMode: 'none',
-});
+  
+export const RegistrationNavigator = StackNavigator(
+    { 
+      SignUp:{
+        screen: SignUp,
+        navigationOptions: {
+          
+        }
+      },
+      PersonalDetail: {
+      screen:  PersonalDetail,
+      navigationOptions: {
+        
+      }
+      },
+      PersonalCredential: {
+        screen:  PersonalCredential,
+        navigationOptions: {
+          
+        }
+      },
+      // BusinessDetail: {
+      //   screen:  Address,
+      //   navigationOptions: {
+          
+      //   }
+      // },
+      // BusinessCredential: {
+      //   screen:  Confirmation,
+      //   navigationOptions: {
+          
+      //   }
+      // },
+      Address: {
+        screen:  Address,
+        navigationOptions: {
+          
+        }
+      },
+      Confirmation:{
+        screen:  Confirmation,
+        navigationOptions: {
+          
+        }
+      }
+    },{
+      headerMode: 'none',
+      animationEnabled: true,
+      gesturesEnabled:true,
+      initialRouteName : 'SignUp',
+    });
+ 
 
-export const SignedIn = TabNavigator(
+export const HomeNavigator = TabNavigator(
 
   {
     Home: { screen: Home},
@@ -33,6 +73,11 @@ export const SignedIn = TabNavigator(
   },
   {
     tabBarPosition: "bottom",
+    initialRouteName : 'Home',
+    animationEnabled: true,
+    // tabBarOptions: {
+    //   activeTintColor: '#e91e63',
+    // },
     tabBarComponent: props => {
       return (
         <Footer>
@@ -42,11 +87,19 @@ export const SignedIn = TabNavigator(
               active={props.navigationState.index === 0}
               onPress={() => props.navigation.navigate("Home")}>
               <Icon name="bowtie" />
-              <Text>Home</Text>
-            </Button>
+              <Text>Jobs</Text>
+            </Button> 
             <Button
               vertical
               active={props.navigationState.index === 1}
+              onPress={() => props.navigation.navigate("Profile")}>
+              <Icon name="briefcase" />
+              <Text>Notifications</Text>
+            </Button>
+
+            <Button
+              vertical
+              active={props.navigationState.index === 2}
               onPress={() => props.navigation.navigate("Profile")}>
               <Icon name="briefcase" />
               <Text>Profile</Text>
@@ -58,17 +111,34 @@ export const SignedIn = TabNavigator(
   }
 );
 
+export const AppStartNavigator = StackNavigator({
+  SignIn: {
+    screen: SignIn,
+    navigationOptions: {
+      
+    }
+  },
+  SignUp: {
+    screen: RegistrationNavigator,
+    navigationOptions:{}
+  },
+ 
+},{
+  headerMode: 'none',
+  initialRouteName: 'SignIn'
+});
+
 export const createRootNavigator = (signedIn = false) => {
   return StackNavigator(
     {
       SignedIn: {
-        screen: SignedIn,
+        screen: HomeNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
       },
       SignedOut: {
-        screen: SignedOut,
+        screen: AppStartNavigator,
         navigationOptions: {
           gesturesEnabled: false
         }
