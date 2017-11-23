@@ -35,9 +35,11 @@ export const loginUserAccount = ( loginUser ) => {
       data: qs.stringify(loginUser)
     })
     .then(res => {
+      if(res.status === 400 || res.status === 403){
+        reject(res);
+      }
       AsyncStorage.setItem(USER_KEY, "true");
       resolve(res);
-
     })
     .catch(err => {
       reject(err.response);

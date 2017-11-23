@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
+import { translate } from 'react-i18next';
 import { reset } from 'redux-form';
 import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
 import { loginUserAccount } from '../services/authService';
@@ -7,6 +8,7 @@ import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
 
 
+@translate(['home', 'common'], { wait: true })
 
 export default class SignIn extends React.Component {
   static navigationOptions = ({ navigation}) => ({
@@ -20,7 +22,7 @@ export default class SignIn extends React.Component {
       .then(res => {
         console.log(res)
         navigation.navigate("Home");
-        dispatch(reset('LoginForm'))
+        dispatch(reset('LoginForm'));
         toastShow("SignIn Successfully", "success", 3000);   
       })
       .catch(err => {

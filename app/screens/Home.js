@@ -19,7 +19,7 @@ export default class Home extends React.Component {
       <Container>
         <Header>
           <Body>
-            <Title>Header</Title>
+            <Title>{t('title')}</Title>
           </Body>
         </Header>
         <Content>

@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
 import { translate } from 'react-i18next';
-import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Icon, Right} from "native-base";
+import { reset } from 'redux-form';
+import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
 import { postUserAccount } from '../../services/authService';
-import { PersonalCredential } from './PersonalCredential';
+import { toastShow } from '../../services/toastService';
 import PersonalDetailForm from '../../components/forms/PersonalDetailForm'
 
 
@@ -19,14 +20,14 @@ export default class PersonalDetail extends React.Component {
     return postUserAccount(values)
     .then(res => {
       navigation.navigate("Home");
+      dispatch(reset('PersonalDetailForm'));
+      toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
-        console.log(err);
+      console.log(err);
+      toastShow("SignIn Unsuccessfully", "danger", 3000);   
     });
 }
-
-
   render(){
-
     const { t, i18n, navigation } = this.props;
     const { navigate } = navigation;
 

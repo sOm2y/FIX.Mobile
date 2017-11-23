@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19002,
-  "packagerPid": 3144,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPort": 19001,
+  "packagerPid": 16508,
+  "expoServerNgrokUrl": "https://nj-fef.epatrick.fix-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.nj-fef.epatrick.fix-mobile.exp.direct",
+  "ngrokPid": 8292
 }
