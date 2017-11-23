@@ -2,11 +2,7 @@ import React from "react";
 import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
-import axios from 'axios';
-
 import validate from '../../helpers/validateHelper';
-import submitPersonalDetailForm from '../../actions/index';
-import authService from '../../services/authService';
 import { renderName } from '../../components/registration/renderUsername';
 import { renderPassword } from '../../components/registration/renderPassword';
 import { renderEmail } from "../../components/registration/renderEmail";
@@ -71,7 +67,7 @@ export class PersonalDetailForm extends React.Component{
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
-                submitting={submitting}>
+                disabled={submitting}>
                     <Text>Submit</Text>
                 </Button>
             </Form>

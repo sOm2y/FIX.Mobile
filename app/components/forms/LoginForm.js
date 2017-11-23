@@ -2,8 +2,6 @@ import React from "react";
 import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
-import axios from 'axios';
-
 import validate from '../../helpers/validateHelper';
 import { renderName } from '../../components/registration/renderUsername';
 import { renderPassword } from '../../components/registration/renderPassword';
@@ -38,7 +36,7 @@ export class LoginForm extends React.Component{
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
-                submitting={submitting}>
+                disabled={submitting}>
                     <Text>Sign In</Text>
                 </Button>
             </Form>

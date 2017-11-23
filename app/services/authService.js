@@ -52,9 +52,11 @@ export const postUserAccount = ( postUser ) => {
       url: '/api/users',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      data: postUser
     })
     .then(res => {
+      AsyncStorage.setItem(USER_KEY, "true");
       resolve(res);
     })
     .catch(err => {

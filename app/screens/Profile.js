@@ -22,14 +22,8 @@ class Profile extends React.Component {
             <Title>Header</Title>
           </Body>
         </Header>
-        <Content>
-        <Button
-          block
-          onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
-        >
-        <Text>SIGN OUT</Text>
-        </Button>
-
+        <Content padder>
+       
         <Card>
           <CardItem>
             <Text style = {{fontSize: 20, fontWeight: 'bold'}}>
@@ -43,6 +37,15 @@ class Profile extends React.Component {
         <Button dark bordered onPress= {() => this.props.decrement()}>
           <Text>Decrement</Text>
         </Button>
+
+        <Button
+          style = {{marginTop:20}}
+          block
+          onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
+        >
+        <Text>SIGN OUT</Text>
+        </Button>
+
         </Content>
       </Container>
      
