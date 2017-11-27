@@ -7,10 +7,9 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
-import PersonalDetail from './screens/registration/PersonalDetail';
-import PersonalCredential from './screens/registration/PersonalCredential';
-import Address from './screens/registration/Address';
-import Confirmation from './screens/registration/Confirmation';
+import Customer from './screens/registration/Customer';
+import Tradie from './screens/registration/Tradie';
+
 
   
 export const RegistrationNavigator = StackNavigator(
@@ -21,42 +20,19 @@ export const RegistrationNavigator = StackNavigator(
           
         }
       },
-      PersonalDetail: {
-      screen:  PersonalDetail,
-      navigationOptions: {
-        
-      }
-      },
-      PersonalCredential: {
-        screen:  PersonalCredential,
+      Customer:{
+        screen: Customer,
         navigationOptions: {
           
         }
       },
-      // BusinessDetail: {
-      //   screen:  Address,
-      //   navigationOptions: {
-          
-      //   }
-      // },
-      // BusinessCredential: {
-      //   screen:  Confirmation,
-      //   navigationOptions: {
-          
-      //   }
-      // },
-      Address: {
-        screen:  Address,
-        navigationOptions: {
-          
-        }
-      },
-      Confirmation:{
-        screen:  Confirmation,
+      Tradie:{
+        screen: Tradie,
         navigationOptions: {
           
         }
       }
+   
     },{
       headerMode: 'none',
       animationEnabled: true,

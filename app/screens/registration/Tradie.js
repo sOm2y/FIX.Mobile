@@ -5,12 +5,12 @@ import { reset } from 'redux-form';
 import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import PersonalDetailForm from '../../components/forms/PersonalDetailForm'
+import CredentialForm from '../../components/forms/SignUp/CredentialForm'
 
 
 @translate(['home', 'common'], { wait: true })
 
-export default class PersonalDetail extends React.Component {
+export default class Tradie extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
@@ -45,7 +45,7 @@ export default class PersonalDetail extends React.Component {
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-        <PersonalDetailForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+        <CredentialForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
 
         <Button block primary
                 style={{ marginTop: 10 }}

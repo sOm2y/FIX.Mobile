@@ -10,9 +10,14 @@ export const decrement = () => {
   };
 }
 
-export const submitPersonalDetailForm = (result) => {
+export const nextPage = () => {
   return{
-    type: "SubmitPersonalDetailForm",
-    payload: result
-  }
+    type: "NEXT_PAGE"
+  };
+}
+
+export const previousPage = () => {
+  return{
+    type: "PREVIOUS_PAGE"
+  };
 }

@@ -29,13 +29,13 @@ export default class SignUp extends React.Component {
         <Content padder>
             <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={() => { navigation.navigate("PersonalDetail"); }}>
-            <Text>Goto Tradie</Text>
+                onPress={() => { navigation.navigate("Customer"); }}>
+            <Text>Goto Customer</Text>
             </Button>
             <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={() => { navigation.navigate("PersonalDetail"); }}>
-            <Text>Goto Customer</Text>
+                onPress={() => { navigation.navigate("Tradie"); }}>
+            <Text>Goto Tradie</Text>
             
 
           </Button>
