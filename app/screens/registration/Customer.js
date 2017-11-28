@@ -19,10 +19,9 @@ export default class Customer extends React.Component {
     return postUserAccount(values)
     .then(res => {
       navigation.navigate("Home");
-      dispatch(reset('PersonalDetailForm'));
+      dispatch(reset('CustomerWizardForm'));
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
-      console.log(err);
       toastShow("SignIn Unsuccessfully", "danger", 3000);   
     });
 }
@@ -31,7 +30,7 @@ export default class Customer extends React.Component {
     const { navigate } = navigation;
 
     return (
-     <CustomerWizardForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+     <CustomerWizardForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

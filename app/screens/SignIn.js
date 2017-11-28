@@ -46,6 +46,7 @@ export default class SignIn extends React.Component {
           <LoginForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
             <Button style={styles.button}
               block 
+              bordered
               onPress={() => navigation.navigate("SignUp")}
             >
              <Text>Sign Up</Text>

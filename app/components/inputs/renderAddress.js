@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Item, Input, Icon } from 'native-base';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-export const renderAddress= ({ input, label, type, meta: { touched, error, warning } }) => {
+export const renderAddress= ({ input:{value, onChange}, label, type, meta: { touched, error, warning, dispatch } }) => {
     var hasError= false;
     if(error !== undefined){
         hasError= true;
@@ -20,10 +20,13 @@ export const renderAddress= ({ input, label, type, meta: { touched, error, warni
                   fetchDetails={true}
                   renderDescription={row => row.description} // custom description render
                   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                    console.log(data, details);
-                    input = data.description;
+                    console.log(data.description);
+                    console.log(details);
+                    value = { location: data.description, geometry:details.geometry.location};
+                    console.log(value);
+                    onChange(value);
+                    // dispatch(value);
                   }}
-                  
                   getDefaultValue={() => ''}
                   
                   query={{

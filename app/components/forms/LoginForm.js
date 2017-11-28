@@ -1,6 +1,6 @@
 import React from "react";
 import { translate } from 'react-i18next';
-import { Button, Text, Form } from "native-base";
+import { Button, Text, Form, Spinner } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../helpers/validateHelper';
 import { renderName } from '../../components/inputs/renderUsername';
@@ -35,9 +35,9 @@ export class LoginForm extends React.Component{
    
                 <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={handleSubmit} 
+                onPress={handleSubmit}
                 disabled={submitting}>
-                    <Text>Sign In</Text>
+                    {submitting ? <Spinner color='white' />: <Text>Sign In</Text>}
                 </Button>
             </Form>
         );
