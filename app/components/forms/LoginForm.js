@@ -3,8 +3,8 @@ import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../helpers/validateHelper';
-import { renderName } from '../../components/registration/renderUsername';
-import { renderPassword } from '../../components/registration/renderPassword';
+import { renderName } from '../../components/inputs/renderUsername';
+import { renderPassword } from '../../components/inputs/renderPassword';
 
 
 

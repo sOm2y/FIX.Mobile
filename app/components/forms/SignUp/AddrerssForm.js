@@ -3,7 +3,7 @@ import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
-import { renderAddress } from "../../../components/registration/renderAddress";
+import { renderAddress } from "../../inputs/renderAddress";
 
 
 @translate(['home', 'common'], { wait: true })
@@ -43,7 +43,7 @@ export class AddressForm extends React.Component{
 }
 
 export default reduxForm({
-  form: 'AddressForm', //                 <------ same form name
+  form: 'WizardForm', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,

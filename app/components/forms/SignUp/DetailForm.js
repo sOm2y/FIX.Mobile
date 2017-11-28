@@ -3,9 +3,9 @@ import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
-import { renderName } from '../../../components/registration/renderUsername';
-import { renderEmail } from "../../../components/registration/renderEmail";
-import { renderPhone } from "../../../components/registration/renderPhone";
+import { renderName } from '../../../components/inputs/renderUsername';
+import { renderEmail } from "../../../components/inputs/renderEmail";
+import { renderPhone } from "../../../components/inputs/renderPhone";
 
 
 @translate(['home', 'common'], { wait: true })
@@ -16,7 +16,7 @@ export class DetailForm extends React.Component{
     });
     
     render(){
-        const { handleSubmit, navigation, submitting, previousPage } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage } = this.props;
         
         return (
             <Form>
@@ -47,7 +47,7 @@ export class DetailForm extends React.Component{
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
-                disabled={submitting}>
+                disabled={pristine || submitting}>
                     <Text>Next</Text>
                 </Button>
                 <Button bordered block primary
@@ -62,7 +62,7 @@ export class DetailForm extends React.Component{
 }
 
 export default reduxForm({
-  form: 'DetailForm', //                 <------ same form name
+  form: 'WizardForm', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,
