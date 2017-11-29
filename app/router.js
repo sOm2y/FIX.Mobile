@@ -7,6 +7,7 @@ import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
+import Notifications from './screens/Notifications';
 import Customer from './screens/registration/Customer';
 import Tradie from './screens/registration/Tradie';
 
@@ -45,6 +46,7 @@ export const HomeNavigator = TabNavigator(
 
   {
     Home: { screen: Home},
+    Notifications: { screen: Notifications},
     Profile: { screen: Profile}
   },
   {
@@ -61,23 +63,26 @@ export const HomeNavigator = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("Home")}>
-              <Icon name="bowtie" />
+              onPress={() => props.navigation.navigate("Home")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-home-outline' android="md-home" />
               <Text>Jobs</Text>
             </Button> 
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Profile")}>
-              <Icon name="briefcase" />
+              onPress={() => props.navigation.navigate("Notifications")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-notifications-outline' android="md-notifications" />
               <Text>Notifications</Text>
             </Button>
 
             <Button
               vertical
               active={props.navigationState.index === 2}
-              onPress={() => props.navigation.navigate("Profile")}>
-              <Icon name="briefcase" />
+              onPress={() => props.navigation.navigate("Profile")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-settings-outline' android="md-settings" />
               <Text>Profile</Text>
             </Button>
           </FooterTab>
