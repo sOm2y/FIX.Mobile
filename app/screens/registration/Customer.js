@@ -19,7 +19,7 @@ export default class Customer extends React.Component {
     return postUserAccount(values)
     .then(res => {
       navigation.navigate("Home");
-      dispatch(reset('CustomerWizardForm'));
+      dispatch(reset('WizardForm'));
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
       toastShow("SignIn Unsuccessfully", "danger", 3000);   

@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { translate } from 'react-i18next';
-import { Container,Header, Body, Title, Content, List, ListItem, Button, Text } from "native-base";
+import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Icon } from "native-base";
 
 @translate(['home', 'common'], { wait: true })
 
@@ -23,6 +23,33 @@ export default class Home extends React.Component {
           </Body>
         </Header>
         <Content>
+        <Card style={{flex: 0}}>
+            <CardItem>
+              <Left>
+                <Thumbnail source={require('../resource/images/xero.png')} />
+                <Body>
+                  <Text>Job 1</Text>
+                  <Text note>Requested on April 15, 2017</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Image source={require('../resource/images/tradie.jpg')} style={{ flex: 1}}/>
+                <Text style={{ flex: 1}}>
+                Looking at data one piece at a time is more efficient when you consider people you might want to date, restaurants, streaming music, or local events you might want to check out. NativeBase Deck Swiper helps you evaluate one option at a time, instead of selecting from a set of options.
+                </Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}}>
+                  <Icon name="logo-github" />
+                  <Text>1,926 stars</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
         <Text>{t('title')}</Text>
           <List>
             <ListItem style={[styles.listItem]}>
