@@ -16,7 +16,7 @@ import { nextPage, previousPage } from '../../actions/index';
 
 @translate(['home', 'common'], { wait: true })
 
-class CustomerWizardForm extends React.Component {
+class WizardCustomerForm extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
   });
@@ -71,7 +71,7 @@ class CustomerWizardForm extends React.Component {
   }
 }
 
-CustomerWizardForm.propTypes = {
+WizardCustomerForm.propTypes = {
   previousPage: PropTypes.func.isRequired,
   nextPage: PropTypes.func.isRequired
 };
@@ -95,4 +95,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({ previousPage: previousPage, nextPage: nextPage}, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerWizardForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WizardCustomerForm);
