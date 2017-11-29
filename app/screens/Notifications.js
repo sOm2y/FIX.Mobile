@@ -1,6 +1,6 @@
 import React from "react";
-import { View } from "react-native";
-import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text } from "native-base";
+import { StyleSheet } from "react-native";
+import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text, List, ListItem, Thumbnail, Left, Right } from "native-base";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
@@ -22,29 +22,87 @@ class Notifications extends React.Component {
             <Title>Notifications</Title>
           </Body>
         </Header>
-        <Content padder>
+        <Content>
        
-        <Card>
-          <CardItem>
-            <Text style = {{fontSize: 20, fontWeight: 'bold'}}>
-              {count}
-            </Text>
-          </CardItem>
-        </Card>
-        <Button dark bordered onPress= {() => this.props.increment()}>
-          <Text>Increment</Text>
-        </Button>
-        <Button dark bordered onPress= {() => this.props.decrement()}>
-          <Text>Decrement</Text>
-        </Button>
+        <List>
+            <ListItem avatar style={styles.listItem}>
+                <Left>
+                    <Thumbnail source={require('../resource/images/xero.png')} />
+                </Left>
+                <Body>
+                    <Text>Kumar Pratik</Text>
+                    <Text note>Doing what you like will always keep you happy . .</Text>
+                </Body>
+                <Right>
+                    <Text note>3:43 pm</Text>
+                </Right>
+            </ListItem>
 
-        <Button
-          style = {{marginTop:20}}
-          block
-          onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
-        >
-        <Text>SIGN OUT</Text>
-        </Button>
+            <ListItem avatar style={styles.listItem}>
+                <Left>
+                    <Thumbnail source={require('../resource/images/xero.png')} />
+                </Left>
+                <Body>
+                    <Text>Kumar Pratik</Text>
+                    <Text note>Doing what you like will always keep you happy . .</Text>
+                </Body>
+                <Right>
+                    <Text note>3:43 pm</Text>
+                </Right>
+            </ListItem>
+
+            <ListItem avatar style={styles.listItem}>
+                <Left>
+                    <Thumbnail source={require('../resource/images/xero.png')} />
+                </Left>
+                <Body>
+                    <Text>Kumar Pratik</Text>
+                    <Text note>Doing what you like will always keep you happy . .</Text>
+                </Body>
+                <Right>
+                    <Text note>3:43 pm</Text>
+                </Right>
+            </ListItem>
+
+            <ListItem avatar style={styles.listItem}>
+                <Left>
+                    <Thumbnail source={require('../resource/images/xero.png')} />
+                </Left>
+                <Body>
+                    <Text>Kumar Pratik</Text>
+                    <Text note>Doing what you like will always keep you happy . .</Text>
+                </Body>
+                <Right>
+                    <Text note>3:43 pm</Text>
+                </Right>
+            </ListItem>
+
+            <ListItem avatar style={styles.listItem}>
+                <Left>
+                    <Thumbnail source={require('../resource/images/xero.png')} />
+                </Left>
+                <Body>
+                    <Text>Kumar Pratik</Text>
+                    <Text note>Doing what you like will always keep you happy . .</Text>
+                </Body>
+                <Right>
+                    <Text note>3:43 pm</Text>
+                </Right>
+            </ListItem>
+
+            <ListItem avatar style={styles.listItem}>
+                <Left>
+                    <Thumbnail source={require('../resource/images/xero.png')} />
+                </Left>
+                <Body>
+                    <Text>Kumar Pratik</Text>
+                    <Text note>Doing what you like will always keep you happy . .</Text>
+                </Body>
+                <Right>
+                    <Text note>3:43 pm</Text>
+                </Right>
+            </ListItem>
+        </List>
 
         </Content>
       </Container>
@@ -62,3 +120,10 @@ function matchDispatchToProps(dispatch){
   return bindActionCreators({increment: increment, decrement: decrement}, dispatch)
 }
 export default connect(mapStateToProps, matchDispatchToProps)(Notifications);
+
+const styles = StyleSheet.create({
+    listItem:{
+      marginLeft: 0, 
+      paddingLeft: 17
+    }
+  });

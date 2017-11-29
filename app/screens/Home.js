@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 import { translate } from 'react-i18next';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Icon } from "native-base";
 
@@ -35,9 +35,10 @@ export default class Home extends React.Component {
             </CardItem>
             <CardItem>
               <Body>
-                <Image source={require('../resource/images/tradie.jpg')} style={{ flex: 1}}/>
+                <Image source={require('../resource/images/tradie.jpg')} resizeMode="contain" style = {styles.image} />
                 <Text style={{ flex: 1}}>
-                Looking at data one piece at a time is more efficient when you consider people you might want to date, restaurants, streaming music, or local events you might want to check out. NativeBase Deck Swiper helps you evaluate one option at a time, instead of selecting from a set of options.
+                Looking at data one piece at a time is more efficient
+                 when you consider people you might want to date, restaurants, streaming music, or local events you might want to check out. NativeBase Deck Swiper helps you evaluate one option at a time, instead of selecting from a set of options.
                 </Text>
               </Body>
             </CardItem>
@@ -72,10 +73,15 @@ export default class Home extends React.Component {
 }
 
 //TODO: Bug from nativebase
+let {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   listItem:{
     marginLeft: 0, 
     paddingLeft: 17
+  },
+  image:{
+   width: width,
+   flex: 1,
+   height:200
   }
- 
 });
