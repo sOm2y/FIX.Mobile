@@ -14,7 +14,7 @@ export class AddressForm extends React.Component{
     });
     
     render(){
-        const { handleSubmit, navigation, submitting, previousPage } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage } = this.props;
         
         return (
             <Form>
@@ -28,7 +28,7 @@ export class AddressForm extends React.Component{
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
-                disabled={submitting}>
+                disabled={pristine || submitting}>
                     <Text>Submit</Text>
                 </Button>
                 <Button bordered block primary

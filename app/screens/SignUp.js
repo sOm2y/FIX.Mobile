@@ -22,7 +22,7 @@ export default class SignUp extends React.Component {
             </Button>
             </Left>
           <Body>
-            <Title>Address</Title>
+            <Title>Sign Up</Title>
           </Body>
           <Right />
         </Header>

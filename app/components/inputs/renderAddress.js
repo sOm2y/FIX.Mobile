@@ -22,7 +22,11 @@ export const renderAddress= ({ input:{value, onChange}, label, type, meta: { tou
                   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                     console.log(data.description);
                     console.log(details);
-                    value = { location: data.description, geometry:details.geometry.location};
+                    if(data.description&& details.geometry){
+                      value = { location: data.description, geometry:details.geometry.location};
+                    }else{
+                      value ={}
+                    }
                     console.log(value);
                     onChange(value);
                     // dispatch(value);

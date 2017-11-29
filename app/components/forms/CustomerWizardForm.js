@@ -23,6 +23,27 @@ class CustomerWizardForm extends React.Component {
 
   render(){
     const { t, i18n, navigation, page, onSubmit } = this.props;
+    const displayWizardTitle = (pageIndex) => {
+      let title = ''
+      switch(pageIndex){
+        case 0:
+          title = 'Credential';
+          break;
+        case 1:
+          title = 'Personal Detail';
+         break;
+        case 2:
+          title = 'Address';
+          break;
+        case 3:
+          title = 'Confirmation';
+          break;
+        default:
+          title = 'Sign Up';
+      }
+      return title;
+       
+    }
 
     return (
       <Container>
@@ -35,15 +56,15 @@ class CustomerWizardForm extends React.Component {
             }
             </Left>
           <Body>
-            <Title>Personal Detail</Title>
+            <Text>{displayWizardTitle(page)}</Text>
           </Body>
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
         {page === 0 &&<CredentialForm onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<AddrerssForm previousPage={this.props.previousPage} onSubmit={onSubmit} />}
-        {/* {page === 3 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />} */}
+        {page === 2 &&<AddrerssForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
+        {page === 3 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>
       </Container>
     );
