@@ -5,53 +5,73 @@ import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
 import SignUp from './screens/SignUp';
 import SignIn from './screens/SignIn';
-import Home from './screens/Home';
+import Jobs from './screens/Jobs';
+import CreateJob from './screens/CreateJob';
 import Profile from './screens/Profile';
 import Notifications from './screens/Notifications';
 import Customer from './screens/registration/Customer';
 import Tradie from './screens/registration/Tradie';
 
-
   
-export const RegistrationNavigator = StackNavigator(
-    { 
-      SignUp:{
-        screen: SignUp,
-        navigationOptions: {
-          
-        }
-      },
-      Customer:{
-        screen: Customer,
-        navigationOptions: {
-          
-        }
-      },
-      Tradie:{
-        screen: Tradie,
-        navigationOptions: {
-          
-        }
+export const JobNavigator = StackNavigator(
+  { 
+    Jobs:{
+      screen: Jobs,
+      navigationOptions: {
+        
       }
+    },
+    CreateJob:{
+      screen: CreateJob,
+      navigationOptions: {
+        
+      }
+    }
+  },{
+    headerMode: 'none',
+    animationEnabled: true,
+    gesturesEnabled:true,
+    initialRouteName : 'Jobs',
+  });
    
-    },{
-      headerMode: 'none',
-      animationEnabled: true,
-      gesturesEnabled:true,
-      initialRouteName : 'SignUp',
-    });
- 
+export const RegistrationNavigator = StackNavigator(
+  { 
+    SignUp:{
+      screen: SignUp,
+      navigationOptions: {
+        
+      }
+    },
+    Customer:{
+      screen: Customer,
+      navigationOptions: {
+        
+      }
+    },
+    Tradie:{
+      screen: Tradie,
+      navigationOptions: {
+        
+      }
+    }
+  
+  },{
+    headerMode: 'none',
+    animationEnabled: true,
+    gesturesEnabled:true,
+    initialRouteName : 'SignUp',
+  });
+    
 
 export const HomeNavigator = TabNavigator(
-
   {
-    Home: { screen: Home},
+    Jobs: { screen: JobNavigator},
     Notifications: { screen: Notifications},
     Profile: { screen: Profile}
   },
   {
     tabBarPosition: "bottom",
-    initialRouteName : 'Home',
+    initialRouteName : 'Jobs',
     animationEnabled: true,
     // tabBarOptions: {
     //   activeTintColor: '#e91e63',
@@ -63,7 +83,7 @@ export const HomeNavigator = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("Home")}
+              onPress={() => props.navigation.navigate("Jobs")}
               style={{backgroundColor:'transparent'}}>
               <Icon ios='ios-home-outline' android="md-home" />
               <Text>Jobs</Text>

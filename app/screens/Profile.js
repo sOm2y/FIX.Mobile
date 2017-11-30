@@ -1,11 +1,13 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { translate } from 'react-i18next';
 import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text, List, ListItem, Icon, Left, Right, Switch } from "native-base";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
 import { increment, decrement } from '../actions/index.js';
 
+@translate(['home', 'common'], { wait: true })
 class Profile extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('home:title')
@@ -61,6 +63,22 @@ class Profile extends React.Component {
           </Right>
         </ListItem>
       </List>
+
+       <Text>{t('title')}</Text>
+          <List>
+            <ListItem style={[styles.listItem]}>
+              <Button block
+              onPress={() => { i18n.changeLanguage('cn') }}>
+              <Text>{t('title')}</Text>
+              </Button>
+            </ListItem>
+            <ListItem style={[styles.listItem]}>
+              <Button block
+              onPress={() => { i18n.changeLanguage('en') }}>
+              <Text>{t('title')}</Text>
+              </Button>
+            </ListItem>
+          </List>
 
         <Button
           style = {{margin:10}}

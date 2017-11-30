@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-
+import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
 
@@ -13,6 +13,30 @@ import AddrerssForm from './SignUp/AddrerssForm';
 import ConfirmationForm from './SignUp/ConfirmationForm';
 import { nextPage, previousPage } from '../../actions/index';
 
+
+const thirdIndicatorStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#157efc',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#157efc',
+  stepStrokeUnFinishedColor: '#dedede',
+  separatorFinishedColor: '#157efc',
+  separatorUnFinishedColor: '#dedede',
+  stepIndicatorFinishedColor: '#157efc',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#ffffff',
+  stepIndicatorLabelFontSize: 0,
+  currentStepIndicatorLabelFontSize: 0,
+  stepIndicatorLabelCurrentColor: 'transparent',
+  stepIndicatorLabelFinishedColor: 'transparent',
+  stepIndicatorLabelUnFinishedColor: 'transparent',
+  labelColor: '#999999',
+  labelSize: 13,
+  currentStepLabelColor: '#157efc'
+}
 
 @translate(['home', 'common'], { wait: true })
 
@@ -61,6 +85,7 @@ class WizardCustomerForm extends React.Component {
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
+        <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Address","Confirmation"]} />
         {page === 0 &&<CredentialForm onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 2 &&<AddrerssForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}

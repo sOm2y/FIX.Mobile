@@ -74,7 +74,9 @@ let ConfirmationForm = props => {
 
 // Decorate with redux-form
 ConfirmationForm = reduxForm({
-  form: 'WizardForm', // a unique identifier for this form
+    form: 'WizardForm', //                 <------ same form name
+    destroyOnUnmount: false, //        <------ preserve form data
+    forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
 })(ConfirmationForm);
 
 // Decorate with connect to read form values
