@@ -3,7 +3,7 @@ import { translate } from 'react-i18next';
 import { reset } from 'redux-form';
 import { postUserAccount } from '../services/authService';
 import { toastShow } from '../services/toastService';
-import WizardCustomerForm from '../components/forms/WizardCustomerForm';
+import CreateJobForm from '../components/forms/CreateJobForm';
 
 
 
@@ -30,7 +30,7 @@ export default class CreateJob extends React.Component {
     const { navigate } = navigation;
 
     return (
-     <WizardCustomerForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+     <CreateJobForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

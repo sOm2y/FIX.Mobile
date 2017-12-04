@@ -94,7 +94,7 @@ export const HomeNavigator = TabNavigator(
               onPress={() => props.navigation.navigate("Notifications")}
               style={{backgroundColor:'transparent'}}>
               <Icon ios='ios-notifications-outline' android="md-notifications" />
-              <Text>Notifications</Text>
+              <Text>Messages</Text>
             </Button>
 
             <Button

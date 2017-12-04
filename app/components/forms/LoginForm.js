@@ -46,6 +46,5 @@ export class LoginForm extends React.Component{
 
 export default reduxForm({
   form: 'LoginForm', //                 <------ same form name
-  destroyOnUnmount: true, //        <------ preserve form data
   validate,
 })(LoginForm);

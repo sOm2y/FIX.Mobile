@@ -28,7 +28,13 @@ export default class Jobs extends React.Component {
           </Body>
         </Header>
         <Content padder>
-
+        <Button style={styles.button}
+              block 
+              primary
+              onPress={() => navigation.navigate("CreateJob")}
+            >
+             <Text>Add new Job</Text>
+            </Button>
         <Card style={styles.mb}>
           <CardItem bordered>
             <Left>
@@ -125,6 +131,9 @@ const styles = StyleSheet.create({
   listItem:{
     marginLeft: 0, 
     paddingLeft: 17
+  },
+  button:{
+    marginBottom: 20
   },
   image:{
    width: width,

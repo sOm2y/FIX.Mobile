@@ -21,8 +21,8 @@ export default class SignIn extends React.Component {
     return loginUserAccount(values)
       .then(res => {
         console.log(res)
-        navigation.navigate("Home");
         dispatch(reset('LoginForm'));
+        navigation.navigate("Jobs");
         toastShow("SignIn Successfully", "success", 3000);   
       })
       .catch(err => {
