@@ -7,6 +7,7 @@ import CreateJobForm from '../components/forms/CreateJobForm';
 
 
 
+
 @translate(['home', 'common'], { wait: true })
 
 export default class CreateJob extends React.Component {
@@ -30,7 +31,7 @@ export default class CreateJob extends React.Component {
     const { navigate } = navigation;
 
     return (
-     <CreateJobForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+        <CreateJobForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

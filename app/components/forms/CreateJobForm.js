@@ -6,7 +6,7 @@ import { Field, reduxForm } from 'redux-form';
 import validate from '../../helpers/validateHelper';
 import { renderName } from '../../components/inputs/renderUsername';
 import { renderPassword } from '../../components/inputs/renderPassword';
-
+import ImageUpload from '../ImageUpload';
 
 
 @translate(['home', 'common'], { wait: true })
@@ -20,7 +20,7 @@ export class CreateJobForm extends React.Component{
         const { handleSubmit, navigation, submitting } = this.props;
         
         return (
-            <Container style={styles}>
+            <Container>
             <Header>
                 <Left>
         
@@ -35,11 +35,14 @@ export class CreateJobForm extends React.Component{
               <Right />
             </Header>
             <Content>
-            <List>
                 <Separator bordered>
-                <Body>
+                    <Text>UPLOAD IMAGES</Text>
+                </Separator>
+                <ImageUpload />
+                <List>
+               
+                <Separator bordered>
                     <Text>TITLE & CATEGORY</Text>
-                    </Body>
                 </Separator>
                 <ListItem style={{ marginLeft: 0}}>
                 <Body>
@@ -104,18 +107,3 @@ export default reduxForm({
   form: 'CreateJobForm', //                 <------ same form name
   validate,
 })(CreateJobForm);
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "#FFF"
-      },
-      text: {
-        alignSelf: "center",
-        marginBottom: 7
-      },
-      mb: {
-        marginBottom: 15
-      }
-   
-  });
-  
