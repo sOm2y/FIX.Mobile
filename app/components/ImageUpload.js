@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent } from 'expo';
-import {  Button, Text, List, ListItem, Spinner, Body } from "native-base";
+import {  Button, Text, List, ListItem, Spinner, Body, ActionSheet } from "native-base";
 
 export default class App extends React.Component {
   state = {
@@ -32,7 +32,7 @@ export default class App extends React.Component {
         <ListItem style={{ marginLeft: 0}}>
           <Button block primary
             onPress={this._pickImage}>
-            <Text>  Pick an image from camera roll</Text>
+            <Text>Upload</Text>
           </Button>
 
           <Button block primary onPress={this._takePhoto}>
@@ -99,6 +99,20 @@ export default class App extends React.Component {
 
     this._handleImagePicked(pickerResult);
   };
+
+  popUpActionSheet = () => {
+    ActionSheet.show(
+      {
+        options: BUTTONS,
+        cancelButtonIndex: CANCEL_INDEX,
+        destructiveButtonIndex: DESTRUCTIVE_INDEX,
+        title: "Testing ActionSheet"
+      },
+      buttonIndex => {
+        this.setState({ clicked: BUTTONS[buttonIndex] });
+      }
+    )}
+  }
 
   _pickImage = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({

@@ -56,25 +56,25 @@ export class CreateJobForm extends React.Component{
                 </ListItem>
                 <ListItem style={{ marginLeft: 0}}>
                 <Body>
-                    <Text>Lee Allen</Text>
+                    <Text>SubCategory</Text>
                     </Body>
                 </ListItem>
                 <Separator bordered>
-                    <Text>TITLE & CATEGORY</Text>
+                    <Text>JOB DETAIL</Text>
                 </Separator>
                 <ListItem style={{ marginLeft: 0}}>
                     <Body>
-                        <Text>Your username : </Text>
+                        <Text>Description</Text>
                     </Body>
                 </ListItem>
                 <ListItem style={{ marginLeft: 0}}>
                     <Body>
-                        <Text>Your email : </Text>
+                        <Text>Start Date</Text>
                     </Body>
                 </ListItem>
                 <ListItem style={{ marginLeft: 0}}>
                     <Body>
-                        <Text>Your phone number : </Text>
+                        <Text>Budget </Text>
                     </Body>
                 </ListItem>
                 </List>

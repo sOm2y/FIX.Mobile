@@ -84,7 +84,6 @@ export default class Index extends React.Component {
       <Root>
         <I18nextProvider i18n={ i18n }>
           <ReloadAppOnLanguageChange />
-        
         </I18nextProvider>
       </Root>
     );
