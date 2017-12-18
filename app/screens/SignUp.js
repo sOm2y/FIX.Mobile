@@ -1,17 +1,13 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { translate } from 'react-i18next';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
-
-@translate(['home', 'common'], { wait: true })
-
 export default class SignUp extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+  static navigationOptions = ({ navigation }) => ({
+
   });
 
   render(){
-    const { t, i18n, navigation } = this.props;
+    const { navigation } = this.props;
 
     return (
       <Container>

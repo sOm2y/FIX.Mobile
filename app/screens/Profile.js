@@ -9,12 +9,11 @@ import { increment, decrement } from '../actions/index.js';
 
 @translate(['home', 'common'], { wait: true })
 class Profile extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+  static navigationOptions = ({ navigation }) => ({
   });
   render(){
 
-    const { t, i18n, navigation, count } = this.props;
+    const { t, i18n, navigation, count, logout, loginScreen, isLoggedIn } = this.props;
     const { navigate } = navigation;
     
     return (  
@@ -64,7 +63,7 @@ class Profile extends React.Component {
         </ListItem>
       </List>
 
-       <Text>{t('title')}</Text>
+       {/* <Text>{t('title')}</Text>
           <List>
             <ListItem style={[styles.listItem]}>
               <Button block
@@ -78,12 +77,12 @@ class Profile extends React.Component {
               <Text>{t('title')}</Text>
               </Button>
             </ListItem>
-          </List>
+          </List> */}
 
         <Button
           style = {{margin:10}}
           block
-          onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
+          onPress={this.props.logout}
         >
         <Text>SIGN OUT</Text>
         </Button>
@@ -95,14 +94,12 @@ class Profile extends React.Component {
   }
 }
 
-function mapStateToProps(state){
-    return{
-    count : state.count
-    };
-}
-function matchDispatchToProps(dispatch){
-  return bindActionCreators({increment: increment, decrement: decrement}, dispatch)
-}
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+const matchDispatchToProps = dispatch => ({
+  logout: () => dispatch({ type: 'Logout' }),
+});
 export default connect(mapStateToProps, matchDispatchToProps)(Profile);
 
 const styles = StyleSheet.create({

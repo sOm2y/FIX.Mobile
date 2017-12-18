@@ -11,8 +11,7 @@ const cardImage = require("../resource/images/tradie.jpg");
 @translate(['home', 'common'], { wait: true })
 
 export default class Jobs extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+  static navigationOptions = ({ navigation }) => ({
   });
 
   render(){

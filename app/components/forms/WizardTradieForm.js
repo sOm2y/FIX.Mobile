@@ -2,10 +2,9 @@ import React from "react";
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
 
 import PropTypes from 'prop-types';
-import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
+import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from "native-base";
 
 import CredentialForm from './SignUp/CredentialForm';
 import DetailForm from './SignUp/DetailForm';
@@ -14,11 +13,8 @@ import ConfirmationForm from './SignUp/ConfirmationForm';
 import { nextPage, previousPage } from '../../actions/index';
 
 
-@translate(['home', 'common'], { wait: true })
-
 class WizardTradieForm extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+  static navigationOptions = ({ navigation }) => ({
   });
 
   render(){
@@ -56,7 +52,7 @@ class WizardTradieForm extends React.Component {
             }
             </Left>
           <Body>
-            <Text>{displayWizardTitle(page)}</Text>
+            <Title>{displayWizardTitle(page)}</Title>
           </Body>
           <Right />
         </Header>

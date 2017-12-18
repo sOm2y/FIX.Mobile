@@ -1,6 +1,8 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
 import SignUp from './screens/SignUp';
@@ -129,8 +131,7 @@ export const AppStartNavigator = StackNavigator({
   initialRouteName: 'SignIn'
 });
 
-export const createRootNavigator = (signedIn = false) => {
-  return StackNavigator(
+export const AppRootNavigator =  StackNavigator(
     {
       SignedIn: {
         screen: HomeNavigator,
@@ -147,8 +148,21 @@ export const createRootNavigator = (signedIn = false) => {
     },
     {
       headerMode: 'none',
-      mode: 'modal',
-      initialRouteName: signedIn ? 'SignedIn' : 'SignedOut'
+      mode: 'modal'
     }
   );
+
+const AppWithNavigationState = ({ dispatch, nav }) => (
+  <AppRootNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
+);
+
+AppWithNavigationState.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  nav: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = state => ({
+  nav: state.nav,
+});
+
+export default connect(mapStateToProps)(AppWithNavigationState);

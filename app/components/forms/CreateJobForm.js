@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { translate } from 'react-i18next';
-import { Container, Header, Left, Icon, Body, Right, Content, Button, Text, List, Spinner, Separator, ListItem } from "native-base";
+import { Container, Header, Left, Icon, Body, Right, Content, Button, Text, List, Spinner, Separator, ListItem, Title } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../helpers/validateHelper';
 import { renderName } from '../../components/inputs/renderUsername';
@@ -9,11 +8,8 @@ import { renderPassword } from '../../components/inputs/renderPassword';
 import ImageUpload from '../ImageUpload';
 
 
-@translate(['home', 'common'], { wait: true })
-
 export class CreateJobForm extends React.Component{
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: screenProps.t('home:title')
     });
 
     render(){
@@ -30,7 +26,7 @@ export class CreateJobForm extends React.Component{
                 
                 </Left>
               <Body>
-                <Text>Create Job</Text>
+                <Title>Create Job</Title>
               </Body>
               <Right />
             </Header>

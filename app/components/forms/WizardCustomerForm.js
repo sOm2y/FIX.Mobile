@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
 import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
@@ -38,11 +37,9 @@ const thirdIndicatorStyles = {
   currentStepLabelColor: '#157efc'
 }
 
-@translate(['home', 'common'], { wait: true })
 
 class WizardCustomerForm extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+  static navigationOptions = ({ navigation }) => ({
   });
 
   render(){
@@ -80,7 +77,7 @@ class WizardCustomerForm extends React.Component {
             }
             </Left>
           <Body>
-            <Text>{displayWizardTitle(page)}</Text>
+            <Title>{displayWizardTitle(page)}</Title>
           </Body>
           <Right />
         </Header>

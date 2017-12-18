@@ -1,16 +1,12 @@
 import React from "react";
-import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderAddress } from "../../inputs/renderAddress";
 
 
-@translate(['home', 'common'], { wait: true })
-
 export class AddressForm extends React.Component{
-    static navigationOptions = ({ navigation, screenProps }) => ({
-        title: screenProps.t('home:title')
+    static navigationOptions = ({ navigation }) => ({
     });
     
     render(){

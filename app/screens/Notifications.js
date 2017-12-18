@@ -52,8 +52,7 @@ const datas = [
     }
   ];
 class Notifications extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+  static navigationOptions = ({ navigation }) => ({
   });
   render(){
 

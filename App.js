@@ -5,6 +5,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
 import Index from './app/index';
+import { Root } from "native-base";
+import AppWithNavigationState from "./app/router";
 
 
 const store = createStore(allReducers);
@@ -31,7 +33,9 @@ export default class App extends React.Component {
     }
     return (
       <Provider store= {store}>
-        <Index/> 
+     
+          <AppWithNavigationState/> 
+       
       </Provider>
     );
   }

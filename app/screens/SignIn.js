@@ -1,14 +1,12 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { translate } from 'react-i18next';
 import { reset } from 'redux-form';
+import PropTypes from 'prop-types';
 import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
 import { loginUserAccount } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
 
-
-@translate(['home', 'common'], { wait: true })
 
 export default class SignIn extends React.Component {
   static navigationOptions = ({ navigation}) => ({
@@ -22,7 +20,7 @@ export default class SignIn extends React.Component {
       .then(res => {
         console.log(res)
         dispatch(reset('LoginForm'));
-        navigation.navigate("Jobs");
+        navigation.dispatch({ type: 'Login' });
         toastShow("SignIn Successfully", "success", 3000);   
       })
       .catch(err => {
@@ -64,3 +62,7 @@ const styles = StyleSheet.create({
   }
  
 });
+
+SignIn.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
