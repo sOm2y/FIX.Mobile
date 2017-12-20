@@ -5,26 +5,27 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
-import SignUp from './screens/SignUp';
-import SignIn from './screens/SignIn';
-import Jobs from './screens/Jobs';
-import CreateJob from './screens/CreateJob';
-import Profile from './screens/Profile';
-import Notifications from './screens/Notifications';
-import Customer from './screens/registration/Customer';
-import Tradie from './screens/registration/Tradie';
+import SignUpScreen from '../screens/SignUpScreen';
+import SignIn from '../screens/SignInScreen';
+import JobsScreen from '../screens/JobsScreen';
+import CreateJobScreen from '../screens/CreateJobScreen';
+import CustomerScreen from '../screens/registration/CustomerScreen';
+import TradieScreen from '../screens/registration/TradieScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
+import Profile from '../screens/ProfileScreen';
+
 
   
 export const JobNavigator = StackNavigator(
   { 
     Jobs:{
-      screen: Jobs,
+      screen: JobsScreen,
       navigationOptions: {
         
       }
     },
     CreateJob:{
-      screen: CreateJob,
+      screen: CreateJobScreen,
       navigationOptions: {
         
       }
@@ -39,19 +40,19 @@ export const JobNavigator = StackNavigator(
 export const RegistrationNavigator = StackNavigator(
   { 
     SignUp:{
-      screen: SignUp,
+      screen: SignUpScreen,
       navigationOptions: {
         
       }
     },
     Customer:{
-      screen: Customer,
+      screen: CustomerScreen,
       navigationOptions: {
         
       }
     },
     Tradie:{
-      screen: Tradie,
+      screen: TradieScreen,
       navigationOptions: {
         
       }
@@ -63,13 +64,50 @@ export const RegistrationNavigator = StackNavigator(
     gesturesEnabled:true,
     initialRouteName : 'SignUp',
   });
+
+  export const LoginNavigator = StackNavigator(
+    { 
+      SignIn:{
+        screen: SignIn,
+        navigationOptions: {
+          
+        }
+      },
+      SignUp:{
+        screen: SignUpScreen,
+        navigationOptions: {
+          
+        }
+      }
+    },{
+      headerMode: 'none',
+      animationEnabled: true,
+      gesturesEnabled:true,
+      initialRouteName : 'SignIn',
+    });
+      
     
 
-export const HomeNavigator = TabNavigator(
+export const HomeTabNavigator = TabNavigator(
   {
-    Jobs: { screen: JobNavigator},
-    Notifications: { screen: Notifications},
-    Profile: { screen: Profile}
+    Jobs: { 
+      screen: JobNavigator,
+      navigationOptions: {
+        
+      }
+    },
+    Notifications: { 
+      screen: NotificationsScreen,
+      navigationOptions: {
+        
+      }
+    },
+    Profile: { 
+      screen: Profile,
+      navigationOptions: {
+        
+      }
+    }
   },
   {
     tabBarPosition: "bottom",
@@ -114,55 +152,32 @@ export const HomeNavigator = TabNavigator(
   }
 );
 
-export const AppStartNavigator = StackNavigator({
-  SignIn: {
-    screen: SignIn,
-    navigationOptions: {
-      
-    }
-  },
-  SignUp: {
-    screen: RegistrationNavigator,
-    navigationOptions:{}
-  },
- 
-},{
-  headerMode: 'none',
-  initialRouteName: 'SignIn'
-});
-
-export const AppRootNavigator =  StackNavigator(
-    {
-      SignedIn: {
-        screen: HomeNavigator,
-        navigationOptions: {
-          gesturesEnabled: false
-        }
-      },
-      SignedOut: {
-        screen: AppStartNavigator,
-        navigationOptions: {
-          gesturesEnabled: false
-        }
+const AppRootNavigator =  StackNavigator(
+  {
+    SignIn: {
+      screen: SignIn,
+      navigationOptions: {
+        gesturesEnabled: false
       }
     },
-    {
-      headerMode: 'none',
-      mode: 'modal'
+    SignUp: {
+      screen: RegistrationNavigator,
+      navigationOptions: {
+        gesturesEnabled: false
+      }
+    },
+    Home: {
+      screen: HomeTabNavigator,
+      navigationOptions: {
+        gesturesEnabled: false,
+        headerLeft: null
+      }
     }
-  );
-
-const AppWithNavigationState = ({ dispatch, nav }) => (
-  <AppRootNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal'
+  }
 );
 
-AppWithNavigationState.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  nav: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = state => ({
-  nav: state.nav,
-});
-
-export default connect(mapStateToProps)(AppWithNavigationState);
+export default AppRootNavigator;

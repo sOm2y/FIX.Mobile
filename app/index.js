@@ -3,10 +3,10 @@ import { Platform, Text, View, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Fingerprint } from 'expo';
 import { Root } from "native-base";
-import AppWithNavigationState from "./router";
+import AppRootNavigator from "./navigations/navigationStack";
 import { isSignedIn } from "./services/authService";
 import { Toast} from "native-base";
-import i18n from '../i18n';
+
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -74,7 +74,7 @@ export default class Index extends React.Component {
       return null;
     }
 
-    return <AppWithNavigationState />
+    return <AppRootNavigator />
     
   }
 }

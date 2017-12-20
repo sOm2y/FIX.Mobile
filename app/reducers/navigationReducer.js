@@ -1,36 +1,131 @@
+import { NavigationActions } from "react-navigation";
 
-import { NavigationActions } from 'react-navigation';
-import { AppRootNavigator } from '../router';
+import AppRootNavigator, { Tabs } from "../navigations/navigationStack";
+import {
+  Login,
+  Logout,
+  Register,
+  RegisterSuccess,
+  NavigateToLogoutScreen
+} from "../actions/actionTypes";
 
-// Start with two routes: The Main screen, with the Login screen on top.
-const firstAction = AppRootNavigator.router.getActionForPathAndParams('SignedIn');
-const tempNavState = AppRootNavigator.router.getStateForAction(firstAction);
-const secondAction = AppRootNavigator.router.getActionForPathAndParams('SignedOut');
-const initialNavState = AppRootNavigator.router.getStateForAction(
-  secondAction,
-  tempNavState
+const ActionForLoggedOut = AppRootNavigator.router.getActionForPathAndParams('SignIn');
+
+const ActionForLoggedIn = AppRootNavigator.router.getActionForPathAndParams('Home');
+
+const stateForLoggedOut = AppRootNavigator.router.getStateForAction(
+  ActionForLoggedOut
 );
 
-export function navigation(state = initialNavState, action) {
-  let nextState;
-  switch (action.type) {
-    case 'Login':
-      nextState = AppRootNavigator.router.getStateForAction(
-        NavigationActions.back(),
-        state
-      );
-      break;
-    case 'Logout':
-      nextState = AppRootNavigator.router.getStateForAction(
-        NavigationActions.navigate({ routeName: 'SignedOut' }),
-        state
-      );
-      break;
-    default:
-      nextState = AppRootNavigator.router.getStateForAction(action, state);
-      break;
-  }
+const stateForLoggedIn = AppRootNavigator.router.getStateForAction(
+  ActionForLoggedIn,
+  stateForLoggedOut
+);
 
-  // Simply return the original `state` if `nextState` is null or undefined.
-  return nextState || state;
-}
+const initialState = { stateForLoggedOut, stateForLoggedIn };
+
+const navigationReducer = (state = initialState, action) => {
+  let nextState;
+
+  switch (action.type) {
+    case Login:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          ActionForLoggedIn,
+          stateForLoggedOut
+        )
+      };
+
+    case Register:
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("SignUp"),
+          stateForLoggedOut
+        )
+      };
+
+    case RegisterSuccess:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          NavigationActions.reset({
+            index: 2,
+            actions: [
+              NavigationActions.navigate({ routeName: 'SignIn' }),
+              NavigationActions.navigate({ routeName: 'SignUp' }),
+              NavigationActions.navigate({ routeName: 'Home' })
+            ]
+          })
+        )
+      };
+
+    /* Another option for RegisterSuccess
+        nextState = {
+          ...state,
+          stateForLoggedIn: AppNavigator.router.getStateForAction(
+            ActionForLoggedIn,
+            AppNavigator.router.getStateForAction(
+              AppNavigator.router.getActionForPathAndParams("signup"),
+              stateForLoggedOut
+            )
+          )
+        };
+      */
+
+    case "Navigation/BACK":
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          NavigationActions.back(),
+          stateForLoggedOut
+        )
+      };
+
+    case Logout:
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          NavigationActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'SignIn' })]
+          })
+        )
+      };
+
+    /* Other logic for logging out, more cleaner but unlike the above isn't telling the reader 
+           that navigation is reset, that's why I chose the *reset* one for the article. I prefer
+           this one, what about you?
+        
+        case 'LOGOUT':
+            nextState = { ...state, initialStateForLoggedIn, initialStateForLoggedOut}
+            break;
+    */
+
+    case NavigateToLogoutScreen:
+      return {
+        ...state,
+        stateForLoggedIn: {
+          ...state.stateForLoggedIn,
+          routes: state.stateForLoggedIn.routes.map(
+            route =>
+              route.routeName === 'Home'
+                ? { ...route, index: 2 }
+                : { ...route }
+          )
+        }
+      };
+
+    default:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          action,
+          state.stateForLoggedIn
+        )
+      };
+  }
+};
+
+export default navigationReducer;

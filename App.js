@@ -1,17 +1,17 @@
 import React from 'react';
 import Expo from 'expo';
-import allReducers from './app/reducers/index.js';
-import { createStore } from 'redux';
+
 import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
+import { createStore } from 'redux';
 import Index from './app/index';
-import { Root } from "native-base";
-import AppWithNavigationState from "./app/router";
+import { Root } from 'native-base';
+import AppNavigation from './app/navigations/index';
+import allReducers from './app/reducers/index'
 
-
-const store = createStore(allReducers);
 
 export default class App extends React.Component {
+  store = createStore(allReducers);
   constructor() {
     super();
     this.state = {
@@ -32,10 +32,10 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
     return (
-      <Provider store= {store}>
-     
-          <AppWithNavigationState/> 
-       
+      <Provider store= {this.store}>
+        <Root>
+          <AppNavigation/> 
+        </Root>
       </Provider>
     );
   }

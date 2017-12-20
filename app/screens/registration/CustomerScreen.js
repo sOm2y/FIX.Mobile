@@ -1,12 +1,11 @@
 import React from "react";
 import { reset } from 'redux-form';
-import { postUserAccount } from '../services/authService';
-import { toastShow } from '../services/toastService';
-import CreateJobForm from '../components/forms/CreateJobForm';
+import { postUserAccount } from '../../services/authService';
+import { toastShow } from '../../services/toastService';
+import WizardCustomerForm from '../../components/forms/WizardCustomerForm';
 
 
-
-export default class CreateJob extends React.Component {
+export default class CustomerScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
@@ -26,7 +25,7 @@ export default class CreateJob extends React.Component {
     const { navigate } = navigation;
 
     return (
-        <CreateJobForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+     <WizardCustomerForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

@@ -10,7 +10,7 @@ import CredentialForm from './SignUp/CredentialForm';
 import DetailForm from './SignUp/DetailForm';
 import AddrerssForm from './SignUp/AddrerssForm';
 import ConfirmationForm from './SignUp/ConfirmationForm';
-import { nextPage, previousPage } from '../../actions/index';
+import { nextPage, previousPage } from '../../actions/actionCreator';
 
 
 class WizardTradieForm extends React.Component {

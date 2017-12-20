@@ -4,7 +4,7 @@ import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
 import WizardTradieForm from '../../components/forms/WizardCustomerForm';
 
-export default class Tradie extends React.Component {
+export default class TradieScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 

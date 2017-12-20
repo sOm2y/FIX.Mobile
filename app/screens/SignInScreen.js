@@ -1,14 +1,17 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import PropTypes from 'prop-types';
 import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
 import { loginUserAccount } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
+import { login, register } from "../actions/actionCreator";
 
-
-export default class SignIn extends React.Component {
+@withNavigation
+class SignInScreen extends React.Component {
   static navigationOptions = ({ navigation}) => ({
     title: 'SignIn'
   });
@@ -20,7 +23,7 @@ export default class SignIn extends React.Component {
       .then(res => {
         console.log(res)
         dispatch(reset('LoginForm'));
-        navigation.dispatch({ type: 'Login' });
+        this.props.login();
         toastShow("SignIn Successfully", "success", 3000);   
       })
       .catch(err => {
@@ -45,7 +48,7 @@ export default class SignIn extends React.Component {
             <Button style={styles.button}
               block 
               bordered
-              onPress={() => navigation.navigate("SignUp")}
+              onPress={this.props.register}
             >
              <Text>Sign Up</Text>
             </Button>
@@ -63,6 +66,15 @@ const styles = StyleSheet.create({
  
 });
 
-SignIn.propTypes = {
+SignInScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
+
+const mapDispatchToProps = {
+  login,
+  register
+};
+
+const SignIn = connect(null, mapDispatchToProps)(SignInScreen);
+
+export default SignIn;
