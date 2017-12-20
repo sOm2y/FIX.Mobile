@@ -1,5 +1,4 @@
 import React from "react";
-import { translate } from 'react-i18next';
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
@@ -7,12 +6,8 @@ import { renderName } from '../../../components/inputs/renderUsername';
 import { renderEmail } from "../../../components/inputs/renderEmail";
 import { renderPhone } from "../../../components/inputs/renderPhone";
 
-
-@translate(['home', 'common'], { wait: true })
-
 export class DetailForm extends React.Component{
-    static navigationOptions = ({ navigation, screenProps }) => ({
-        title: screenProps.t('home:title')
+    static navigationOptions = ({ navigation }) => ({
     });
     
     render(){

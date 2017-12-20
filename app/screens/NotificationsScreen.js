@@ -4,7 +4,6 @@ import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text, 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
-import { increment, decrement } from '../actions/index.js';
 
 const pratik = require("../resource/images/xero.png");
 const sanket = require("../resource/images/xero.png");
@@ -51,9 +50,8 @@ const datas = [
       time: "8:54 pm"
     }
   ];
-class Notifications extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+class NotificationsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
   });
   render(){
 
@@ -99,9 +97,9 @@ function mapStateToProps(state){
     };
 }
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({increment: increment, decrement: decrement}, dispatch)
+  return {}
 }
-export default connect(mapStateToProps, matchDispatchToProps)(Notifications);
+export default connect(mapStateToProps, matchDispatchToProps)(NotificationsScreen);
 
 const styles = StyleSheet.create({
     listItem:{

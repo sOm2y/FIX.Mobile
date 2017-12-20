@@ -1,5 +1,5 @@
 let count= 0;
-export default function(state=count, action){
+const navigationReducer = (state=count, action) => {
   switch (action.type) {
     case "Increment": count++;
       break;
@@ -8,3 +8,4 @@ export default function(state=count, action){
   }
   return count;
 }
+export default navigationReducer;

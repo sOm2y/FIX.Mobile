@@ -1,5 +1,4 @@
 import React from "react";
-import { translate } from 'react-i18next';
 import { reset } from 'redux-form';
 import { postUserAccount } from '../services/authService';
 import { toastShow } from '../services/toastService';
@@ -7,12 +6,8 @@ import CreateJobForm from '../components/forms/CreateJobForm';
 
 
 
-
-@translate(['home', 'common'], { wait: true })
-
-export default class CreateJob extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+export default class CreateJobScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
   });
 
   onSubmit = (values, dispatch, navigation) => {
@@ -27,7 +22,7 @@ export default class CreateJob extends React.Component {
     });
 }
   render(){
-    const { t, i18n, navigation } = this.props;
+    const { navigation } = this.props;
     const { navigate } = navigation;
 
     return (

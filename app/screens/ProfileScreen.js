@@ -1,21 +1,17 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { translate } from 'react-i18next';
+import { withNavigation } from 'react-navigation';
 import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text, List, ListItem, Icon, Left, Right, Switch } from "native-base";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
-import { increment, decrement } from '../actions/index.js';
+import { logout } from "../actions/actionCreator";
 
-@translate(['home', 'common'], { wait: true })
-class Profile extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+@withNavigation
+class ProfileScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
   });
   render(){
-
-    const { t, i18n, navigation, count } = this.props;
-    const { navigate } = navigation;
     
     return (  
       <Container>
@@ -64,7 +60,7 @@ class Profile extends React.Component {
         </ListItem>
       </List>
 
-       <Text>{t('title')}</Text>
+       {/* <Text>{t('title')}</Text>
           <List>
             <ListItem style={[styles.listItem]}>
               <Button block
@@ -78,12 +74,12 @@ class Profile extends React.Component {
               <Text>{t('title')}</Text>
               </Button>
             </ListItem>
-          </List>
+          </List> */}
 
         <Button
           style = {{margin:10}}
           block
-          onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
+          onPress={this.props.logout}
         >
         <Text>SIGN OUT</Text>
         </Button>
@@ -95,15 +91,11 @@ class Profile extends React.Component {
   }
 }
 
-function mapStateToProps(state){
-    return{
-    count : state.count
-    };
-}
-function matchDispatchToProps(dispatch){
-  return bindActionCreators({increment: increment, decrement: decrement}, dispatch)
-}
-export default connect(mapStateToProps, matchDispatchToProps)(Profile);
+const mapDispatchToProps = {
+  logout
+};
+const Profile = connect(null, mapDispatchToProps)(ProfileScreen);
+export default Profile;
 
 const styles = StyleSheet.create({
   listItem:{

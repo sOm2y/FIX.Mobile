@@ -1,13 +1,18 @@
 import React from 'react';
 import Expo from 'expo';
-import allReducers from './app/reducers/index.js';
-import { createStore } from 'redux';
+
 import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
-import Index from './app/index';
+import { PersistGate } from "redux-persist/es/integration/react";
+import I18n from 'ex-react-native-i18n';
+import { Root } from 'native-base';
+
+import AppNavigation from './app/navigations/index';
+import configureStore from "./store";
+
+const { store, persistor } = configureStore();
 
 
-const store = createStore(allReducers);
 
 export default class App extends React.Component {
   constructor() {
@@ -23,6 +28,42 @@ export default class App extends React.Component {
       Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
     });
 
+    await Promise.all([
+      I18n.initAsync(),
+      Expo.Util.getCurrentDeviceCountryAsync(),
+      Expo.Util.getCurrentTimeZoneAsync(), 
+    ]);
+    const deviceLocale = I18n.locale;
+
+
+    I18n.fallbacks = true
+
+    // // general Chinese
+    // zh
+
+    // // Traditional Chinese 
+    // zh-Hant
+
+    // // Simplified Chinese
+    // zh-Hans
+
+    // // Traditional Chinese + Locale
+    // zh-Hant-TW
+    // zh-Hant-SG
+    // zh-Hant-HK
+    // zh-Hant-CN
+
+    // // Simplified Chinese + Locale
+    // zh-Hans-TW
+    // zh-Hans-SG
+    // zh-Hans-HK
+    // zh-Hans-CN
+
+    I18n.translations = {
+      'en': require('./app/locales/en'),
+      'zh': require('./app/locales/zh-Hans')
+    }
+
     this.setState({ isReady: true });
   }
   render() {
@@ -31,7 +72,11 @@ export default class App extends React.Component {
     }
     return (
       <Provider store= {store}>
-        <Index/> 
+        <Root>
+          <PersistGate persistor={persistor}>
+            <AppNavigation/> 
+          </PersistGate>
+        </Root>
       </Provider>
     );
   }

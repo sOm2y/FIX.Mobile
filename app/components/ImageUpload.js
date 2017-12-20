@@ -12,6 +12,7 @@ import {
 import Exponent, { Constants, ImagePicker, registerRootComponent } from 'expo';
 import {  Button, Text, List, ListItem, Spinner, Body, ActionSheet } from "native-base";
 
+const BUTTONS = ["take a photo", "choose from camera roll", "Cancel"];
 export default class App extends React.Component {
   state = {
     image: null,
@@ -31,13 +32,10 @@ export default class App extends React.Component {
         </ListItem>
         <ListItem style={{ marginLeft: 0}}>
           <Button block primary
-            onPress={this._pickImage}>
+            onPress={this.popUpActionSheet}>
             <Text>Upload</Text>
           </Button>
 
-          <Button block primary onPress={this._takePhoto}>
-            <Text>Take A Photo</Text>
-          </Button>
         </ListItem>
         <ListItem style={{ marginLeft: 0}}>
           {this._maybeRenderImage()}
@@ -104,15 +102,18 @@ export default class App extends React.Component {
     ActionSheet.show(
       {
         options: BUTTONS,
-        cancelButtonIndex: CANCEL_INDEX,
-        destructiveButtonIndex: DESTRUCTIVE_INDEX,
-        title: "Testing ActionSheet"
+        cancelButtonIndex: 2,
+        title: "UPLOAD PHOTOS"
       },
       buttonIndex => {
+        if(buttonIndex === 0)
+          this._takePhoto();
+        else if(buttonIndex === 1)
+          this._pickImage();
         this.setState({ clicked: BUTTONS[buttonIndex] });
       }
     )}
-  }
+  
 
   _pickImage = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({

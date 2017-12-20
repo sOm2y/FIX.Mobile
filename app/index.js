@@ -2,12 +2,11 @@ import React from "react";
 import { Platform, Text, View, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Fingerprint } from 'expo';
-import { I18nextProvider, translate } from 'react-i18next';
 import { Root } from "native-base";
-import { createRootNavigator } from "./router";
+import AppRootNavigator from "./navigations/navigationStack";
 import { isSignedIn } from "./services/authService";
 import { Toast} from "native-base";
-import i18n from '../i18n';
+
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -22,14 +21,22 @@ export default class Index extends React.Component {
 
   componentWillMount() {
     Fingerprint.hasHardwareAsync().then(hasHardware => {
-      hasHardware &&
+      if(hasHardware){
         Fingerprint.isEnrolledAsync().then(hasFingerprintAuth => {
-          this.setState({ hasFingerprintAuth });
-          if( Platform.OS === 'android'){
-            Alert.alert('Place your finger to scan.')
+          if(hasFingerprintAuth){
+            if( Platform.OS === 'android'){
+              Alert.alert('Place your finger to scan.')
+            }
+            this.authFunction();
+          }else{
+            this.setState({ signedIn: false, checkedSignIn: false});
           }
-          this.authFunction();
+          this.setState({ hasFingerprintAuth });
         });
+      }else{
+        this.setState({ signedIn: false, checkedSignIn: false});
+      }
+        
     });
   
   }
@@ -67,25 +74,7 @@ export default class Index extends React.Component {
       return null;
     }
 
-    const RootLayout = createRootNavigator(signedIn);
-
-    const WrappedStack = () => {
-      return (
-        <RootLayout screenProps={{ t: i18n.getFixedT() }}/> 
-        );
-    }
-
-    const ReloadAppOnLanguageChange = translate('common', {
-      bindI18n: 'languageChanged',
-      bindStore: false
-    })(WrappedStack);
-
-    return (
-      <Root>
-        <I18nextProvider i18n={ i18n }>
-          <ReloadAppOnLanguageChange />
-        </I18nextProvider>
-      </Root>
-    );
+    return <AppRootNavigator />
+    
   }
 }

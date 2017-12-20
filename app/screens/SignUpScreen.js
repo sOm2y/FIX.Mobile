@@ -1,23 +1,22 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { translate } from 'react-i18next';
+import { connect } from "react-redux";
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
+import { navigationBack, customer, tradie } from "../actions/actionCreator";
 
-@translate(['home', 'common'], { wait: true })
+class SignUpScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
 
-export default class SignUp extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
   });
 
   render(){
-    const { t, i18n, navigation } = this.props;
+    const { navigation } = this.props;
 
     return (
       <Container>
         <Header>
         <Left>
-            <Button transparent onPress={() => navigation.navigate("SignIn")}>
+            <Button transparent onPress={this.props.navigationBack}>
                 <Icon name="arrow-back" />
             </Button>
             </Left>
@@ -53,3 +52,13 @@ const styles = StyleSheet.create({
   }
  
 });
+
+const mapDispatchToProps = {
+  navigationBack,
+  customer,
+  tradie
+};
+
+const SignUp = connect(null, mapDispatchToProps)(SignUpScreen);
+
+export default SignUp;

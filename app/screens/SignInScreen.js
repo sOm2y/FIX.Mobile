@@ -1,18 +1,20 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { translate } from 'react-i18next';
+import { connect } from "react-redux";
 import { reset } from 'redux-form';
+import PropTypes from 'prop-types';
+import I18n from 'ex-react-native-i18n';
 import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
+
 import { loginUserAccount } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
+import { login, register } from "../actions/actionCreator";
 
 
-@translate(['home', 'common'], { wait: true })
-
-export default class SignIn extends React.Component {
+class SignInScreen extends React.Component {
   static navigationOptions = ({ navigation}) => ({
-    title: 'SignIn'
+    title: 'title'
   });
 
   onSubmit = (values, dispatch, navigation) => {
@@ -22,7 +24,7 @@ export default class SignIn extends React.Component {
       .then(res => {
         console.log(res)
         dispatch(reset('LoginForm'));
-        navigation.navigate("Jobs");
+        this.props.login();
         toastShow("SignIn Successfully", "success", 3000);   
       })
       .catch(err => {
@@ -32,14 +34,14 @@ export default class SignIn extends React.Component {
 }
 
   render(){
-    const { t, i18n, navigation } = this.props;
+    const { navigation } = this.props;
     const { navigate } = navigation;
     
     return (
       <Container>
         <Header>
           <Body>
-            <Title>Sign In</Title>
+            <Title>{I18n.t('signin')}</Title>
           </Body>
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
@@ -47,7 +49,7 @@ export default class SignIn extends React.Component {
             <Button style={styles.button}
               block 
               bordered
-              onPress={() => navigation.navigate("SignUp")}
+              onPress={this.props.register}
             >
              <Text>Sign Up</Text>
             </Button>
@@ -64,3 +66,16 @@ const styles = StyleSheet.create({
   }
  
 });
+
+SignInScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+const mapDispatchToProps = {
+  login,
+  register
+};
+
+const SignIn = connect(null, mapDispatchToProps)(SignInScreen);
+
+export default SignIn;

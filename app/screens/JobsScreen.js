@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, Image, Dimensions } from 'react-native';
-import { translate } from 'react-i18next';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Icon } from "native-base";
 
 const deviceWidth = Dimensions.get("window").width;
@@ -8,23 +7,20 @@ const deviceWidth = Dimensions.get("window").width;
 const logo = require("../resource/images/xero.png");
 const cardImage = require("../resource/images/tradie.jpg");
 
-@translate(['home', 'common'], { wait: true })
-
-export default class Jobs extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('home:title')
+export default class JobsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
   });
 
   render(){
 
-    const { t, i18n, navigation } = this.props;
+    const { navigation } = this.props;
     const { navigate } = navigation;
 
     return (
       <Container>
         <Header>
           <Body>
-            <Title>{t('title')}</Title>
+            <Title>Jobs</Title>
           </Body>
         </Header>
         <Content padder>
