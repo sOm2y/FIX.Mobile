@@ -1,5 +1,8 @@
 import { AsyncStorage } from "react-native";
 import { createStore, combineReducers } from "redux";
+import { reducer as formReducer } from 'redux-form';
+import wizardPaginationReducer from './app/reducers/wizardPaginationReducer';
+
 import {
   persistCombineReducers,
   persistStore,
@@ -12,9 +15,8 @@ import authReducer from "./app/reducers/authReducer";
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
 const config = {
-  key: "root",
+  key: "rootzz",
   storage: AsyncStorage,
-  blacklist: ["counterString"]
 };
 
 const config1 = {
@@ -25,21 +27,26 @@ const config1 = {
 // Object of all the reducers for redux-persist
 const reducer = {
     counterReducer,
+    authReducer,
     navigationReducer,
-    authReducer
+    formReducer,
+    wizardPaginationReducer,
 };
 
 // This will persist all the reducers, but I don't want to persist navigation state, so instead will use persistReducer.
-// const rootReducer = persistCombineReducers(config, reducer)
+//  const rootReducer = persistCombineReducers(config, reducer)
 
 // We are only persisting the counterReducer and loginRducer
 
 
 // combineReducer applied on persisted(counterReducer) and NavigationReducer
 const rootReducer = combineReducers({
-  CounterReducer : persistReducer(config, counterReducer),
+  //CounterReducer : persistReducer(config, counterReducer),
   AuthReducer : persistReducer(config1, authReducer),
-  navigationReducer,
+  NavigationReducer: navigationReducer,
+  form: formReducer,
+  page: wizardPaginationReducer,
+
  // LoginReducer
 });
 

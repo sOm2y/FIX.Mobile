@@ -4,14 +4,18 @@ import Expo from 'expo';
 import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
 import { createStore } from 'redux';
-import Index from './app/index';
+import { PersistGate } from "redux-persist/es/integration/react";
+
 import { Root } from 'native-base';
+
+import Index from './app/index';
 import AppNavigation from './app/navigations/index';
 import allReducers from './app/reducers/index'
+import configureStore from "./store";
 
+const { store, persistor } = configureStore();
 
 export default class App extends React.Component {
-  store = createStore(allReducers);
   constructor() {
     super();
     this.state = {
@@ -32,9 +36,11 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
     return (
-      <Provider store= {this.store}>
+      <Provider store= {store}>
         <Root>
-          <AppNavigation/> 
+          <PersistGate persistor={persistor}>
+            <AppNavigation/> 
+          </PersistGate>
         </Root>
       </Provider>
     );
