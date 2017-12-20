@@ -1,19 +1,20 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import PropTypes from 'prop-types';
+import I18n from 'ex-react-native-i18n';
 import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
+
 import { loginUserAccount } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
 import { login, register } from "../actions/actionCreator";
 
-@withNavigation
+
 class SignInScreen extends React.Component {
   static navigationOptions = ({ navigation}) => ({
-    title: 'SignIn'
+    title: 'title'
   });
 
   onSubmit = (values, dispatch, navigation) => {
@@ -33,14 +34,14 @@ class SignInScreen extends React.Component {
 }
 
   render(){
-    const { t, i18n, navigation } = this.props;
+    const { navigation } = this.props;
     const { navigate } = navigation;
     
     return (
       <Container>
         <Header>
           <Body>
-            <Title>Sign In</Title>
+            <Title>{I18n.t('signin')}</Title>
           </Body>
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>

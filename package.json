@@ -28,6 +28,7 @@
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
     "axios": "^0.17.1",
+    "ex-react-native-i18n": "0.0.3",
     "expo": "^23.0.6",
     "i18next": "^10.2.1",
     "native-base": "^2.3.5",
