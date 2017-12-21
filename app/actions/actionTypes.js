@@ -6,6 +6,8 @@ const Register = "REGISTER";
 const RegisterSuccess = "REGISTER_SUCCESS";
 const NavigateToLogoutScreen = "NAVIGATE_TO_LOGOUT_SCREEN";
 const NavigationBack = 'Navigation/BACK';
+const CustomerSignup = 'CUSTOMER_SIGNUP';
+const TradieSignup = 'TRADIE_SIGNUP';
 
 export {
     NextPage,
@@ -15,5 +17,7 @@ export {
     Register,
     RegisterSuccess,
     NavigateToLogoutScreen,
-    NavigationBack
+    NavigationBack,
+    CustomerSignup,
+    TradieSignup
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from 'react-native';
 import { connect } from "react-redux";
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
-import { navigationBack, customer, tradie } from "../actions/actionCreator";
+import { navigationBack, tradieSignup, customerSignup } from "../actions/actionCreator";
 
 class SignUpScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -28,12 +28,12 @@ class SignUpScreen extends React.Component {
         <Content padder>
             <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={() => { navigation.navigate("Customer"); }}>
+                onPress={this.props.customerSignup}>
             <Text>Goto Customer</Text>
             </Button>
             <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={() => { navigation.navigate("Tradie"); }}>
+                onPress={this.props.tradieSignup}>
             <Text>Goto Tradie</Text>
             
 
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = {
   navigationBack,
-  customer,
-  tradie
+  customerSignup,
+  tradieSignup
 };
 
 const SignUp = connect(null, mapDispatchToProps)(SignUpScreen);

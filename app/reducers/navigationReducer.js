@@ -6,12 +6,18 @@ import {
   Logout,
   Register,
   RegisterSuccess,
-  NavigateToLogoutScreen
+  NavigateToLogoutScreen,
+  CustomerSignup,
+  TradieSignup
 } from "../actions/actionTypes";
 
 const ActionForLoggedOut = AppRootNavigator.router.getActionForPathAndParams('SignIn');
 
 const ActionForLoggedIn = AppRootNavigator.router.getActionForPathAndParams('Home');
+
+const ActionForTraide = AppRootNavigator.router.getActionForPathAndParams('Tradie');
+
+const ActionForCustomer = AppRootNavigator.router.getActionForPathAndParams('Customer');
 
 const stateForLoggedOut = AppRootNavigator.router.getStateForAction(
   ActionForLoggedOut
@@ -115,6 +121,24 @@ const navigationReducer = (state = initialState, action) => {
                 : { ...route }
           )
         }
+      };
+    
+    case CustomerSignup:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          ActionForCustomer,
+          state.stateForLoggedIn
+        )
+      };
+
+    case TradieSignup:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          ActionForTraide,
+          state.stateForLoggedIn
+        )
       };
 
     default:

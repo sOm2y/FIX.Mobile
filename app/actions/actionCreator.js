@@ -6,7 +6,9 @@ import {
   Register,
   RegisterSuccess,
   NavigateToLogoutScreen,
-  NavigationBack
+  NavigationBack,
+  CustomerSignup,
+  TradieSignup
 } from "./actionTypes";
 
 export const increment = () => {
@@ -51,6 +53,15 @@ const navigateToLogoutScreen = () => ({
 const navigationBack = () => ({
   type: NavigationBack
 });
+
+const customerSignup = () => ({
+  type: CustomerSignup
+});
+
+const tradieSignup = () => ({
+  type: TradieSignup
+});
+
 export {
   nextPage,
   previousPage,
@@ -59,5 +70,7 @@ export {
   register,
   registerSuccess,
   navigateToLogoutScreen,
-  navigationBack
+  navigationBack,
+  customerSignup,
+  tradieSignup
 };
