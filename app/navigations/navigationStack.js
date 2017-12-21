@@ -7,12 +7,14 @@ import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
 import SignUpScreen from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
-import JobsScreen from '../screens/JobsScreen';
-import CreateJobScreen from '../screens/CreateJobScreen';
+import JobsScreen from '../screens//jobs/JobsScreen';
+import CreateJobScreen from '../screens/jobs/CreateJobScreen';
+import JobFinderScreen from '../screens/jobs/JobFinderScreen';
 import CustomerScreen from '../screens/registration/CustomerScreen';
 import TradieScreen from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import Profile from '../screens/ProfileScreen';
+
 
 
   
@@ -26,6 +28,12 @@ export const JobNavigator = StackNavigator(
     },
     CreateJob:{
       screen: CreateJobScreen,
+      navigationOptions: {
+        
+      }
+    },
+    JobFinder:{
+      screen: JobFinderScreen,
       navigationOptions: {
         
       }

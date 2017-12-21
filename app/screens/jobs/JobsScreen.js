@@ -4,8 +4,8 @@ import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, C
 
 const deviceWidth = Dimensions.get("window").width;
 
-const logo = require("../resource/images/xero.png");
-const cardImage = require("../resource/images/tradie.jpg");
+const logo = require("../../resource/images/xero.png");
+const cardImage = require("../../resource/images/tradie.jpg");
 
 export default class JobsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({

@@ -1,8 +1,8 @@
 import React from "react";
 import { reset } from 'redux-form';
-import { postUserAccount } from '../services/authService';
-import { toastShow } from '../services/toastService';
-import CreateJobForm from '../components/forms/CreateJobForm';
+import { postUserAccount } from '../../services/authService';
+import { toastShow } from '../../services/toastService';
+import CreateJobForm from '../../components/forms/CreateJobForm';
 
 
 
@@ -12,9 +12,10 @@ export default class CreateJobScreen extends React.Component {
 
   onSubmit = (values, dispatch, navigation) => {
     console.log(values);
+    navigation.navigate("JobFinder");
     return postUserAccount(values)
     .then(res => {
-      navigation.navigate("Home");
+    
       dispatch(reset('WizardForm'));
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {

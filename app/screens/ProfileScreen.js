@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
 import { logout } from "../actions/actionCreator";
 
-@withNavigation
 class ProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
