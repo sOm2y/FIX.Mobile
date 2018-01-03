@@ -15,7 +15,7 @@ import authReducer from "./app/reducers/authReducer";
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
 const config = {
-  key: "rootzz",
+  key: "root",
   storage: AsyncStorage,
 };
 

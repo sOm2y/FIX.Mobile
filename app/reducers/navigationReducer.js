@@ -1,6 +1,6 @@
 import { NavigationActions } from "react-navigation";
 
-import AppRootNavigator, { Tabs } from "../navigations/navigationStack";
+import AppRootNavigator, { Tabs, RegistrationNavigator } from "../navigations/navigationStack";
 import {
   Login,
   Logout,
@@ -124,11 +124,13 @@ const navigationReducer = (state = initialState, action) => {
       };
     
     case CustomerSignup:
+      console.log(state+'  '+AppRootNavigator.router.getActionForPathAndParams("Home")+NavigationActions.navigate({ routeName: 'Home' }));
       return {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(
-          ActionForCustomer,
-          state.stateForLoggedIn
+          RegistrationNavigator.router.getActionForPathAndParams("Customer"),
+          state.stateForLoggedOut
+       
         )
       };
 
@@ -137,7 +139,7 @@ const navigationReducer = (state = initialState, action) => {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(
           ActionForTraide,
-          state.stateForLoggedIn
+          state.stateForLoggedOut
         )
       };
 
