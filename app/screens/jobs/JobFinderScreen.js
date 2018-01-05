@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View,
   ScrollView,
   Animated,
@@ -10,6 +9,7 @@ import {
   Dimensions,
   Platform
 } from "react-native";
+import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 
 
 import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
@@ -141,6 +141,7 @@ import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
         }
   
     render() {
+      const { navigation } = this.props;
       const interpolations = this.state.markers.map((marker, index) => {
         const inputRange = [
           (index - 1) * CARD_WIDTH,
@@ -164,6 +165,20 @@ import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
         return <AppLoading />;
       }
       return (
+        <Container>
+        <Header>
+            <Left>
+    
+                <Button transparent onPress={() => navigation.goBack()}>
+                    <Icon name="arrow-back" />
+                </Button>
+            
+            </Left>
+          <Body>
+            <Title>Create Job</Title>
+          </Body>
+          <Right />
+        </Header>
         <View style={styles.container}>
           <MapView
             ref={map => this.map = map}
@@ -228,6 +243,7 @@ import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
             ))}
           </Animated.ScrollView>
         </View>
+        </Container>
       );
     }
   }

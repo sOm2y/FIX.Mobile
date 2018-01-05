@@ -16,7 +16,7 @@ class ProfileScreen extends React.Component {
       <Container>
         <Header>
           <Body>
-            <Title>Header</Title>
+            <Title>Profile</Title>
           </Body>
         </Header>
         <Content>

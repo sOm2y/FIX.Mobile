@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
-import SignUpScreen from '../screens/SignUpScreen';
+import SignUp from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
 import JobsScreen from '../screens//jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
@@ -15,9 +15,6 @@ import TradieScreen from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import Profile from '../screens/ProfileScreen';
 
-
-
-  
 export const JobNavigator = StackNavigator(
   { 
     Jobs:{
@@ -48,7 +45,7 @@ export const JobNavigator = StackNavigator(
 export const RegistrationNavigator = StackNavigator(
   { 
     SignUp:{
-      screen: SignUpScreen,
+      screen: SignUp,
       navigationOptions: {
         
       }
@@ -72,29 +69,6 @@ export const RegistrationNavigator = StackNavigator(
     gesturesEnabled:true,
     initialRouteName : 'SignUp',
   });
-
-  export const LoginNavigator = StackNavigator(
-    { 
-      SignIn:{
-        screen: SignIn,
-        navigationOptions: {
-          
-        }
-      },
-      SignUp:{
-        screen: SignUpScreen,
-        navigationOptions: {
-          
-        }
-      }
-    },{
-      headerMode: 'none',
-      animationEnabled: true,
-      gesturesEnabled:true,
-      initialRouteName : 'SignIn',
-    });
-      
-    
 
 export const HomeTabNavigator = TabNavigator(
   {

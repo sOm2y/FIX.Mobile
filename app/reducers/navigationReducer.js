@@ -1,23 +1,20 @@
 import { NavigationActions } from "react-navigation";
 
-import AppRootNavigator, { Tabs, RegistrationNavigator } from "../navigations/navigationStack";
+import AppRootNavigator from "../navigations/navigationStack";
 import {
   Login,
   Logout,
   Register,
+  CustomerRegister,
+  TradieRegister,
   RegisterSuccess,
   NavigateToLogoutScreen,
-  CustomerSignup,
-  TradieSignup
+
 } from "../actions/actionTypes";
 
 const ActionForLoggedOut = AppRootNavigator.router.getActionForPathAndParams('SignIn');
 
 const ActionForLoggedIn = AppRootNavigator.router.getActionForPathAndParams('Home');
-
-const ActionForTraide = AppRootNavigator.router.getActionForPathAndParams('Tradie');
-
-const ActionForCustomer = AppRootNavigator.router.getActionForPathAndParams('Customer');
 
 const stateForLoggedOut = AppRootNavigator.router.getStateForAction(
   ActionForLoggedOut
@@ -48,6 +45,24 @@ const navigationReducer = (state = initialState, action) => {
         ...state,
         stateForLoggedOut: AppRootNavigator.router.getStateForAction(
           AppRootNavigator.router.getActionForPathAndParams("SignUp"),
+          stateForLoggedOut
+        )
+      };
+
+    case CustomerRegister:
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("SignUp/Customer"),
+          stateForLoggedOut
+        )
+      };
+    
+    case TradieRegister:
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("SignUp/Tradie"),
           stateForLoggedOut
         )
       };
@@ -121,26 +136,6 @@ const navigationReducer = (state = initialState, action) => {
                 : { ...route }
           )
         }
-      };
-    
-    case CustomerSignup:
-      console.log(state+'  '+AppRootNavigator.router.getActionForPathAndParams("Home")+NavigationActions.navigate({ routeName: 'Home' }));
-      return {
-        ...state,
-        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
-          RegistrationNavigator.router.getActionForPathAndParams("Customer"),
-          state.stateForLoggedOut
-       
-        )
-      };
-
-    case TradieSignup:
-      return {
-        ...state,
-        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
-          ActionForTraide,
-          state.stateForLoggedOut
-        )
       };
 
     default:

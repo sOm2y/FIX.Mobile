@@ -24,6 +24,12 @@ const config1 = {
   storage: AsyncStorage
 };
 
+const config2 = {
+  key: "form",
+  storage: AsyncStorage
+};
+
+
 // Object of all the reducers for redux-persist
 const reducer = {
     counterReducer,
@@ -44,7 +50,7 @@ const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
   AuthReducer : persistReducer(config1, authReducer),
   NavigationReducer: navigationReducer,
-  form: formReducer,
+  form: persistReducer(config2, formReducer),
   page: wizardPaginationReducer,
 
  // LoginReducer

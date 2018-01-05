@@ -17,7 +17,7 @@ const validate = values => {
     error.email= '@ not included';
   }
 
-  if(nm.length > 8){
+  if(nm.length > 30){
     error.username= 'max 8 characters';
   }
 return error;
