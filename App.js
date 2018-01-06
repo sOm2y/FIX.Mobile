@@ -1,6 +1,6 @@
 import React from 'react';
-import Expo from 'expo';
-
+import Expo, {Fingerprint} from 'expo';
+import { Platform, Alert } from 'react-native';
 import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
 import { PersistGate } from "redux-persist/es/integration/react";
@@ -9,6 +9,7 @@ import { Root } from 'native-base';
 
 import AppNavigation from './app/navigations/index';
 import configureStore from "./store";
+import { isSignedIn } from "./app/services/authService";
 
 const { store, persistor } = configureStore();
 
@@ -18,7 +19,10 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      isReady: false
+      isReady: false,
+      hasFingerprintAuth: null,
+      signedIn: false,
+      checkedSignIn: false
     };
   }
   async componentWillMount() {
@@ -63,13 +67,66 @@ export default class App extends React.Component {
       'en': require('./app/locales/en'),
       'zh': require('./app/locales/zh-Hans')
     }
+    Fingerprint.hasHardwareAsync().then(hasHardware => {
+      if(hasHardware){
+        Fingerprint.isEnrolledAsync().then(hasFingerprintAuth => {
+          if(hasFingerprintAuth){
+            if( Platform.OS === 'android'){
+              Alert.alert('Place your finger to scan.')
+            }
+            this.authFunction();
+          }else{
+            this.setState({ signedIn: false, checkedSignIn: false});
+          }
+          this.setState({ hasFingerprintAuth });
+        });
+      }else{
+        this.setState({ signedIn: false, checkedSignIn: false});
+      }
+        
+    });
+  
 
     this.setState({ isReady: true });
   }
+
+  authFunction = async () => {
+    try {
+      let result =
+        Platform.OS === 'ios'
+          ? await Fingerprint.authenticateAsync('Show me your finger')
+          : await Fingerprint.authenticateAsync();
+
+      if (result.success) {
+          isSignedIn()
+          .then(res => this.setState({ signedIn: result.success, checkedSignIn: result.success }));
+      } else {
+        this.setState({ signedIn: result.success, checkedSignIn: result.success });
+        console.log('Fingerprint Auth Failed', result);
+      }
+    } catch (err) {
+      console.log('authFunction Error', err);
+    }
+  };
+
+  getAuthStatement = () => {
+    return (
+      Alert.alert('Place your finger to scan.')
+    );
+  };
+
   render() {
+    const { checkedSignIn, signedIn } = this.state;
+
     if (!this.state.isReady) {
       return <AppLoading />;
     }
+    
+    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
+    if (!checkedSignIn) {
+      return null;
+    }
+    
     return (
       <Provider store= {store}>
         <Root>
