@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from "native-base";
 
-import CredentialForm from './SignUp/CredentialForm';
-import DetailForm from './SignUp/DetailForm';
-import AddrerssForm from './SignUp/AddrerssForm';
-import ConfirmationForm from './SignUp/ConfirmationForm';
+import CredentialForm from './signup/CredentialForm';
+import DetailForm from './signup/DetailForm';
+import AddrerssForm from './signup/AddrerssForm';
+import ConfirmationForm from './signup/ConfirmationForm';
 import { nextPage, previousPage } from '../../actions/actionCreator';
 
 
-class WizardTradieForm extends React.Component {
+class WizardJobForm extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
@@ -67,7 +67,7 @@ class WizardTradieForm extends React.Component {
   }
 }
 
-WizardTradieForm.propTypes = {
+WizardJobForm.propTypes = {
   previousPage: PropTypes.func.isRequired,
   nextPage: PropTypes.func.isRequired
 };
@@ -91,4 +91,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({ previousPage: previousPage, nextPage: nextPage}, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WizardTradieForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WizardJobForm);

@@ -1,14 +1,15 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { Container, Header, Left, Icon, Body, Right, Content, Button, Text, List, Spinner, Separator, ListItem, Title } from "native-base";
+import { Container, Header, Left, Icon, Body, Right, Content, Button, Text, List, Spinner, Separator, ListItem, Title, Item, Label, Input } from "native-base";
 import { Field, reduxForm } from 'redux-form';
-import validate from '../../helpers/validateHelper';
-import { renderName } from '../../components/inputs/renderUsername';
-import { renderPassword } from '../../components/inputs/renderPassword';
-import ImageUpload from '../ImageUpload';
+import validate from '../../../helpers/validateHelper';
+import { renderName } from '../../inputs/renderUsername';
+import { renderPassword } from '../../inputs/renderPassword';
+import { renderPicker } from '../../inputs/renderPicker';
+import ImageUpload from '../../ImageUpload';
 
 
-export class CreateJobForm extends React.Component{
+class JobDetailForm extends React.Component{
     static navigationOptions = ({ navigation, screenProps }) => ({
     });
 
@@ -40,20 +41,36 @@ export class CreateJobForm extends React.Component{
                 <Separator bordered>
                     <Text>TITLE & CATEGORY</Text>
                 </Separator>
-                <ListItem style={{ marginLeft: 0}}>
-                <Body>
-                    <Text>Title</Text>
-                    </Body>
-                </ListItem>
+           
+
+
+                 
+                 
+                    <Field
+                    name="title"
+                    type="text"
+                    component={renderName}
+                    label="Title"
+                />
+                    
+       
+     
                 <ListItem style={{ marginLeft: 0}}>
                     <Body>
-                    <Text>Category</Text>
+  
+                    <Field name="vehicleType" mode="dropdown" style={{left: 10}} component={renderPicker} >
+                        <Item label="Car" value="Car" />
+                        <Item label="Bus" value="Bus" />
+                        <Item label="Bajaji" value="Bajaji" />
+                        <Item label="Motorbike" value="Motobike" />
+                        <Item label="Camel" value="Camel" />
+                    </Field>
                     </Body>
                 </ListItem>
                 <ListItem style={{ marginLeft: 0}}>
                 <Body>
                     <Text>SubCategory</Text>
-                    </Body>
+                </Body>
                 </ListItem>
                 <Separator bordered>
                     <Text>JOB DETAIL</Text>
@@ -100,6 +117,6 @@ export class CreateJobForm extends React.Component{
 }
 
 export default reduxForm({
-  form: 'CreateJobForm', //                 <------ same form name
+  form: 'JobDetailForm', //                 <------ same form name
   validate,
-})(CreateJobForm);
+})(JobDetailForm);

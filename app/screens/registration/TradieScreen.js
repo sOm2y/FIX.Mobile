@@ -2,7 +2,7 @@ import React from "react";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import WizardTradieForm from '../../components/forms/WizardCustomerForm';
+import WizardTradieForm from '../../components/wizards/WizardCustomerForm';
 
 export default class TradieScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({

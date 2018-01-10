@@ -50,7 +50,7 @@ const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
   AuthReducer : persistReducer(config1, authReducer),
   NavigationReducer: navigationReducer,
-  form: persistReducer(config2, formReducer),
+  form: formReducer,
   page: wizardPaginationReducer,
 
  // LoginReducer

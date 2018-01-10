@@ -6,10 +6,10 @@ import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
 
-import CredentialForm from './SignUp/CredentialForm';
-import DetailForm from './SignUp/DetailForm';
-import AddrerssForm from './SignUp/AddrerssForm';
-import ConfirmationForm from './SignUp/ConfirmationForm';
+import CredentialForm from '../forms/signup/CredentialForm';
+import DetailForm from '../forms/signup/DetailForm';
+import AddrerssForm from '../forms/signup/AddrerssForm';
+import ConfirmationForm from '../forms/signup/ConfirmationForm';
 import { nextPage, previousPage } from '../../actions/actionCreator';
 
 
@@ -54,9 +54,6 @@ class WizardCustomerForm extends React.Component {
           title = 'Personal Detail';
          break;
         case 2:
-          title = 'Address';
-          break;
-        case 3:
           title = 'Confirmation';
           break;
         default:
@@ -82,11 +79,10 @@ class WizardCustomerForm extends React.Component {
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-        <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Address","Confirmation"]} />
+        <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Address","Confirmation"]} />
         {page === 0 &&<CredentialForm onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<AddrerssForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 3 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
+        {page === 2 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>
       </Container>
     );

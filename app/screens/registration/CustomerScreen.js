@@ -2,7 +2,7 @@ import React from "react";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import WizardCustomerForm from '../../components/forms/WizardCustomerForm';
+import WizardCustomerForm from '../../components/wizards/WizardCustomerForm';
 
 
 export default class CustomerScreen extends React.Component {

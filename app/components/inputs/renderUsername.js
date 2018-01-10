@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item, Input, Icon } from 'native-base';
+import { Item, Input, Icon, Label } from 'native-base';
 
 export const renderName= ({ input, label, type, meta: { touched, error, warning } }) => {
     var hasError= false;
@@ -7,9 +7,9 @@ export const renderName= ({ input, label, type, meta: { touched, error, warning 
         hasError= true;
     }
     return ( 
-        <Item style= {{ margin: 10 }} error= {hasError} success={!hasError&&touched&&input.value.length>0}>
+        <Item floatingLabel style= {{ margin: 10, flexDirection: 'row-reverse' }} error= {hasError} success={!hasError&&touched&&input.value.length>0}>
+            <Label>{label}</Label>
             <Input type={type} 
-                placeholder={label}  
                 autoCapitalize="none"
                 autoCorrect={false} {...input}/>
             {!hasError&&touched&&input.value.length>0&& <Icon name='checkmark-circle' />}
