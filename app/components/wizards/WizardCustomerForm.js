@@ -79,7 +79,7 @@ class WizardCustomerForm extends React.Component {
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-        <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Address","Confirmation"]} />
+        <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Confirmation"]} />
         {page === 0 &&<CredentialForm onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 2 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={onSubmit} />}

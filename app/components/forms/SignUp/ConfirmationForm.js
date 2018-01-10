@@ -45,11 +45,11 @@ let ConfirmationForm = props => {
                     <Text>Your phone number : {phonenumber}</Text>
                 </Body>
             </ListItem>
-            <ListItem style={{  backgroundColor:'transparent', marginLeft: 0}}>
+            {/* <ListItem style={{  backgroundColor:'transparent', marginLeft: 0}}>
                 <Body>
                     <Text>Your home address : {address&&address.location}</Text>
                 </Body>
-            </ListItem>
+            </ListItem> */}
             <Button block primary
             style={{ marginTop: 10 }}
             onPress={handleSubmit} 
