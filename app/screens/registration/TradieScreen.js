@@ -14,8 +14,8 @@ class TradieScreen extends React.Component {
     console.log(values);
     return postUserAccount(values)
     .then(res => {
-      dispatch(registerSuccess);
       dispatch(reset('CustomerWizardForm'));
+      this.props.registerSuccess();
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
       toastShow("SignIn Unsuccessfully", "danger", 3000);   
@@ -32,7 +32,7 @@ class TradieScreen extends React.Component {
 }
 
 const mapDispatchToProps = {
-  // registerSuccess
+  registerSuccess
 };
 
 const TradieRegister = connect(null, mapDispatchToProps)(TradieScreen);

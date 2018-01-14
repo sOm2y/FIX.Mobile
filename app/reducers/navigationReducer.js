@@ -72,7 +72,7 @@ const navigationReducer = (state = initialState, action) => {
     case Jobs:
       return {
         ...state,
-        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
           AppRootNavigator.router.getActionForPathAndParams("Home/Jobs"),
           stateForLoggedIn
         )
@@ -81,8 +81,8 @@ const navigationReducer = (state = initialState, action) => {
     case CreateJob:
       return {
         ...state,
-        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
-          AppRootNavigator.router.getActionForPathAndParams("Home/Profile"),
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("Home/CreateJob"),
           stateForLoggedIn
         )
       };

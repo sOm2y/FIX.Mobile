@@ -15,8 +15,8 @@ class CustomerScreen extends React.Component {
     console.log(values);
     return postUserAccount(values)
     .then(res => {
-      dispatch(registerSuccess);
       dispatch(reset('WizardForm'));
+      this.props.registerSuccess();
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
       toastShow("SignIn Unsuccessfully", "danger", 3000); 
@@ -34,7 +34,7 @@ class CustomerScreen extends React.Component {
 }
 
 const mapDispatchToProps = {
-  // registerSuccess
+    registerSuccess
 };
 
 const CustomerRegister = connect(null, mapDispatchToProps)(CustomerScreen);
