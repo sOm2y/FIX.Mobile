@@ -2,11 +2,10 @@ import React from "react";
 import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
-import { renderName } from '../../../components/inputs/renderUsername';
-import { renderEmail } from "../../../components/inputs/renderEmail";
-import { renderPhone } from "../../../components/inputs/renderPhone";
+import { renderAddress } from "../../inputs/renderAddress";
 
-export class DetailForm extends React.Component{
+
+export class AddressForm extends React.Component{
     static navigationOptions = ({ navigation }) => ({
     });
     
@@ -16,34 +15,17 @@ export class DetailForm extends React.Component{
         return (
             <Form>
                 <Field
-                    name="firstname"
+                    name="address"
                     type="text"
-                    component={renderName}
-                    label="First Name"
+                    component={renderAddress}
+                    label="Your address"
                 />
-                <Field
-                    name="lastname"
-                    type="text"
-                    component={renderName}
-                    label="Last Name"
-                />
-                 <Field
-                    name="email"
-                    type="email"
-                    component={renderEmail}
-                    label="Email"
-                />
-                <Field
-                    name="phonenumber"
-                    type="number"
-                    component={renderPhone}
-                    label="Phone number"
-                />
+               
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
                 disabled={pristine || submitting}>
-                    <Text>Next</Text>
+                    <Text>Submit</Text>
                 </Button>
                 <Button bordered block primary
                 style={{ marginTop: 10 }}
@@ -57,8 +39,8 @@ export class DetailForm extends React.Component{
 }
 
 export default reduxForm({
-  form: 'WizardForm', //                 <------ same form name
+//   form: 'WizardForm', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,
-})(DetailForm);
+})(AddressForm);

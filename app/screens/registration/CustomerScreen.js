@@ -25,7 +25,7 @@ export default class CustomerScreen extends React.Component {
     const { navigate } = navigation;
 
     return (
-     <WizardCustomerForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+     <WizardCustomerForm wizardLabel='WizardCustomerForm' navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

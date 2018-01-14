@@ -6,10 +6,10 @@ import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Text, Left, Icon, Right} from "native-base";
 
-import CredentialForm from '../forms/signup/CredentialForm';
-import DetailForm from '../forms/signup/DetailForm';
-import AddrerssForm from '../forms/signup/AddrerssForm';
-import ConfirmationForm from '../forms/signup/ConfirmationForm';
+import CredentialForm from '../forms/register/CredentialForm';
+import DetailForm from '../forms/register/DetailForm';
+import AddrerssForm from '../forms/register/AddrerssForm';
+import ConfirmationForm from '../forms/register/ConfirmationForm';
 import { nextPage, previousPage } from '../../actions/actionCreator';
 
 
@@ -43,7 +43,7 @@ class WizardCustomerForm extends React.Component {
   });
 
   render(){
-    const { t, i18n, navigation, page, onSubmit } = this.props;
+    const { t, i18n, navigation, page, onSubmit, wizardLabel } = this.props;
     const displayWizardTitle = (pageIndex) => {
       let title = ''
       switch(pageIndex){
@@ -80,9 +80,9 @@ class WizardCustomerForm extends React.Component {
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Confirmation"]} />
-        {page === 0 &&<CredentialForm onSubmit={this.props.nextPage} />}
-        {page === 1 &&<DetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
+        {page === 0 &&<CredentialForm {...this.props} onSubmit={this.props.nextPage} />}
+        {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
+        {page === 2 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>
       </Container>
     );
@@ -103,9 +103,10 @@ const styles = StyleSheet.create({
  
 });
 
-function mapStateToProps(state){
+function mapStateToProps(state, props){
   return{
-    page : state.page
+    page : state.page,
+    form: props.wizardLabel
   };
 }
 

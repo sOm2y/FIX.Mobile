@@ -2,7 +2,7 @@ import React from "react";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import JobDetailForm from '../../components/forms/job/JobDetailForm';
+import WizardJobForm from '../../components/wizards/WizardJobForm';
 
 
 
@@ -27,7 +27,7 @@ export default class CreateJobScreen extends React.Component {
     const { navigate } = navigation;
 
     return (
-        <JobDetailForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+        <WizardJobForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

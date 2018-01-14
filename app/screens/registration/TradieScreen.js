@@ -24,7 +24,7 @@ export default class TradieScreen extends React.Component {
     const { navigate } = navigation;
 
     return (
-     <WizardTradieForm navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+     <WizardTradieForm wizardLabel='WizardTradieForm' navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

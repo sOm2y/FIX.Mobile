@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from "native-base";
 
-import CredentialForm from './signup/CredentialForm';
-import DetailForm from './signup/DetailForm';
-import AddrerssForm from './signup/AddrerssForm';
-import ConfirmationForm from './signup/ConfirmationForm';
+
+import JobDetailForm from '../forms/job/JobDetailForm';
+import AddrerssForm from '../forms/register/AddrerssForm';kj
+import ConfirmationForm from '../forms/register/ConfirmationForm';
 import { nextPage, previousPage } from '../../actions/actionCreator';
 
 
@@ -57,8 +57,7 @@ class WizardJobForm extends React.Component {
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-        {page === 0 &&<CredentialForm onSubmit={this.props.nextPage} />}
-        {page === 1 &&<DetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
+        {page === 1 &&<JobDetailForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 2 &&<AddrerssForm previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 3 &&<ConfirmationForm previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>

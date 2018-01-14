@@ -46,7 +46,7 @@ export class CredentialForm extends React.Component{
 }
 
 export default reduxForm({
-  form: 'WizardForm', //                 <------ same form name
+//   form: 'WizardForm', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,

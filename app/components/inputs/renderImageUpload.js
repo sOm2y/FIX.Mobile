@@ -12,8 +12,9 @@ import {
 import Exponent, { Constants, ImagePicker, registerRootComponent } from 'expo';
 import {  Button, Text, List, ListItem, Spinner, Body, ActionSheet } from "native-base";
 
-const BUTTONS = ["take a photo", "choose from camera roll", "Cancel"];
-export default class App extends React.Component {
+const BUTTONS = ["Take a photo", "Choose from camera roll", "Cancel"];
+
+export default class RenderImageUpload extends React.Component {
   state = {
     image: null,
     uploading: false,
@@ -148,15 +149,6 @@ export default class App extends React.Component {
 
 async function uploadImageAsync(uri) {
   let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
-
-  // Note:
-  // Uncomment this if you want to experiment with local server
-  //
-  // if (Constants.isDevice) {
-  //   apiUrl = `https://your-ngrok-subdomain.ngrok.io/upload`;
-  // } else {
-  //   apiUrl = `http://localhost:3000/upload`
-  // }
 
   let uriParts = uri.split('.');
   let fileType = uri[uri.length - 1];
