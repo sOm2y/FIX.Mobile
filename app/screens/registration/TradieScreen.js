@@ -1,18 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
+import { registerSuccess } from "../../actions/actionCreator";
 import WizardTradieForm from '../../components/wizards/WizardCustomerForm';
 
-export default class TradieScreen extends React.Component {
+class TradieScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
-  onSubmit = (values, dispatch, navigation) => {
+  onSubmit = (values, dispatch) => {
     console.log(values);
     return postUserAccount(values)
     .then(res => {
-      navigation.navigate("Home");
+      dispatch(registerSuccess);
       dispatch(reset('CustomerWizardForm'));
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
@@ -24,7 +26,15 @@ export default class TradieScreen extends React.Component {
     const { navigate } = navigation;
 
     return (
-     <WizardTradieForm wizardLabel='WizardTradieForm' navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+     <WizardTradieForm wizardLabel='WizardTradieForm' navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch)} />
     );
   }
 }
+
+const mapDispatchToProps = {
+  // registerSuccess
+};
+
+const TradieRegister = connect(null, mapDispatchToProps)(TradieScreen);
+
+export default TradieRegister;

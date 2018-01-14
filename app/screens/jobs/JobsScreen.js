@@ -1,13 +1,14 @@
 import React from "react";
 import { StyleSheet, Image, Dimensions } from 'react-native';
-import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Icon } from "native-base";
-
+import { connect } from "react-redux";
+import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
+import { createJob, navigationBack } from '../../actions/actionCreator';
 const deviceWidth = Dimensions.get("window").width;
 
 const logo = require("../../resource/images/xero.png");
 const cardImage = require("../../resource/images/tradie.jpg");
 
-export default class JobsScreen extends React.Component {
+class JobsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
@@ -19,15 +20,17 @@ export default class JobsScreen extends React.Component {
     return (
       <Container>
         <Header>
+       
           <Body>
             <Title>Jobs</Title>
           </Body>
+         
         </Header>
         <Content padder>
         <Button style={styles.button}
               block 
               primary
-              onPress={() => navigation.navigate("CreateJob")}
+              onPress={this.props.createJob}
             >
              <Text>Add new Job</Text>
             </Button>
@@ -137,3 +140,12 @@ const styles = StyleSheet.create({
    height:200
   }
 });
+
+const mapDispatchToProps = {
+  navigationBack,
+  createJob
+};
+
+const Jobs = connect(null, mapDispatchToProps)(JobsScreen);
+
+export default Jobs;

@@ -10,7 +10,7 @@ import CredentialForm from '../forms/register/CredentialForm';
 import DetailForm from '../forms/register/DetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage } from '../../actions/actionCreator';
+import { nextPage, previousPage, navigationBack } from '../../actions/actionCreator';
 
 
 const thirdIndicatorStyles = {
@@ -68,7 +68,7 @@ class WizardCustomerForm extends React.Component {
         <Header>
             <Left>
             {page === 0 &&
-                <Button transparent onPress={() => navigation.goBack()}>
+                <Button transparent onPress={this.props.navigationBack}>
                     <Icon name="arrow-back" />
                 </Button>
             }
@@ -82,7 +82,7 @@ class WizardCustomerForm extends React.Component {
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Confirmation"]} />
         {page === 0 &&<CredentialForm {...this.props} onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
+        {page === 2 &&<ConfirmationForm  {...this.props} wizardLabel={this.props.wizardLabel} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>
       </Container>
     );
@@ -103,15 +103,17 @@ const styles = StyleSheet.create({
  
 });
 
-function mapStateToProps(state, props){
+const mapStateToProps = (state, props) =>{
   return{
     page : state.page,
     form: props.wizardLabel
   };
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({ previousPage: previousPage, nextPage: nextPage}, dispatch)
-}
+const mapDispatchToProps = {
+  navigationBack,
+  previousPage,
+  nextPage
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(WizardCustomerForm);

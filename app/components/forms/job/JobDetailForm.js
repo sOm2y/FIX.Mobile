@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
 import { renderPassword } from "../../../components/inputs/renderPassword";
+import { renderTextarea } from "../../../components/inputs/renderTextarea";
 
 
 export class JobDetailForm extends React.Component{
@@ -25,7 +26,7 @@ export class JobDetailForm extends React.Component{
                 <Field
                     name="description"
                     type="text"
-                    component={renderName}
+                    component={renderTextarea}
                     label="Description"
                 />
                 <Field
@@ -46,7 +47,6 @@ export class JobDetailForm extends React.Component{
 }
 
 export default reduxForm({
-  form: 'WizardJobForm', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,

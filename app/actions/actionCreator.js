@@ -8,7 +8,9 @@ import {
   NavigateToLogoutScreen,
   NavigationBack,
   CustomerRegister,
-  TradieRegister
+  TradieRegister,
+  Jobs,
+  CreateJob
 } from "./actionTypes";
 
 export const increment = () => {
@@ -62,6 +64,15 @@ const tradieRegister = () => ({
   type: TradieRegister
 });
 
+const jobs = () => ({
+  type: Jobs
+});
+
+const createJob = () => ({
+  type: CreateJob
+});
+
+
 export {
   nextPage,
   previousPage,
@@ -72,5 +83,7 @@ export {
   navigateToLogoutScreen,
   navigationBack,
   customerRegister,
-  tradieRegister
+  tradieRegister,
+  jobs,
+  createJob
 };

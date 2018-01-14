@@ -16,6 +16,7 @@ let ConfirmationForm = props => {
     handleSubmit,
     pristine,
     submitting,
+    wizardLabel
   } = props;
   return (
         //TODO: should use iteration to loop them out instead duplicate structure here.
@@ -80,14 +81,15 @@ ConfirmationForm = reduxForm({
 })(ConfirmationForm);
 
 // Decorate with connect to read form values
-const selector = formValueSelector('WizardForm'); // <-- same as form name
-ConfirmationForm = connect(state => {
-    const username = selector(state, 'username');
-    const email = selector(state, 'email');
-    const phonenumber = selector(state, 'phonenumber');
-    const firstname = selector(state, 'firstname');
-    const lastname = selector(state, 'lastname');
-    const address = selector(state, 'address');
+const selector = (wizardLabel, ...other) => (formValueSelector(wizardLabel))(...other);
+
+ConfirmationForm = connect((state, initialProps) => {
+    const username = selector(initialProps.wizardLabel, state, 'username');
+    const email = selector(initialProps.wizardLabel, state, 'email');
+    const phonenumber = selector(initialProps.wizardLabel, state, 'phonenumber');
+    const firstname = selector(initialProps.wizardLabel, state, 'firstname');
+    const lastname = selector(initialProps.wizardLabel, state, 'lastname');
+    const address = selector(initialProps.wizardLabel, state, 'address');
     return {
         username,
         email,

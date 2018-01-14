@@ -25,7 +25,7 @@ export class AddressForm extends React.Component{
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
                 disabled={pristine || submitting}>
-                    <Text>Submit</Text>
+                    <Text>Next</Text>
                 </Button>
                 <Button bordered block primary
                 style={{ marginTop: 10 }}

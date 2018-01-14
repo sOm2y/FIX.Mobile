@@ -15,7 +15,7 @@ class SignUpScreen extends React.Component {
     return (
       <Container>
         <Header>
-        <Left>
+          <Left>
             <Button transparent onPress={this.props.navigationBack}>
                 <Icon name="arrow-back" />
             </Button>

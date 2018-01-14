@@ -8,6 +8,8 @@ const NavigateToLogoutScreen = "NAVIGATE_TO_LOGOUT_SCREEN";
 const NavigationBack = 'Navigation/BACK';
 const CustomerRegister = 'CUSTOMER_SIGNUP';
 const TradieRegister = 'TRADIE_SIGNUP';
+const Jobs = 'JOBS';
+const CreateJob = 'CREATE_JOB';
 
 export {
     NextPage,
@@ -19,5 +21,7 @@ export {
     NavigateToLogoutScreen,
     NavigationBack,
     CustomerRegister,
-    TradieRegister
+    TradieRegister,
+    Jobs,
+    CreateJob
 };

@@ -9,6 +9,8 @@ import {
   TradieRegister,
   RegisterSuccess,
   NavigateToLogoutScreen,
+  Jobs,
+  CreateJob
 
 } from "../actions/actionTypes";
 
@@ -66,6 +68,25 @@ const navigationReducer = (state = initialState, action) => {
           stateForLoggedOut
         )
       };
+
+    case Jobs:
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("Home/Jobs"),
+          stateForLoggedIn
+        )
+      };
+
+    case CreateJob:
+      return {
+        ...state,
+        stateForLoggedOut: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("Home/Profile"),
+          stateForLoggedIn
+        )
+      };
+
 
     case RegisterSuccess:
       return {

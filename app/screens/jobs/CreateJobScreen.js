@@ -27,7 +27,7 @@ export default class CreateJobScreen extends React.Component {
     const { navigate } = navigation;
 
     return (
-        <WizardJobForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+        <WizardJobForm wizardLabel='WizardJobForm' onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
     );
   }
 }

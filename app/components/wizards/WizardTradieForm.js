@@ -10,7 +10,7 @@ import CredentialForm from '../forms/register/CredentialForm';
 import DetailForm from '../forms/register/DetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage } from '../../actions/actionCreator';
+import { nextPage, previousPage, navigationBack } from '../../actions/actionCreator';
 
 
 class WizardTradieForm extends React.Component {
@@ -46,7 +46,7 @@ class WizardTradieForm extends React.Component {
         <Header>
             <Left>
             {page === 0 &&
-                <Button transparent onPress={() => navigation.goBack()}>
+                <Button transparent onPress={this.props.navigationBack}>
                     <Icon name="arrow-back" />
                 </Button>
             }
@@ -81,15 +81,18 @@ const styles = StyleSheet.create({
  
 });
 
-function mapStateToProps(state, props){
+const mapStateToProps = (state, props) =>{
   return{
     page : state.page,
     form: props.wizardLabel
   };
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({ previousPage: previousPage, nextPage: nextPage}, dispatch)
-}
+const mapDispatchToProps = {
+  navigationBack,
+  previousPage,
+  nextPage
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(WizardTradieForm);
