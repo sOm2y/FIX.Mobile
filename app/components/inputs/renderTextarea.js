@@ -1,7 +1,7 @@
 import React from 'react';
 import { Item, Input, Icon, Label } from 'native-base';
 
-export const renderTextarea= ({ input, label, type, meta: { touched, error, warning } }) => {
+export const renderTextarea = ({ input, label, type, meta: { touched, error, warning } }) => {
     var hasError= false;
     if(error !== undefined){
         hasError= true;
