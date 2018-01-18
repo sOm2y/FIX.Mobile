@@ -22,11 +22,11 @@ const validate = values => {
     error.email= '@ not included';
   }
 
-  if(nm.length > 10){
-    error.username= 'max 10 characters';
+  if(nm.length > 30){
+    error.username= 'max 30 characters';
   }
 
-  if(title.length > 10){
+  if(title.length > 30){
     error.title = 'max 30 characters';
   }
 return error;
