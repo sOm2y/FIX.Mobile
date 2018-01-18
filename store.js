@@ -42,9 +42,6 @@ const reducer = {
 // This will persist all the reducers, but I don't want to persist navigation state, so instead will use persistReducer.
 //  const rootReducer = persistCombineReducers(config, reducer)
 
-// We are only persisting the counterReducer and loginRducer
-
-
 // combineReducer applied on persisted(counterReducer) and NavigationReducer
 const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
