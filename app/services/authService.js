@@ -39,7 +39,7 @@ export const loginUserAccount = ( loginUser ) => {
         reject(res);
       }
       axios.defaults.headers.common['Authorization'] = 'Bearer '+res.access_token;
-      AsyncStorage.setItem(USER_KEY, axios.defaults.headers.common['Authorization']);
+      AsyncStorage.setItem(USER_KEY, res.access_token);
       resolve(res);
     
     })

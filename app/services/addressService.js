@@ -5,15 +5,14 @@ import USER_KEY from './authService';
 
 export const getAddress = ( ) => {
     return new Promise((resolve, reject) => {
-      
-       
        axios({
          method: 'get',
-         url: '/api/address',
+         url: '/api/users',
          headers: {
            'Content-Type': 'application/json',
-           'Authorization': 'Bearer ' + AsyncStorage.getItem(USER_KEY, (err)=>{
-               console.log(err);
+           'Authorization': 'Bearer ' + AsyncStorage.getItem(USER_KEY).then(result=>{
+             console.log(result);
+             return result;
            })
          }
        })
@@ -21,7 +20,7 @@ export const getAddress = ( ) => {
          if(res.status === 400 || res.status === 403){
            reject(res);
          }
-       
+         console.log(res.data);
          resolve(res);
        
        })
