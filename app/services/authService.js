@@ -9,22 +9,13 @@ export const USER_KEY = "access_token";
 
 // export const onSignOut = () => AsyncStorage.removeItem(USER_KEY);
 
-// export const isSignedIn = () => {
-//   return new Promise((resolve, reject) => {
+export async function getAccessToken(){
+   
+  return await AsyncStorage.getItem(USER_KEY)
+     
+}
 
-//     AsyncStorage.getItem(USER_KEY)
-//       .then(res => {
-//         if (res !== null) {
-//           resolve(true);
-//         } else {
-//           resolve(false);
-//         }
-//       })
-//       .catch(err => reject(err));
-//   });
-// };
-
-export const loginUserAccount = ( loginUser ) => {
+export const loginUserAccount = ( loginUser ) =>{
  return new Promise((resolve, reject) => {
     axios({
       method: 'post',
@@ -38,8 +29,9 @@ export const loginUserAccount = ( loginUser ) => {
       if(res.status === 400 || res.status === 403){
         reject(res);
       }
-      axios.defaults.headers.common['Authorization'] = 'Bearer '+res.access_token;
-      AsyncStorage.setItem(USER_KEY, res.access_token);
+      console.log(res.data.access_token);
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.access_token;
+      AsyncStorage.setItem(USER_KEY, res.data.access_token);
       resolve(res);
     
     })
