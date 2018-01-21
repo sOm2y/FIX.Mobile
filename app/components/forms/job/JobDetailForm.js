@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
 import { renderPassword } from "../../../components/inputs/renderPassword";
+import { renderDatePicker } from "../../../components/inputs/renderDatePicker";
 import { renderTextarea } from "../../../components/inputs/renderTextarea";
 import {getAddress} from '../../../services/addressService';
 
@@ -34,12 +35,21 @@ export class JobDetailForm extends React.Component{
                     component={renderTextarea}
                     label="Description"
                 />
+
                 <Field
                     name="confirmpassword"
                     type="password"
                     component={renderPassword}
                     label="Re password"
                 />
+
+                <Field
+                    name="date"
+                    type="text"
+                    component={renderDatePicker}
+                    label="Date"
+                />
+
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
@@ -47,11 +57,6 @@ export class JobDetailForm extends React.Component{
                     <Text>Next</Text>
                 </Button>
 
-                <Button block primary
-                style={{ marginTop: 10 }}
-                onPress={this.getAddresses} >
-                    <Text>get address</Text>
-                </Button>
             </Form>
         );
     }

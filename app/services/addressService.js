@@ -6,22 +6,13 @@ import USER_KEY from './authService';
 
 axios.defaults.baseURL = 'http://fixwebapi.azurewebsites.net';
 
-// const getAccessToken = () => {
-//     AsyncStorage.getItem('access_token').then((value) => {
-//         console.log(value);
-//         if(value !== null){
-           
-//         }
-       
-//     }).done();
-// }
 
 export const getAddress = ( ) =>{
         return new Promise((resolve, reject) => {
 
             axios({
               method: 'get',
-              url: '/api/addresses/7',
+              url: '/api/addresses/',
               headers: {
                 'Content-Type': 'application/json'
               }

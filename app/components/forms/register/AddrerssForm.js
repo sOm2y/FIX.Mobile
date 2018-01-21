@@ -3,11 +3,19 @@ import { Button, Text, Form } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderAddress } from "../../inputs/renderAddress";
+import {getAddress} from '../../../services/addressService';
 
 
 export class AddressForm extends React.Component{
+    componentDidMount(){
+        getAddress().then(res=>{
+            console.log(res.data);
+        });
+    }
+
     static navigationOptions = ({ navigation }) => ({
     });
+
     
     render(){
         const { handleSubmit, navigation, pristine, submitting, previousPage } = this.props;

@@ -3,12 +3,18 @@ import { StyleSheet, Image, Dimensions } from 'react-native';
 import { connect } from "react-redux";
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
 import { createJob, navigationBack } from '../../actions/actionCreator';
+import {getAccessToken} from '../../services/authService';
+
 const deviceWidth = Dimensions.get("window").width;
 
 const logo = require("../../resource/images/xero.png");
 const cardImage = require("../../resource/images/tradie.jpg");
 
 class JobsScreen extends React.Component {
+  componentDidMount(){
+    getAccessToken();
+  }
+
   static navigationOptions = ({ navigation }) => ({
   });
 

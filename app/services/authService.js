@@ -9,11 +9,17 @@ export const USER_KEY = "access_token";
 
 // export const onSignOut = () => AsyncStorage.removeItem(USER_KEY);
 
-export async function getAccessToken(){
-   
-  return await AsyncStorage.getItem(USER_KEY)
+export const getAccessToken = () => {
+  AsyncStorage.getItem(USER_KEY).then((value) => {
+
+      if(value !== null){
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+ value;
+      }
+      console.log(value);
      
+  }).done();
 }
+
 
 export const loginUserAccount = ( loginUser ) =>{
  return new Promise((resolve, reject) => {
