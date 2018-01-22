@@ -3,7 +3,7 @@ import { Button, Text, Form, Spinner, List, ListItem, Radio, Left, Body, Right }
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderAddress } from '../../inputs/renderAddress';
-import { getAddresses }  from '../../../services/addressService';
+import { postAddress }  from '../../../services/addressService';
 
 
 export class AddAddressForm extends React.Component{
@@ -15,14 +15,6 @@ export class AddAddressForm extends React.Component{
           isSelected: false
         };
       }
-
-
-    componentDidMount(){
-        getAddresses().then(res=>{
-            this.setState({addressList:res.data, isLoadingAddress: false})
-            console.log(res.data);
-        });
-    }
 
     static navigationOptions = ({ navigation }) => ({
     });

@@ -24,19 +24,18 @@ export class AddressForm extends React.Component{
         });
     }
 
-    onSubmit = (values, dispatch, navigation) => {
+    onSubmit = (values, dispatch) => {
         console.log(values);
-        values = Object.assign({grant_type:'password'},values);
         return postAddress(values)
           .then(res => {
             console.log(res)
             dispatch(reset('AddAddressForm'));
            
-            toastShow("SignIn Successfully", "success", 3000);   
+            toastShow("Add Address Successfully", "success", 3000);   
           })
           .catch(err => {
             console.log(err);
-            toastShow("SignIn Unsuccessfully", "danger", 3000);   
+            toastShow("Add Address Unsuccessfully", "danger", 3000);   
           });
     }
 
@@ -50,12 +49,12 @@ export class AddressForm extends React.Component{
         
         return (
             <Form>
-                <AddAddressForm onSubmit={(values, dispatch)=>this.onSubmit(values, dispatch, navigation)} />
+                <AddAddressForm onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
                 {this.state.isLoadingAddress && <Spinner color='white' />}
 
                 {this.state.addressList && this.state.addressList[0] &&
                 <List>
-                    {this.state.addressList[0].map((value)=>{
+                    {this.state.addressList.map((value)=>{
                         <ListItem button onPress={()=>{
                             this.setState({isSelected: true})
                         }}> 

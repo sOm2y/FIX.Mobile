@@ -1,21 +1,32 @@
 import React from "react";
-import { Button, Text, Form } from "native-base";
+import { Button, Text, Form, Item, Icon } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
 import { renderPassword } from "../../../components/inputs/renderPassword";
 import { renderDatePicker } from "../../../components/inputs/renderDatePicker";
 import { renderTextarea } from "../../../components/inputs/renderTextarea";
-import {getAddress} from '../../../services/addressService';
+import { renderPicker } from "../../../components/inputs/renderPicker";
+import { getAddress } from '../../../services/addressService';
+import { getBusinessCategories } from '../../../services/businessService';
 
 
 export class JobDetailForm extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            businessCategories: []
+        };
+      }
+
+    componentWillMount(){
+        getBusinessCategories().then(res => {
+            this.setState({businessCategories:res});
+        });
+    }
+    
     static navigationOptions = ({ navigation }) => ({
     });
-
-    getAddresses = () =>{
-        getAddress();
-    }
     
     render(){
         const { handleSubmit, navigation, pristine, submitting, previousPage } = this.props;
@@ -36,12 +47,29 @@ export class JobDetailForm extends React.Component{
                     label="Description"
                 />
 
+                <Field label="Business Categories" 
+                name="businesscategories" 
+                iosHeader="Select Business Category" 
+                iosIcon={<Icon name="ios-arrow-down-outline" />}
+                style={{ width: undefined }}
+                placeholder="Select Business Category"
+                placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
+                    {this.state.businessCategories && this.state.businessCategories[0] &&
+                        this.state.businessCategories.map((value, key) => {
+                        return <Item key={key} label={value.name} value={value.name} />
+                        })
+                     }
+          
+                </Field>
+
                 <Field
                     name="date"
                     type="text"
                     component={renderDatePicker}
                     label="Date"
                 />
+
+                
 
                 <Button block primary
                 style={{ marginTop: 10 }}

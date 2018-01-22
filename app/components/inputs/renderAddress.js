@@ -25,7 +25,8 @@ export const renderAddress= ({ input:{value, onChange}, label, type, meta: { tou
           if(data.description&& details.geometry){
             value = { description : data.description, 
                       longitude : details.geometry.location.lng, 
-                      latitude: details.geometry.location.lat 
+                      latitude: details.geometry.location.lat,
+                      isDefault: false 
                     };
           }else{
             value ={}
