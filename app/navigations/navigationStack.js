@@ -95,9 +95,9 @@ export const HomeTabNavigator = TabNavigator(
     tabBarPosition: "bottom",
     initialRouteName : 'Jobs',
     animationEnabled: true,
-    // tabBarOptions: {
-    //   activeTintColor: '#e91e63',
-    // },
+    tabBarOptions: {
+      activeTintColor: '#e91e63',
+    },
     tabBarComponent: props => {
       return (
         <Footer>

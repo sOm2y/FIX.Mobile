@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { translate } from 'react-i18next';
-import { Button, Text, Form, List, ListItem, Body, Right} from "native-base";
+import { Button, Text, Form, List, ListItem, Body, Spinner} from "native-base";
 
 let ConfirmationForm = props => {
   const {
@@ -55,7 +55,7 @@ let ConfirmationForm = props => {
             style={{ marginTop: 10 }}
             onPress={handleSubmit} 
             disabled={submitting}>
-                <Text>Confirm</Text>
+                {submitting ? <Spinner color='white' />: <Text>Confirm</Text>}
             </Button>
             <Button bordered block primary
             style={{ marginTop: 10 }}

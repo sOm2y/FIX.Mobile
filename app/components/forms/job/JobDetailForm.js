@@ -37,13 +37,6 @@ export class JobDetailForm extends React.Component{
                 />
 
                 <Field
-                    name="confirmpassword"
-                    type="password"
-                    component={renderPassword}
-                    label="Re password"
-                />
-
-                <Field
                     name="date"
                     type="text"
                     component={renderDatePicker}
