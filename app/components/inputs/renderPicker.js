@@ -5,7 +5,7 @@ export const renderPicker = ({ input: { onChange, value, ...inputProps }, childr
     
     <Picker
     selectedValue={ value }
-    onValueChange={ value => onChange(value) }
+    onValueChange={ value => onChange(value.name) }
     { ...inputProps }
     { ...pickerProps }>
     { children }

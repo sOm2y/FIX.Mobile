@@ -56,7 +56,7 @@ export class JobDetailForm extends React.Component{
                 placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
                     {this.state.businessCategories && this.state.businessCategories[0] &&
                         this.state.businessCategories.map((value, key) => {
-                        return <Item key={key} label={value.name} value={value.name} />
+                        return <Item key={key} label={value.name} value={value} />
                         })
                      }
           

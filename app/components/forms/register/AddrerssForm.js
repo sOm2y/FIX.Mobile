@@ -1,10 +1,12 @@
 import React from "react";
-import { Button, Text, Form, Spinner, List, ListItem, Radio, Left, Body, Right, toastShow } from "native-base";
+import { StyleSheet } from "react-native";
+import { Button, Text, Form, Spinner, List, ListItem, Radio, Left, Body, Right } from "native-base";
 import { Field, reduxForm, reset } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderAddress } from "../../inputs/renderAddress";
 import { getAddresses } from '../../../services/addressService';
 import { postAddress } from '../../../services/addressService';
+import { toastShow } from '../../../services/toastService';
 import AddAddressForm  from "../address/AddAddressForm";
 
 
@@ -14,13 +16,14 @@ export class AddressForm extends React.Component{
         this.state = {
           addressList: [],
           isLoadingAddress: true,
-          isSelected: false
+          isSelected: false,
+          selectedAddressIndex: 0
         };
       }
     componentDidMount(){
         getAddresses().then(res=>{
-            this.setState({addressList:res.data, isLoadingAddress: false})
-            console.log(res.data);
+            this.setState({addressList:res, isLoadingAddress: false})
+            console.log(res);
         });
     }
 
@@ -39,6 +42,10 @@ export class AddressForm extends React.Component{
           });
     }
 
+    handleSelectAddress(i, event){
+        this.setState({selectedAddressIndex: i});
+    }
+
 
     static navigationOptions = ({ navigation }) => ({
     });
@@ -54,19 +61,17 @@ export class AddressForm extends React.Component{
 
                 {this.state.addressList && this.state.addressList[0] &&
                 <List>
-                    {this.state.addressList.map((value)=>{
-                        <ListItem button onPress={()=>{
-                            this.setState({isSelected: true})
-                        }}> 
-                            <Left></Left>
+                    {this.state.addressList.map((value, key)=>{
+                       return ( <ListItem style={styles.listItem} key={key} button onPress={this.handleSelectAddress.bind(this,key)}> 
+                      
                             <Body>
                                 <Text>{value.description}</Text>
                             </Body>
                             <Right>
-                                <Radio selected={this.state.isSelected} />
+                                <Radio key={key} selected={this.state.selectedAddressIndex===key} />
                             </Right>
 
-                        </ListItem>
+                        </ListItem>)
                     })}
                     
                 </List>
@@ -94,3 +99,11 @@ export default reduxForm({
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,
 })(AddressForm);
+
+
+const styles = StyleSheet.create({
+    listItem:{
+      marginLeft: 0, 
+      paddingLeft: 17
+    }
+  });

@@ -41,7 +41,7 @@ export const postAddress = ( address ) =>{
         headers: {
           'Content-Type': 'application/json'
         },
-        data: qs.stringify(address)
+        data: address
       })
       .then(res => {
         if(res.status === 400 || res.status === 403){
