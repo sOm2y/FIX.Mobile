@@ -11,6 +11,8 @@ import JobDetailForm from '../forms/job/JobDetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
 import { nextPage, previousPage, navigationBack } from '../../actions/actionCreator';
+import UploadForm  from "../forms/UploadForm";
+import DetailForm  from "../forms/register/DetailForm";
 
 const thirdIndicatorStyles = {
   stepIndicatorSize: 25,
@@ -53,6 +55,9 @@ class WizardJobForm extends React.Component {
           title = 'Address';
           break;
         case 2:
+          title = 'Upload';
+          break;
+        case 3:
           title = 'Confirmation';
           break;
         default:
@@ -78,10 +83,11 @@ class WizardJobForm extends React.Component {
           <Right />
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-        <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Job Detail","Address","Confirmation"]} />
+        <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Job Detail","Address","Upload","Confirmation"]} />
         {page === 0 &&<JobDetailForm {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 1 &&<AddrerssForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
+        {page === 2 &&<UploadForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
+        {page === 3 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>
       </Container>
     );

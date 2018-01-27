@@ -1,13 +1,13 @@
 import React from 'react';
-import { Picker } from 'native-base';
+import { List } from 'native-base';
 
 export const renderPicker = ({ input: { onChange, value, ...inputProps }, children, ...pickerProps }) => (
     
-    <Picker
+    <List
     selectedValue={ value }
     onValueChange={ value => onChange(value) }
     { ...inputProps }
     { ...pickerProps }>
     { children }
-  </Picker>
+  </List>
 );

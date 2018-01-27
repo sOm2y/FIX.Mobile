@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { connect } from "react-redux";
+import axios from 'axios';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
 import { createJob, navigationBack } from '../../actions/actionCreator';
 import {getAccessToken} from '../../services/authService';
+import {getJobs} from '../../services/jobService';
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -11,8 +13,28 @@ const logo = require("../../resource/images/xero.png");
 const cardImage = require("../../resource/images/tradie.jpg");
 
 class JobsScreen extends React.Component {
+  //TODO: Put job state to reducer
+  constructor(props) {
+    super(props);
+    this.state = {
+      jobs:[]
+    }
+  }
+
   componentDidMount(){
-    getAccessToken();
+    getAccessToken().then(value=>{
+      if(value !== null){
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+ value;
+        console.log( axios.defaults.headers.common['Authorization']);
+        getJobs().then((res)=>{
+          this.setState({jobs:res});
+        }).catch(err=>{
+          console.error(err);
+        });
+      }
+    });
+   
+    
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -40,90 +62,50 @@ class JobsScreen extends React.Component {
             >
              <Text>Add new Job</Text>
             </Button>
-        <Card style={styles.mb}>
-          <CardItem bordered>
-            <Left>
-              <Thumbnail source={logo} />
+
+        {this.state.jobs && this.state.jobs.length > 0 &&
+          this.state.jobs.map((job, key) => {
+            return <Card style={styles.mb} key={key}>
+              <CardItem bordered>
+                <Left>
+                  <Thumbnail source={logo} />
+                  <Body>
+                    <Text>{job.title}</Text>
+                    <Text note>{job.jobDate}</Text>
+                  </Body>
+                </Left>
+              </CardItem>
+  
+            <CardItem>
               <Body>
-                <Text>NativeBase</Text>
-                <Text note>April 15, 2016</Text>
+                {job.jobImages && job.jobImages.length > 0 &&
+                <Image
+                  style={{
+                    alignSelf: "center",
+                    height: 150,
+                    resizeMode: "cover",
+                    width: deviceWidth / 1.18,
+                    marginVertical: 5
+                  }}
+                  source={'https://smartgeoio.blob.core.windows.net/fix/'+job.jobImages[0].fileName}
+                />
+                }
+                <Text>
+                 {job.description}
+                </Text>
               </Body>
-            </Left>
-          </CardItem>
-
-          <CardItem>
-            <Body>
-              <Image
-                style={{
-                  alignSelf: "center",
-                  height: 150,
-                  resizeMode: "cover",
-                  width: deviceWidth / 1.18,
-                  marginVertical: 5
-                }}
-                source={cardImage}
-              />
-              <Text>
-                NativeBase is a free and source framework that enable
-                developers to build high-quality mobile apps using React
-                Native with a fusion of ES6. NativeBase builds a layer on
-                top of React Native that provides you with basic set of
-                components for mobile application development.
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem style={{ paddingVertical: 0 }}>
-            <Left>
-              <Button transparent>
-                <Icon name="logo-github" />
-                <Text>4,923 stars</Text>
-              </Button>
-            </Left>
-          </CardItem>
-        </Card>
-
-        <Card style={styles.mb}>
-          <CardItem bordered>
-            <Left>
-              <Thumbnail source={logo} />
-              <Body>
-                <Text>NativeBase</Text>
-                <Text note>April 15, 2016</Text>
-              </Body>
-            </Left>
-          </CardItem>
-
-          <CardItem>
-            <Body>
-              <Image
-                style={{
-                  alignSelf: "center",
-                  height: 150,
-                  resizeMode: "cover",
-                  width: deviceWidth / 1.18,
-                  marginVertical: 5
-                }}
-                source={cardImage}
-              />
-              <Text>
-                NativeBase is a free and source framework that enable
-                developers to build high-quality mobile apps using React
-                Native with a fusion of ES6. NativeBase builds a layer on
-                top of React Native that provides you with basic set of
-                components for mobile application development.
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem style={{ paddingVertical: 0 }}>
-            <Left>
-              <Button transparent>
-                <Icon name="logo-github" />
-                <Text>4,923 stars</Text>
-              </Button>
-            </Left>
-          </CardItem>
-        </Card>
-        
+            </CardItem>
+            <CardItem style={{ paddingVertical: 0 }}>
+              <Left>
+                <Button transparent>
+                  <Icon name="logo-github" />
+                  <Text>job.location.description</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
+          })
+        }    
         </Content>
       </Container>
     );

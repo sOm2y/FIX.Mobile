@@ -56,21 +56,19 @@ export class JobDetailForm extends React.Component{
                 placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
                     {this.state.businessCategories && this.state.businessCategories[0] &&
                         this.state.businessCategories.map((value, key) => {
-                        return <Item key={key} label={value.name} value={value} />
+                        return <Item key={key} label={value.name} value={value.id} />
                         })
                      }
-          
                 </Field>
 
                 <Field
-                    name="date"
+                    name="jobDate"
                     type="text"
                     component={renderDatePicker}
                     label="Date"
                 />
 
-                
-
+            
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 

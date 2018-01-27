@@ -9,6 +9,7 @@ import { Root } from 'native-base';
 
 import AppNavigation from './app/navigations/index';
 import configureStore from "./store";
+import {getAccessToken} from './app/services/authService';
 
 const { store, persistor } = configureStore();
 

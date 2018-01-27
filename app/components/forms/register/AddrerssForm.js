@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Button, Text, Form, Spinner, List, ListItem, Radio, Left, Body, Right } from "native-base";
+import { Button, Text, Form, Spinner, List, ListItem, Radio, Left, Body, Right, Icon, Item } from "native-base";
 import { Field, reduxForm, reset } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
-import { renderAddress } from "../../inputs/renderAddress";
+import { renderPicker } from "../../inputs/renderPicker";
 import { getAddresses } from '../../../services/addressService';
 import { postAddress } from '../../../services/addressService';
 import { toastShow } from '../../../services/toastService';
@@ -59,23 +59,20 @@ export class AddressForm extends React.Component{
                 <AddAddressForm onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
                 {this.state.isLoadingAddress && <Spinner color='white' />}
 
-                {this.state.addressList && this.state.addressList[0] &&
-                <List>
-                    {this.state.addressList.map((value, key)=>{
-                       return ( <ListItem style={styles.listItem} key={key} button onPress={this.handleSelectAddress.bind(this,key)}> 
-                      
-                            <Body>
-                                <Text>{value.description}</Text>
-                            </Body>
-                            <Right>
-                                <Radio key={key} selected={this.state.selectedAddressIndex===key} />
-                            </Right>
+                <Field label="Select Address" 
+                name="addressId" 
+                iosHeader="Select Address" 
+                iosIcon={<Icon name="ios-arrow-down-outline" />}
+                style={{ width: undefined }}
+                placeholder="Select Address"
+                placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
+                    {this.state.addressList && this.state.addressList[0] &&
+                        this.state.addressList.map((value, key) => {
+                        return <Item key={key} label={value.description} value={value.id} />
+                        })
+                     }
+                </Field>
 
-                        </ListItem>)
-                    })}
-                    
-                </List>
-                }
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 

@@ -9,12 +9,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { change } from "redux-form";
 import Exponent, { Constants, ImagePicker, registerRootComponent } from 'expo';
 import {  Button, Text, List, ListItem, Spinner, Body, ActionSheet } from "native-base";
+import { uploadService } from '../../services/uploadService';
 
 const BUTTONS = ["Take a photo", "Choose from camera roll", "Cancel"];
 
-export default class RenderImageUpload extends React.Component {
+class ImageUpload extends React.Component {
   state = {
     image: null,
     uploading: false,
@@ -127,47 +131,46 @@ export default class RenderImageUpload extends React.Component {
 
   _handleImagePicked = async pickerResult => {
     let uploadResponse, uploadResult;
+    const { change } = this.props;
 
     try {
       this.setState({ uploading: true });
 
       if (!pickerResult.cancelled) {
-        uploadResponse = await uploadImageAsync(pickerResult.uri);
-        uploadResult = await uploadResponse.json();
-        this.setState({ image: uploadResult.location });
+        console.log(pickerResult);
+        let uri = pickerResult.uri;
+        let uriParts = uri.split('.');
+        let fileType = uri[uri.length - 1];
+      
+        let formData = new FormData();
+        formData.append('photo', {
+          uri,
+          name: `photo.${fileType}`,
+          type: `image/${fileType}`,
+        });
+
+        uploadResponse = await uploadService(formData);
+      
+        
+        //TODO: support multiple upload
+        this.setState({ image: 'https://smartgeoio.blob.core.windows.net/fix/'+uploadResponse[0].fileName });
+        console.log(uploadResponse);
+        this.setState({ uploading: false });
+        change('WizardJobForm','jobImages', uploadResponse);
+
       }
     } catch (e) {
       console.log({ uploadResponse });
       console.log({ uploadResult });
       console.log({ e });
-      alert('Upload failed, sorry :(');
-    } finally {
       this.setState({ uploading: false });
-    }
+      alert('We are having issues to upload your photos, please try again later.');
+    } 
   };
 }
 
-async function uploadImageAsync(uri) {
-  let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
-
-  let uriParts = uri.split('.');
-  let fileType = uri[uri.length - 1];
-
-  let formData = new FormData();
-  formData.append('photo', {
-    uri,
-    name: `photo.${fileType}`,
-    type: `image/${fileType}`,
-  });
-
-  let options = {
-    method: 'POST',
-    body: formData,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'multipart/form-data',
-    },
-  };
-
-  return fetch(apiUrl, options);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({change}, dispatch);
 }
+
+export default connect(null, mapDispatchToProps)(ImageUpload)
