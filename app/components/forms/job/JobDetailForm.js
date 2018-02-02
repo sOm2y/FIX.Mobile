@@ -48,7 +48,7 @@ export class JobDetailForm extends React.Component{
                 />
 
                 <Field label="Business Categories" 
-                name="businesscategories" 
+                name="businessCategoryId" 
                 iosHeader="Select Business Category" 
                 iosIcon={<Icon name="ios-arrow-down-outline" />}
                 style={{ width: undefined }}
