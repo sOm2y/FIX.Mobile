@@ -31,13 +31,37 @@ export const getBusinessCategories= ( ) =>{
     });
 }
 
+export const getBusinesses= ( ) =>{
+  return new Promise((resolve, reject) => {
+
+      axios({
+        method: 'get',
+        url: '/api/businesses/',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        if(res.status === 400 || res.status === 403){
+          reject(res);
+        }
+        console.log(res);
+        resolve(res.data);
+      
+      })
+      .catch(err => {
+        reject(err.response);
+      });
+    });
+}
+
 
 export const postBusiness = ( Business ) =>{
   return new Promise((resolve, reject) => {
 
       axios({
         method: 'post',
-        url: '/api/addresses/',
+        url: '/api/businesses/',
         headers: {
           'Content-Type': 'application/json'
         },

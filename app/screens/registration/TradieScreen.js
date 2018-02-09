@@ -4,7 +4,7 @@ import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
 import { registerSuccess } from "../../actions/actionCreator";
-import WizardTradieForm from '../../components/wizards/WizardCustomerForm';
+import WizardTradieForm from '../../components/wizards/WizardTradieForm';
 
 class TradieScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,7 +14,7 @@ class TradieScreen extends React.Component {
     console.log(values);
     return postUserAccount(values)
     .then(res => {
-      dispatch(reset('CustomerWizardForm'));
+      dispatch(reset('WizardTradieForm'));
       this.props.registerSuccess();
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
