@@ -1,8 +1,8 @@
 import React from 'react';
-import { Picker } from 'native-base';
+import { Picker, Item } from 'native-base';
 
 export const renderPicker = ({ input: { onChange, value, ...inputProps }, children, ...pickerProps }) => (
-    
+  <Item>
     <Picker
     selectedValue={ value }
     onValueChange={ value => onChange(value) }
@@ -10,4 +10,5 @@ export const renderPicker = ({ input: { onChange, value, ...inputProps }, childr
     { ...pickerProps }>
     { children }
   </Picker>
+  </Item>
 );

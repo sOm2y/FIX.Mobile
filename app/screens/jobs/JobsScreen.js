@@ -64,7 +64,7 @@ class JobsScreen extends React.Component {
             </Button>
 
         {this.state.jobs && this.state.jobs.length > 0 &&
-          this.state.jobs.map((job, key) => {
+          this.state.jobs.reverse().map((job, key) => {
             return <Card style={styles.mb} key={key}>
               <CardItem bordered>
                 <Left>
@@ -87,7 +87,7 @@ class JobsScreen extends React.Component {
                     width: deviceWidth / 1.18,
                     marginVertical: 5
                   }}
-                  source={'https://smartgeoio.blob.core.windows.net/fix/'+job.jobImages[0].fileName}
+                  source={{uri:'https://smartgeoio.blob.core.windows.net/fix/'+job.jobImages[0].fileName}}
                 />
                 }
                 <Text>
@@ -98,8 +98,8 @@ class JobsScreen extends React.Component {
             <CardItem style={{ paddingVertical: 0 }}>
               <Left>
                 <Button transparent>
-                  <Icon name="logo-github" />
-                  <Text>job.location.description</Text>
+                  <Icon name="ios-locate-outline" />
+                  <Text>{job.location.description}</Text>
                 </Button>
               </Left>
             </CardItem>

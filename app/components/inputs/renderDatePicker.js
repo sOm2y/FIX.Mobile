@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
+import { Item } from 'native-base';
 import { connect } from 'react-redux'
 import DatePicker from 'react-native-datepicker'
 
@@ -13,6 +14,7 @@ export const renderDatePicker = ({ input:{value, onChange}, label, type, meta: {
     }
 
     return (
+      <Item style={{paddingTop:15,paddingBottom:15}}>
       <DatePicker
         style={{width: 200}}
         date={value}
@@ -38,6 +40,7 @@ export const renderDatePicker = ({ input:{value, onChange}, label, type, meta: {
             onChange(value);console.log(date+' '+time); 
         }}
       />
+      </Item>
     );
   
 };

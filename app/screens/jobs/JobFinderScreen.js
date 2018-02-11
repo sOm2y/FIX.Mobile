@@ -128,15 +128,35 @@ import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
             let coords = this.getRegionFrom(location.coords.latitude,location.coords.longitude,500);
             console.log(coords);
             
-            this.setState({isReady:true, region: coords, markers:[{
+            this.setState({isReady:true, region: coords, markers:[
+              {
                 coordinate: {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    },
-                    title: "Your Location",
-                    description: "This is the fourth best place in Auckland",
-                    image: require("../../resource/images/tradie.jpg"),
-            }]});
+                  latitude: location.coords.latitude+0.001,
+                  longitude: location.coords.longitude+0.001,
+                  },
+                  title: "Your first tradie",
+                  description: "This is the fourth best place in Auckland",
+                  image: Images[0],
+              },
+              {
+                coordinate: {
+                  latitude: location.coords.latitude+0.02,
+                  longitude: location.coords.longitude+0.01,
+                  },
+                  title: "Your second tradie",
+                  description: "This is the fourth best place in Auckland",
+                  image: Images[1],
+              },
+              {
+                coordinate: {
+                  latitude: location.coords.latitude+0.01,
+                  longitude: location.coords.longitude+0.02,
+                  },
+                  title: "Your third tradie",
+                  description: "This is the fourth best place in Auckland",
+                  image: Images[2],
+              }
+            ]});
             console.log(this.state.region);
         }
   
