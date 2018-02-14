@@ -10,7 +10,8 @@ import {
   CustomerRegister,
   TradieRegister,
   Jobs,
-  CreateJob
+  CreateJob,
+  ShowBusinessForm
 } from "./actionTypes";
 
 export const increment = () => {
@@ -72,6 +73,10 @@ const createJob = () => ({
   type: CreateJob
 });
 
+const showBusinessForm = () => ({
+  type: ShowBusinessForm
+});
+
 
 export {
   nextPage,
@@ -85,5 +90,6 @@ export {
   customerRegister,
   tradieRegister,
   jobs,
-  createJob
+  createJob,
+  showBusinessForm
 };

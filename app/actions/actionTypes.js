@@ -10,6 +10,7 @@ const CustomerRegister = 'CUSTOMER_SIGNUP';
 const TradieRegister = 'TRADIE_SIGNUP';
 const Jobs = 'JOBS';
 const CreateJob = 'CREATE_JOB';
+const ShowBusinessForm = 'SHOW_BUSSINESS_FORM';
 
 export {
     NextPage,
@@ -23,5 +24,6 @@ export {
     CustomerRegister,
     TradieRegister,
     Jobs,
-    CreateJob
+    CreateJob,
+    ShowBusinessForm
 };

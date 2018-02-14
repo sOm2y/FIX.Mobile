@@ -80,8 +80,9 @@ class WizardTradieForm extends React.Component {
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Business"]} />
         {page === 0 &&<CredentialForm  {...this.props} onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<BusinessListForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {/* {page === 3 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />} */}
+        {page === 2 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />} 
+        
+        <BusinessListForm />
         </Content>
       </Container>
     );

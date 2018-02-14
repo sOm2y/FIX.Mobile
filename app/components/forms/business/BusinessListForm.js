@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Text, Form, Spinner, List, ListItem } from "native-base";
+import { Modal, StyleSheet } from 'react-native';
+import { Button, Text, Form, Spinner, List, ListItem, Content } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
@@ -9,7 +10,11 @@ import { getBusinesses } from '../../../services/businessService';
 import BusinessDetailForm  from "./BusinessDetailForm";
 
 
-export class BusinessListForm extends React.Component{
+export default class BusinessListForm extends React.Component{
+    state = {
+        modalVisible: false
+    }
+    
     static navigationOptions = ({ navigation }) => ({
     });
 
@@ -22,15 +27,22 @@ export class BusinessListForm extends React.Component{
         })
         
     }
+
+    openModal() {
+        this.setState({modalVisible:true});
+    }
     
+    closeModal() {
+    this.setState({modalVisible:false});
+    }
     render(){
         const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems } = this.props;
         
         return (
-            <Form>
+            <Content>
                 <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={handleSubmit} 
+                onPress={this.openModal()} 
                 disabled={pristine || submitting}>
                     <Text>Add Your Business</Text>
                 </Button>
@@ -44,23 +56,24 @@ export class BusinessListForm extends React.Component{
                     </ListItem>
         
                 </List>
+                <Modal
+                visible={this.state.modalVisible}
+                animationType={'slide'}
+                onRequestClose={() => this.closeModal()}
+                >
 
                 <BusinessDetailForm onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
-                {this.state.isLoadingAddress && <Spinner color='white' />}
-                
+
+
+                </Modal>
                 <Button block primary
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
                 disabled={pristine || submitting}>
                     <Text>Finish</Text>
                 </Button>
-            </Form>
+            </Content>
         );
     }
 }
 
-export default reduxForm({
-  destroyOnUnmount: false, //        <------ preserve form data
-  forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-  validate,
-})(BusinessListForm);
