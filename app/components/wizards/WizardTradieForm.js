@@ -82,7 +82,7 @@ class WizardTradieForm extends React.Component {
         {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 2 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />} 
         
-        <BusinessListForm />
+        <BusinessListForm wizardLabel='businessDetailForm' />
         </Content>
       </Container>
     );

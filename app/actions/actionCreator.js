@@ -11,7 +11,8 @@ import {
   TradieRegister,
   Jobs,
   CreateJob,
-  ShowBusinessForm
+  ShowBusinessModal,
+  HideBusinessModal
 } from "./actionTypes";
 
 export const increment = () => {
@@ -73,9 +74,14 @@ const createJob = () => ({
   type: CreateJob
 });
 
-const showBusinessForm = () => ({
-  type: ShowBusinessForm
+const showBusinessModal = () => ({
+  type: ShowBusinessModal
 });
+
+const hideBusinessModal = () => ({
+  type: HideBusinessModal
+});
+
 
 
 export {
@@ -91,5 +97,6 @@ export {
   tradieRegister,
   jobs,
   createJob,
-  showBusinessForm
+  showBusinessModal,
+  hideBusinessModal
 };

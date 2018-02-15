@@ -15,7 +15,7 @@ class CustomerScreen extends React.Component {
     console.log(values);
     return postUserAccount(values)
     .then(res => {
-      dispatch(reset('WizardForm'));
+      dispatch(reset('WizardCustomerForm'));
       this.props.registerSuccess();
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {

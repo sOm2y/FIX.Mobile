@@ -1,11 +1,14 @@
-import { ShowBusinessForm } from "../actions/actionTypes";
+import { ShowBusinessModal, HideBusinessModal } from "../actions/actionTypes";
 
-const initialState = { isBusinessFormShowed: false };
+const initialState = { isBusinessModalShowed: false };
 
 const businessReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ShowBusinessForm:
-      return { ...state, isBusinessFormShowed: true };
+    case ShowBusinessModal:
+      return { ...state, isBusinessModalShowed: true };
+    
+    case HideBusinessModal:
+      return { ...state, isBusinessModalShowed: false };
 
     default:
       return state;

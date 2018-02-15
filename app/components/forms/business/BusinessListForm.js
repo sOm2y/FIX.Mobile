@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import { Button, Text, Form, Spinner, List, ListItem, Content } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
@@ -10,11 +11,8 @@ import { getBusinesses } from '../../../services/businessService';
 import BusinessDetailForm  from "./BusinessDetailForm";
 
 
-export default class BusinessListForm extends React.Component{
-    state = {
-        modalVisible: false
-    }
-    
+export class BusinessListForm extends React.Component{
+
     static navigationOptions = ({ navigation }) => ({
     });
 
@@ -29,14 +27,14 @@ export default class BusinessListForm extends React.Component{
     }
 
     openModal() {
-        this.setState({modalVisible:true});
+    
     }
     
     closeModal() {
-    this.setState({modalVisible:false});
+
     }
     render(){
-        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, isBusinessModalShowed, wizardLabel } = this.props;
         
         return (
             <Content>
@@ -57,12 +55,12 @@ export default class BusinessListForm extends React.Component{
         
                 </List>
                 <Modal
-                visible={this.state.modalVisible}
+                visible={isBusinessModalShowed}
                 animationType={'slide'}
                 onRequestClose={() => this.closeModal()}
                 >
 
-                <BusinessDetailForm onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
+                <BusinessDetailForm wizardLabel='wizardLabel' onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
 
 
                 </Modal>
@@ -77,3 +75,15 @@ export default class BusinessListForm extends React.Component{
     }
 }
 
+const mapStateToProps = (state, props) =>{
+    return{
+        isBusinessModalShowed : state.isBusinessModalShowed,
+        form: props.wizardLabel
+    };
+}
+  
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BusinessListForm);

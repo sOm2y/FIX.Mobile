@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import { registerSuccess, showBusinessForm } from "../../actions/actionCreator";
+import { registerSuccess, showBusinessModal, hideBusinessModal } from "../../actions/actionCreator";
 
 import WizardTradieForm from '../../components/wizards/WizardTradieForm';
 
@@ -16,7 +16,7 @@ class TradieScreen extends React.Component {
     return postUserAccount(values)
     .then(res => {
       dispatch(reset('WizardTradieForm'));
-      this.props.showBusinessForm();
+      this.props.showBusinessModal();
       this.props.registerSuccess();
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
@@ -35,7 +35,7 @@ class TradieScreen extends React.Component {
 
 const mapDispatchToProps = {
   registerSuccess,
-  showBusinessForm
+  showBusinessModal
 };
 
 const TradieRegister = connect(null, mapDispatchToProps)(TradieScreen);
