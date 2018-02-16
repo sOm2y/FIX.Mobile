@@ -6,6 +6,8 @@ import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, C
 import { createJob, navigationBack } from '../../actions/actionCreator';
 import {getAccessToken} from '../../services/authService';
 import {getJobs} from '../../services/jobService';
+import { toastShow } from '../../services/toastService';
+import {logout} from '../../actions/actionCreator';
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -28,13 +30,17 @@ class JobsScreen extends React.Component {
         console.log( axios.defaults.headers.common['Authorization']);
         getJobs().then((res)=>{
           this.setState({jobs:res});
+          toastShow("SignIn Successfully", "success", 3000); 
         }).catch(err=>{
-          console.error(err);
+          console.log(err);
+          toastShow(err.data.message, "danger", 3000);   
+          this.props.logout();
         });
       }
-    });
-   
-    
+    }).catch((err)=>{
+      console.log(err);
+      toastShow('Token expired, please login again', "danger", 3000);   
+    });    
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -131,7 +137,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = {
   navigationBack,
-  createJob
+  createJob,
+  logout
 };
 
 const Jobs = connect(null, mapDispatchToProps)(JobsScreen);

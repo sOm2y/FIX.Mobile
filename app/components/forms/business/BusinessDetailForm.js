@@ -48,7 +48,6 @@ export class BusinessDetailForm extends React.Component{
 }
 
 export default reduxForm({
-    form: 'businessDetailForm',
     destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
     validate,

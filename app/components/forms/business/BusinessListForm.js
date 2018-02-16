@@ -1,13 +1,14 @@
 import React from "react";
 import { Modal, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Text, Form, Spinner, List, ListItem, Content } from "native-base";
+import { Button, Text, Form, Spinner, List, ListItem, Content, Container, Header, Left, Icon, Body, Title, Right } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
 import { renderPicker } from "../../../components/inputs/renderPicker";
 import { renderTextarea } from "../../../components/inputs/renderTextarea";
 import { getBusinesses } from '../../../services/businessService';
+import {showBusinessModal, hideBusinessModal} from '../../../actions/actionCreator';
 import BusinessDetailForm  from "./BusinessDetailForm";
 
 
@@ -26,21 +27,14 @@ export class BusinessListForm extends React.Component{
         
     }
 
-    openModal() {
-    
-    }
-    
-    closeModal() {
-
-    }
     render(){
-        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, isBusinessModalShowed, wizardLabel } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, wizardLabel, isBusinessModalShowed } = this.props;
         
         return (
             <Content>
                 <Button block primary
                 style={{ marginTop: 10 }}
-                onPress={this.openModal()} 
+                onPress={this.props.showBusinessModal} 
                 disabled={pristine || submitting}>
                     <Text>Add Your Business</Text>
                 </Button>
@@ -56,20 +50,26 @@ export class BusinessListForm extends React.Component{
                 </List>
                 <Modal
                 visible={isBusinessModalShowed}
-                animationType={'slide'}
-                onRequestClose={() => this.closeModal()}
+                animationType={'fade'}
+                onRequestClose={this.props.hideBusinessModal}
                 >
-
-                <BusinessDetailForm wizardLabel='wizardLabel' onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
-
-
+                    <Container>
+                        <Header>
+                        <Body>
+                            <Title>{wizardLabel}</Title>
+                        </Body>
+                        <Right />
+                        </Header>
+                        <Content padder keyboardShouldPersistTaps={'always'}>
+                            <BusinessDetailForm wizardLabel={wizardLabel} onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
+                            <Button block primary
+                            style={{ marginTop: 10 }}
+                            onPress={this.props.hideBusinessModal}>
+                                <Text>Cancel</Text>
+                            </Button>
+                        </Content>
+                    </Container>
                 </Modal>
-                <Button block primary
-                style={{ marginTop: 10 }}
-                onPress={handleSubmit} 
-                disabled={pristine || submitting}>
-                    <Text>Finish</Text>
-                </Button>
             </Content>
         );
     }
@@ -77,13 +77,14 @@ export class BusinessListForm extends React.Component{
 
 const mapStateToProps = (state, props) =>{
     return{
-        isBusinessModalShowed : state.isBusinessModalShowed,
+        isBusinessModalShowed : state.BusinessReducer.isBusinessModalShowed,
         form: props.wizardLabel
     };
 }
   
 const mapDispatchToProps = {
-
+    showBusinessModal,
+    hideBusinessModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BusinessListForm);

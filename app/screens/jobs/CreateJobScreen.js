@@ -26,15 +26,15 @@ export default class CreateJobScreen extends React.Component {
     console.log(values);
     this.setState({isVisible:true});
     
-    // return postJob(values)
-    // .then(res => {
+    return postJob(values)
+    .then(res => {
       
-    //   dispatch(reset('WizardJobForm'));
-    //   navigation.navigate("JobFinder");
-    //   toastShow("SignIn Successfully", "success", 3000); 
-    // }).catch( err => {
-    //   toastShow("SignIn Unsuccessfully", "danger", 3000);   
-    // });
+      dispatch(reset('WizardJobForm'));
+      navigation.navigate("JobFinder");
+      toastShow("SignIn Successfully", "success", 3000); 
+    }).catch( err => {
+      toastShow("SignIn Unsuccessfully", "danger", 3000);   
+    });
 }
   render(){
     const { navigation } = this.props;
@@ -43,7 +43,6 @@ export default class CreateJobScreen extends React.Component {
     return (
       <View>
         <WizardJobForm wizardLabel='WizardJobForm' onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
-        <JobMapModal  isJobMapVisible={this.state.isVisible}/>
       </View>
     );
   }
