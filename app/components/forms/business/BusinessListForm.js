@@ -28,7 +28,7 @@ export class BusinessListForm extends React.Component{
     }
 
     render(){
-        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, wizardLabel, isBusinessModalShowed } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, formName, isBusinessModalShowed } = this.props;
         
         return (
             <Content>
@@ -53,15 +53,16 @@ export class BusinessListForm extends React.Component{
                 animationType={'fade'}
                 onRequestClose={this.props.hideBusinessModal}
                 >
-                    <Container>
+                    <Container style={styles.modalContainer}>
                         <Header>
+                 
                         <Body>
-                            <Title>{wizardLabel}</Title>
+                            <Title>{formName}</Title>
                         </Body>
-                        <Right />
+                      
                         </Header>
                         <Content padder keyboardShouldPersistTaps={'always'}>
-                            <BusinessDetailForm wizardLabel={wizardLabel} onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
+                            <BusinessDetailForm form={formName} onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch)} />
                             <Button block primary
                             style={{ marginTop: 10 }}
                             onPress={this.props.hideBusinessModal}>
@@ -75,10 +76,17 @@ export class BusinessListForm extends React.Component{
     }
 }
 
+const styles = StyleSheet.create({
+    modalContainer: {
+      flex: 1,
+      backgroundColor: '#e9e9ef',
+    }
+  });
+
 const mapStateToProps = (state, props) =>{
     return{
         isBusinessModalShowed : state.BusinessReducer.isBusinessModalShowed,
-        form: props.wizardLabel
+        formName: props.formLabel
     };
 }
   

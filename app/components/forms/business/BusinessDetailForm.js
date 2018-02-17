@@ -40,7 +40,7 @@ export class BusinessDetailForm extends React.Component{
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit} 
                 disabled={pristine || submitting}>
-                    <Text>Next</Text>
+                    <Text>Add Business</Text>
                 </Button>
             </Form>
         );

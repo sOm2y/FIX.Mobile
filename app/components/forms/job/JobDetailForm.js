@@ -46,7 +46,7 @@ export class JobDetailForm extends React.Component{
                     component={renderTextarea}
                     label="Description"
                 />
-                {/*
+                
                 <Field label="Business Categories" 
                 name="businessCategoryId" 
                 iosHeader="Select Business Category" 
@@ -60,7 +60,7 @@ export class JobDetailForm extends React.Component{
                         })
                      }
                 </Field>
-                    */}
+                
 
                 <Field
                     name="jobDate"

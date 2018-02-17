@@ -6,7 +6,7 @@ import { reset } from 'redux-form';
 import { postJob } from '../../services/jobService';
 import { toastShow } from '../../services/toastService';
 import WizardJobForm from '../../components/wizards/WizardJobForm';
-import JobMapModal from '../../components/modals/JobMapModal';
+
 
 
 
@@ -41,9 +41,9 @@ export default class CreateJobScreen extends React.Component {
     const { navigate } = navigation;
 
     return (
-      <View>
+
         <WizardJobForm wizardLabel='WizardJobForm' onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
-      </View>
+     
     );
   }
 }

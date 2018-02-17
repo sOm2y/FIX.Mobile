@@ -41,7 +41,7 @@ class WizardTradieForm extends React.Component {
   });
 
   render(){
-    const { t, i18n, navigation, page, onSubmit, wizardLabel } = this.props;
+    const { t, i18n, navigation, page, onSubmit, wizardLabel, onAddBusiness } = this.props;
     const displayWizardTitle = (pageIndex) => {
       let title = ''
       switch(pageIndex){
@@ -80,9 +80,9 @@ class WizardTradieForm extends React.Component {
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Business"]} />
         {page === 0 &&<CredentialForm  {...this.props} onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />} 
+        {page === 2 &&<BusinessListForm formLabel='businessDetailForm' {...this.props} onSubmit={onAddBusiness} />} 
         
-        <BusinessListForm wizardLabel='businessDetailForm' />
+      
         </Content>
       </Container>
     );
