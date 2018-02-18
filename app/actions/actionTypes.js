@@ -12,6 +12,8 @@ const Jobs = 'JOBS';
 const CreateJob = 'CREATE_JOB';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
 const HideBusinessModal = 'HIDE_BUSSINESS_FORM';
+const LoginAsCustomer = 'LOGIN_AS_CUSTOMER';
+const LoginAsTradie = 'LOGIN_AS_TRADIE';
 
 export {
     NextPage,
@@ -27,5 +29,7 @@ export {
     Jobs,
     CreateJob,
     ShowBusinessModal,
-    HideBusinessModal
+    HideBusinessModal,
+    LoginAsCustomer,
+    LoginAsTradie
 };

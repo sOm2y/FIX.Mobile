@@ -12,7 +12,9 @@ import {
   Jobs,
   CreateJob,
   ShowBusinessModal,
-  HideBusinessModal
+  HideBusinessModal,
+  LoginAsCustomer,
+  LoginAsTradie
 } from "./actionTypes";
 
 export const increment = () => {
@@ -34,11 +36,14 @@ const previousPage = () => ({
   type: PreviousPage
 });
 
-const login = () => ({
-  type: Login
+const login = (userType) => ({
+  type: Login,
+  payload: {
+    userType: userType
+  }
 });
 
-const logout = () => ({
+const logout = (userType) => ({
   type: Logout
 });
 
@@ -82,6 +87,13 @@ const hideBusinessModal = () => ({
   type: HideBusinessModal
 });
 
+const loginAsCustomer = () => ({
+  type: LoginAsCustomer
+});
+
+const loginAsTradie = () => ({
+  type: LoginAsTradie
+});
 
 
 export {
@@ -98,5 +110,7 @@ export {
   jobs,
   createJob,
   showBusinessModal,
-  hideBusinessModal
+  hideBusinessModal,
+  loginAsCustomer,
+  loginAsTradie
 };

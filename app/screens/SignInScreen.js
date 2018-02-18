@@ -20,11 +20,16 @@ class SignInScreen extends React.Component {
   onSubmit = (values, dispatch, navigation) => {
     console.log(values);
     values = Object.assign({grant_type:'password'},values);
-    return loginUserAccount(values)
+    loginUserAccount(values)
       .then(res => {
         console.log(res)
         dispatch(reset('LoginForm'));
-        this.props.login();
+        if(res.data.usertype === 'Customer'){
+          this.props.login(res.data.usertype);
+        }else if(res.data.usertype === 'Tradie'){
+          this.props.loginAsTradie();
+        }
+     
         toastShow("SignIn Successfully", "success", 3000);   
       })
       .catch(err => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
@@ -70,7 +70,7 @@ export const RegistrationNavigator = StackNavigator(
     initialRouteName : 'SignUp',
   });
 
-export const HomeTabNavigator = TabNavigator(
+export const CustomerHomeTabNavigator = TabNavigator(
   {
     Jobs: { 
       screen: JobNavigator,
@@ -99,6 +99,7 @@ export const HomeTabNavigator = TabNavigator(
       activeTintColor: '#e91e63',
     },
     tabBarComponent: props => {
+      console.log(this.props);
       return (
         <Footer>
           <FooterTab>
@@ -116,7 +117,7 @@ export const HomeTabNavigator = TabNavigator(
               onPress={() => props.navigation.navigate("Notifications")}
               style={{backgroundColor:'transparent'}}>
               <Icon ios='ios-notifications-outline' android="md-notifications" />
-              <Text>Messages</Text>
+              <Text>Notifications</Text>
             </Button>
 
             <Button
@@ -127,6 +128,87 @@ export const HomeTabNavigator = TabNavigator(
               <Icon ios='ios-settings-outline' android="md-settings" />
               <Text>Profile</Text>
             </Button>
+          </FooterTab>
+        </Footer>
+      );
+    }
+  }
+);
+
+
+export const TradieHomeTabNavigator = TabNavigator(
+  {
+    JobsOnMap:{
+      screen: JobFinderScreen,
+      navigationOptions: {
+        
+      }
+    },
+    Jobs: { 
+      screen: JobNavigator,
+      navigationOptions: {
+        
+      }
+    },
+    Notifications: { 
+      screen: NotificationsScreen,
+      navigationOptions: {
+        
+      }
+    },
+    Profile: { 
+      screen: Profile,
+      navigationOptions: {
+        
+      }
+    }
+  },
+  {
+    tabBarPosition: "bottom",
+    initialRouteName : 'JobsOnMap',
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: '#e91e63',
+    },
+    tabBarComponent: props => {
+      console.log(this.props);
+      return (
+        <Footer>
+          <FooterTab>
+            <Button
+              vertical
+              active={props.navigationState.index === 0}
+              onPress={() => props.navigation.navigate("JobsOnMap")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-pin-outline' android="md-pin" />
+              <Text style={styles.tabText} >Map</Text>
+            </Button>
+            <Button
+              vertical
+              active={props.navigationState.index === 1}
+              onPress={() => props.navigation.navigate("Jobs")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-home-outline' android="md-home" />
+              <Text style={styles.tabText}>Jobs</Text>
+            </Button> 
+            <Button
+              vertical
+              active={props.navigationState.index === 2}
+              onPress={() => props.navigation.navigate("Notifications")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-notifications-outline' android="md-notifications" />
+              <Text style={styles.tabText}>Notifications</Text>
+            </Button>
+
+            <Button
+              vertical
+              active={props.navigationState.index === 3}
+              onPress={() => props.navigation.navigate("Profile")}
+              style={{backgroundColor:'transparent'}}>
+              <Icon ios='ios-settings-outline' android="md-settings" />
+              <Text style={styles.tabText} >Profile</Text>
+            </Button>
+          
           </FooterTab>
         </Footer>
       );
@@ -148,8 +230,15 @@ const AppRootNavigator =  StackNavigator(
         gesturesEnabled: false
       }
     },
-    Home: {
-      screen: HomeTabNavigator,
+    TradieHome: {
+      screen: CustomerHomeTabNavigator,
+      navigationOptions: {
+        gesturesEnabled: false,
+        headerLeft: null
+      }
+    },
+    CustomerHome: {
+      screen: TradieHomeTabNavigator,
       navigationOptions: {
         gesturesEnabled: false,
         headerLeft: null
@@ -161,5 +250,12 @@ const AppRootNavigator =  StackNavigator(
     mode: 'modal'
   }
 );
+
+const styles = StyleSheet.create({
+
+  tabText: {
+    fontSize: 10,
+  },
+});
 
 export default AppRootNavigator;

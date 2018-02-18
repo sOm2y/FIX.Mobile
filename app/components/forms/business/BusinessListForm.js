@@ -13,6 +13,12 @@ import BusinessDetailForm  from "./BusinessDetailForm";
 
 
 export class BusinessListForm extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            business:{}
+        };
+    }
 
     static navigationOptions = ({ navigation }) => ({
     });
@@ -20,7 +26,8 @@ export class BusinessListForm extends React.Component{
     componentDidMount() {
         getBusinesses()
         .then(res => {
-            
+            // this.set
+            console.log(res);
         }).catch(err => {
 
         })
