@@ -12,7 +12,10 @@ import {
   Jobs,
   CreateJob,
   ShowBusinessModal,
-  HideBusinessModal
+  HideBusinessModal,
+  ShowChangePasswordModal,
+  HideChangePasswordModal,
+  SetUserData
 } from "./actionTypes";
 
 export const increment = () => {
@@ -82,6 +85,19 @@ const hideBusinessModal = () => ({
   type: HideBusinessModal
 });
 
+const showChangePasswordModal = () => ({
+  type: ShowChangePasswordModal
+});
+
+const hideChangePasswordModal = () => ({
+  type: HideChangePasswordModal
+});
+
+const setUserData = (data) => ({
+  type: SetUserData,
+  user: data
+});
+
 
 
 export {
@@ -98,5 +114,8 @@ export {
   jobs,
   createJob,
   showBusinessModal,
-  hideBusinessModal
+  hideBusinessModal,
+  showChangePasswordModal,
+  hideChangePasswordModal,
+  setUserData
 };

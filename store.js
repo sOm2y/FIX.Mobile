@@ -12,6 +12,7 @@ import counterReducer from "./app/reducers/countReducer";
 import navigationReducer from "./app/reducers/navigationReducer";
 import authReducer from "./app/reducers/authReducer";
 import businessReducer from "./app/reducers/businessReducer";
+import profileReducer from "./app/reducers/profileReducer";
 
 
 
@@ -52,7 +53,7 @@ const rootReducer = combineReducers({
   NavigationReducer: navigationReducer,
   form: formReducer,
   page: wizardPaginationReducer,
-
+  ProfileReducer: profileReducer
 });
 
 function configureStore() {
@@ -60,6 +61,10 @@ function configureStore() {
     rootReducer,
     applyMiddleware(middleware),
   );
+
+  store.subscribe(() => {
+    console.log(store.getState());
+  });
   let persistor = persistStore(store);
   return { persistor, store };
 }
