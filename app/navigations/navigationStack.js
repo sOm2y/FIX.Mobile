@@ -230,18 +230,16 @@ const AppRootNavigator =  StackNavigator(
         gesturesEnabled: false
       }
     },
-    TradieHome: {
+    Home: {
       screen: CustomerHomeTabNavigator,
       navigationOptions: {
         gesturesEnabled: false,
-        headerLeft: null
       }
     },
-    CustomerHome: {
+    TradieHome: {
       screen: TradieHomeTabNavigator,
       navigationOptions: {
         gesturesEnabled: false,
-        headerLeft: null
       }
     }
   },

@@ -38,12 +38,10 @@ const previousPage = () => ({
 
 const login = (userType) => ({
   type: Login,
-  payload: {
-    userType: userType
-  }
+  userType: userType
 });
 
-const logout = (userType) => ({
+const logout = () => ({
   type: Logout
 });
 

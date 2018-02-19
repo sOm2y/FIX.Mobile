@@ -16,8 +16,7 @@ import {
 
 const ActionForLoggedOut = AppRootNavigator.router.getActionForPathAndParams('SignIn');
 
-//Default as customer home page
-const ActionForLoggedIn = AppRootNavigator.router.getActionForPathAndParams('CustomerHome');
+const ActionForLoggedIn = AppRootNavigator.router.getActionForPathAndParams('Home');
 
 const stateForLoggedOut = AppRootNavigator.router.getStateForAction(
   ActionForLoggedOut
@@ -35,10 +34,6 @@ const navigationReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case Login:
-    //TODO: this check user type here is too hacky, need to modify navigation router params in the future.
-      if(action.payload.userType === 'Tradie'){
-        const ActionForLoggedIn = AppRootNavigator.router.getActionForPathAndParams('TradieHome');
-      }
       return {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(

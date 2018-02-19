@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
 import { connect } from "react-redux";
+import { NavigationActions } from 'react-navigation';
 import { reset } from 'redux-form';
 import PropTypes from 'prop-types';
 import I18n from 'ex-react-native-i18n';
@@ -17,23 +18,10 @@ class SignInScreen extends React.Component {
     title: 'title'
   });
 
-  onSubmit = (values, dispatch, navigation) => {
+  onSubmit = (values, dispatch) => {
     console.log(values);
     values = Object.assign({grant_type:'password'},values);
-    loginUserAccount(values)
-      .then(res => {
-        console.log(res)
-        dispatch(reset('LoginForm'));
-
-        this.props.login(res.data.usertype);
-  
-     
-        toastShow("SignIn Successfully", "success", 3000);   
-      })
-      .catch(err => {
-        console.log(err);
-        toastShow("SignIn Unsuccessfully", "danger", 3000);   
-      });
+    return loginUserAccount(values);
 }
 
   render(){
@@ -48,7 +36,30 @@ class SignInScreen extends React.Component {
           </Body>
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-          <LoginForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+          <LoginForm onSubmit={
+            (values,dispatch) => {
+              this.onSubmit(values, dispatch).then(res => {
+                console.log(res)
+
+                const setParamsAction = NavigationActions.setParams({
+                  params: { userType: res.data.usertype },
+                  key: 'Home',
+                });
+                navigation.dispatch(setParamsAction);
+          
+                dispatch(reset('LoginForm'));
+        
+                this.props.login(res.data.usertype);
+
+     
+                toastShow("SignIn Successfully", "success", 3000);   
+              })
+              .catch(err => {
+                console.log(err);
+                toastShow("SignIn Unsuccessfully", "danger", 3000);   
+              });
+            }
+          } />
             <Button style={styles.button}
               block 
               bordered

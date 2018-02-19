@@ -66,17 +66,19 @@ class WizardCustomerForm extends React.Component {
     return (
       <Container>
         <Header>
-            <Left>
+           
             {page === 0 &&
+              <Left>
                 <Button transparent onPress={this.props.navigationBack}>
                     <Icon name="arrow-back" />
                 </Button>
+              </Left>
             }
-            </Left>
+           
           <Body>
             <Title>{displayWizardTitle(page)}</Title>
           </Body>
-          <Right />
+          {page === 0 && <Right />}
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Confirmation"]} />
