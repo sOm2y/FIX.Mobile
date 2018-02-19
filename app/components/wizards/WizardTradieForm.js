@@ -6,6 +6,9 @@ import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from "native-base";
 
+import { postUserAccount } from '../../services/authService';
+import { toastShow } from '../../services/toastService';
+
 import CredentialForm from '../forms/register/CredentialForm';
 import DetailForm from '../forms/register/DetailForm';
 import BusinessListForm from '../forms/business/BusinessListForm';
@@ -39,6 +42,18 @@ const thirdIndicatorStyles = {
 class WizardTradieForm extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
+
+  onSubmit = (values, dispatch) => {
+    values = Object.assign({userType:1},values);
+    console.log(values);
+    return postUserAccount(values)
+    .then(res => {
+      this.props.nextPage();
+      toastShow("Tradie account has been created", "success", 3000); 
+    }).catch( err => {
+      toastShow("Register failed, please try again", "danger", 3000);   
+    });
+  }
 
   render(){
     const { t, i18n, navigation, page, onSubmit, wizardLabel, onAddBusiness } = this.props;
@@ -79,8 +94,8 @@ class WizardTradieForm extends React.Component {
         <Content padder keyboardShouldPersistTaps={'always'}>
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Business"]} />
         {page === 0 &&<CredentialForm  {...this.props} onSubmit={this.props.nextPage} />}
-        {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<BusinessListForm formLabel='businessDetailForm' {...this.props} onSubmit={onAddBusiness} />} 
+        {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch)}  />}
+        {page === 2 &&<BusinessListForm formLabel='businessDetailForm' {...this.props}/>} 
         
       
         </Content>

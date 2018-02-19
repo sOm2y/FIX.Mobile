@@ -56,7 +56,7 @@ export const getBusinesses= ( ) =>{
 }
 
 
-export const postBusiness = ( Business ) =>{
+export const postBusiness = ( business ) =>{
   return new Promise((resolve, reject) => {
 
       axios({
@@ -65,7 +65,7 @@ export const postBusiness = ( Business ) =>{
         headers: {
           'Content-Type': 'application/json'
         },
-        data: qs.stringify(Business)
+        data: qs.stringify(business)
       })
       .then(res => {
         if(res.status === 400 || res.status === 403){

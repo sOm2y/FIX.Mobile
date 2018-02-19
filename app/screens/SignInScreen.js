@@ -24,11 +24,9 @@ class SignInScreen extends React.Component {
       .then(res => {
         console.log(res)
         dispatch(reset('LoginForm'));
-        if(res.data.usertype === 'Customer'){
-          this.props.login(res.data.usertype);
-        }else if(res.data.usertype === 'Tradie'){
-          this.props.loginAsTradie();
-        }
+
+        this.props.login(res.data.usertype);
+  
      
         toastShow("SignIn Successfully", "success", 3000);   
       })

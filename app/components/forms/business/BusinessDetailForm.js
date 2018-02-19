@@ -3,7 +3,8 @@ import { Button, Text, Form, Spinner } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
-import AddAddressForm from '../../forms/register/AddrerssForm';
+import { renderAddress } from '../../../components/inputs/renderAddress';
+import AddAddressForm from '../../forms/address/AddAddressForm';
 
 
 export class BusinessDetailForm extends React.Component{
@@ -41,7 +42,12 @@ export class BusinessDetailForm extends React.Component{
                     label="Company Tax Number"
                 />
 
-                <AddAddressForm onSubmit={(values, dispatch)=>this.onSubmit(values.address, dispatch,this.props.form)} />
+               <Field
+                    name="businessAddress"
+                    type="text"
+                    component={renderAddress}
+                    label="Your Business address"
+                />
 
                 
                 <Button block primary

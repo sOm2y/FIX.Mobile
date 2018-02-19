@@ -18,7 +18,7 @@ export const renderAddress= ({ input:{value, onChange}, label, type, meta: { tou
         returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
         listViewDisplayed='auto'    // true/false/undefined
         fetchDetails={true}
-        renderDescription={row => row.description} // custom description render
+        // renderDescription={row => row.description} // custom description render
         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
           console.log(data.description);
           console.log(details);
@@ -33,7 +33,6 @@ export const renderAddress= ({ input:{value, onChange}, label, type, meta: { tou
           }
           console.log(value);
           onChange(value);
-          //dispatch(value);
         }}
         getDefaultValue={() => ''}
         
@@ -50,9 +49,6 @@ export const renderAddress= ({ input:{value, onChange}, label, type, meta: { tou
           },
           description: {
             fontWeight: 'bold'
-          },
-          predefinedPlacesDescription: {
-            color: '#1faadb'
           }
         }}
         
