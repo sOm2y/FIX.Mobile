@@ -14,6 +14,7 @@ import CustomerRegister from '../screens/registration/CustomerScreen';
 import TradieRegister from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import Profile from '../screens/ProfileScreen';
+import FooterBottomTab from '../components/FooterBottomTab';
 
 export const JobNavigator = StackNavigator(
   { 
@@ -104,62 +105,7 @@ export const HomeTabNavigator = TabNavigator(
     tabBarOptions: {
       activeTintColor: '#e91e63',
     },
-    tabBarComponent: (props) => {
-      console.log(props);
-      let userType = null;
-     
-      return AsyncStorage.getItem('userType')
-        .then( res => {
-          userType = res;
-          console.log(res);
-          return (<Footer>
-          <FooterTab>
-            { userType && userType === 'Tradie' &&   
-              <Button
-                vertical
-                active={props.navigationState.index === 0}
-                onPress={() => props.navigation.navigate("JobsOnMap")}
-                style={{backgroundColor:'transparent'}}>
-                <Icon ios='ios-pin-outline' android="md-pin" />
-                <Text style={styles.tabText} > Map </Text>
-              </Button>
-            }
-            <Button
-              vertical
-              active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Jobs")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-home-outline' android="md-home" />
-              <Text style={userType && userType === 'Tradie' && styles.tabText}> Jobs </Text>
-            </Button> 
-            <Button
-              vertical
-              active={props.navigationState.index === 2}
-              onPress={() => props.navigation.navigate("Notifications")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-notifications-outline' android="md-notifications" />
-              <Text style={userType && userType === 'Tradie' && styles.tabText}> Notifications </Text>
-            </Button>
-
-            <Button
-              vertical
-              active={props.navigationState.index === 3}
-              onPress={() => props.navigation.navigate("Profile")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-settings-outline' android="md-settings" />
-              <Text style={userType && userType === 'Tradie' && styles.tabText} > Profile </Text>
-            </Button>
-          
-          </FooterTab>
-        </Footer>
-          );
-        })
-        .catch( err => {
-          console.log(err);
-        });
-        
-      
-    }
+    tabBarComponent: FooterBottomTab
   }
 );
 

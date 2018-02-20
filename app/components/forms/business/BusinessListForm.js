@@ -53,7 +53,7 @@ export class BusinessListForm extends React.Component{
         
         return (
             <Content>
-                {this.state.business && this.state.business.length >1 &&
+                { this.state.business && this.state.business.length >1 &&
                 <Card>
                     <CardItem header>
                         <Text>{this.state.business.businessName}</Text>
@@ -66,7 +66,7 @@ export class BusinessListForm extends React.Component{
                         </Body>
                     </CardItem>
                     <CardItem footer>
-                    <Text>Tax Number: {this.state.business.taxNumber}</Text>
+                    <Text>{this.state.business.taxNumber}</Text>
                     </CardItem>
                 </Card>
                 }
