@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { AsyncStorage, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
@@ -70,73 +70,7 @@ export const RegistrationNavigator = StackNavigator(
     initialRouteName : 'SignUp',
   });
 
-export const CustomerHomeTabNavigator = TabNavigator(
-  {
-    Jobs: { 
-      screen: JobNavigator,
-      navigationOptions: {
-        
-      }
-    },
-    Notifications: { 
-      screen: NotificationsScreen,
-      navigationOptions: {
-        
-      }
-    },
-    Profile: { 
-      screen: Profile,
-      navigationOptions: {
-        
-      }
-    }
-  },
-  {
-    tabBarPosition: "bottom",
-    initialRouteName : 'Jobs',
-    animationEnabled: true,
-    tabBarOptions: {
-      activeTintColor: '#e91e63',
-    },
-    tabBarComponent: props => {
-      console.log(this.props);
-      return (
-        <Footer>
-          <FooterTab>
-            <Button
-              vertical
-              active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("Jobs")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-home-outline' android="md-home" />
-              <Text>Jobs</Text>
-            </Button> 
-            <Button
-              vertical
-              active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Notifications")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-notifications-outline' android="md-notifications" />
-              <Text>Notifications</Text>
-            </Button>
-
-            <Button
-              vertical
-              active={props.navigationState.index === 2}
-              onPress={() => props.navigation.navigate("Profile")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-settings-outline' android="md-settings" />
-              <Text>Profile</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      );
-    }
-  }
-);
-
-
-export const TradieHomeTabNavigator = TabNavigator(
+export const HomeTabNavigator = TabNavigator(
   {
     JobsOnMap:{
       screen: JobFinderScreen,
@@ -170,26 +104,33 @@ export const TradieHomeTabNavigator = TabNavigator(
     tabBarOptions: {
       activeTintColor: '#e91e63',
     },
-    tabBarComponent: props => {
-      console.log(this.props);
-      return (
-        <Footer>
+    tabBarComponent: (props) => {
+      console.log(props);
+      let userType = null;
+     
+      return AsyncStorage.getItem('userType')
+        .then( res => {
+          userType = res;
+          console.log(res);
+          return (<Footer>
           <FooterTab>
-            <Button
-              vertical
-              active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("JobsOnMap")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-pin-outline' android="md-pin" />
-              <Text style={styles.tabText} >Map</Text>
-            </Button>
+            { userType && userType === 'Tradie' &&   
+              <Button
+                vertical
+                active={props.navigationState.index === 0}
+                onPress={() => props.navigation.navigate("JobsOnMap")}
+                style={{backgroundColor:'transparent'}}>
+                <Icon ios='ios-pin-outline' android="md-pin" />
+                <Text style={styles.tabText} > Map </Text>
+              </Button>
+            }
             <Button
               vertical
               active={props.navigationState.index === 1}
               onPress={() => props.navigation.navigate("Jobs")}
               style={{backgroundColor:'transparent'}}>
               <Icon ios='ios-home-outline' android="md-home" />
-              <Text style={styles.tabText}>Jobs</Text>
+              <Text style={userType && userType === 'Tradie' && styles.tabText}> Jobs </Text>
             </Button> 
             <Button
               vertical
@@ -197,7 +138,7 @@ export const TradieHomeTabNavigator = TabNavigator(
               onPress={() => props.navigation.navigate("Notifications")}
               style={{backgroundColor:'transparent'}}>
               <Icon ios='ios-notifications-outline' android="md-notifications" />
-              <Text style={styles.tabText}>Notifications</Text>
+              <Text style={userType && userType === 'Tradie' && styles.tabText}> Notifications </Text>
             </Button>
 
             <Button
@@ -206,12 +147,18 @@ export const TradieHomeTabNavigator = TabNavigator(
               onPress={() => props.navigation.navigate("Profile")}
               style={{backgroundColor:'transparent'}}>
               <Icon ios='ios-settings-outline' android="md-settings" />
-              <Text style={styles.tabText} >Profile</Text>
+              <Text style={userType && userType === 'Tradie' && styles.tabText} > Profile </Text>
             </Button>
           
           </FooterTab>
         </Footer>
-      );
+          );
+        })
+        .catch( err => {
+          console.log(err);
+        });
+        
+      
     }
   }
 );
@@ -231,13 +178,7 @@ const AppRootNavigator =  StackNavigator(
       }
     },
     Home: {
-      screen: CustomerHomeTabNavigator,
-      navigationOptions: {
-        gesturesEnabled: false,
-      }
-    },
-    TradieHome: {
-      screen: TradieHomeTabNavigator,
+      screen: HomeTabNavigator,
       navigationOptions: {
         gesturesEnabled: false,
       }

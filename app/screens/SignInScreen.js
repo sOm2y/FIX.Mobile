@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { connect } from "react-redux";
 import { NavigationActions } from 'react-navigation';
 import { reset } from 'redux-form';
@@ -38,19 +38,12 @@ class SignInScreen extends React.Component {
         <Content padder keyboardShouldPersistTaps={'always'}>
           <LoginForm onSubmit={
             (values,dispatch) => {
-              this.onSubmit(values, dispatch).then(res => {
-                console.log(res)
-
-                const setParamsAction = NavigationActions.setParams({
-                  params: { userType: res.data.usertype },
-                  key: 'Home',
-                });
-                navigation.dispatch(setParamsAction);
-          
+               return this.onSubmit(values, dispatch).then(res => {
                 dispatch(reset('LoginForm'));
         
                 this.props.login(res.data.usertype);
 
+                AsyncStorage.setItem('userType', res.data.usertype);
      
                 toastShow("SignIn Successfully", "success", 3000);   
               })
