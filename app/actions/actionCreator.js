@@ -36,9 +36,8 @@ const previousPage = () => ({
   type: PreviousPage
 });
 
-const login = (userType) => ({
-  type: Login,
-  userType: userType
+const login = () => ({
+  type: Login
 });
 
 const logout = () => ({

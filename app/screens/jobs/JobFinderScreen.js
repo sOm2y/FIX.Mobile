@@ -192,7 +192,9 @@ class JobFinderScreen extends Component {
           <Right>
   
               <Button transparent onPress={this.props.navigationBack}>
+                <Text>
                  Skip
+                 </Text>
               </Button>
           
           </Right>

@@ -41,7 +41,7 @@ class SignInScreen extends React.Component {
                return this.onSubmit(values, dispatch).then(res => {
                 dispatch(reset('LoginForm'));
         
-                this.props.login(res.data.usertype);
+                this.props.login();
 
                 AsyncStorage.setItem('userType', res.data.usertype);
      

@@ -9,6 +9,7 @@ import SignUp from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
 import Jobs from '../screens//jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
+import JobsOnMap from '../screens/jobs/JobsOnMapScreen';
 import JobFinderScreen from '../screens/jobs/JobFinderScreen';
 import CustomerRegister from '../screens/registration/CustomerScreen';
 import TradieRegister from '../screens/registration/TradieScreen';
@@ -74,7 +75,7 @@ export const RegistrationNavigator = StackNavigator(
 export const HomeTabNavigator = TabNavigator(
   {
     JobsOnMap:{
-      screen: JobFinderScreen,
+      screen: JobsOnMap,
       navigationOptions: {
         
       }
@@ -105,7 +106,7 @@ export const HomeTabNavigator = TabNavigator(
     tabBarOptions: {
       activeTintColor: '#e91e63',
     },
-    tabBarComponent: FooterBottomTab
+    tabBarComponent: ({navigationState, navigation}) => <FooterBottomTab navigation={navigation} navigationState={navigationState} />
   }
 );
 
