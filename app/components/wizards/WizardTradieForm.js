@@ -40,6 +40,12 @@ const thirdIndicatorStyles = {
 }
 
 class WizardTradieForm extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      user: {}
+    }
+  }
   static navigationOptions = ({ navigation }) => ({
   });
 
@@ -49,14 +55,16 @@ class WizardTradieForm extends React.Component {
     return postUserAccount(values)
     .then(res => {
       this.props.nextPage();
-      toastShow("Tradie account has been created", "success", 3000); 
+      console.log(res);
+     // this.setState({user:values});
+     // toastShow("Tradie account has been created", "success", 3000); 
     }).catch( err => {
       toastShow("Register failed, please try again", "danger", 3000);   
     });
   }
 
   render(){
-    const { t, i18n, navigation, page, onSubmit, wizardLabel, onAddBusiness } = this.props;
+    const { t, i18n, navigation, page, onSubmit, wizardLabel } = this.props;
     const displayWizardTitle = (pageIndex) => {
       let title = ''
       switch(pageIndex){
@@ -96,7 +104,7 @@ class WizardTradieForm extends React.Component {
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Business"]} />
         {page === 0 &&<CredentialForm  {...this.props} onSubmit={this.props.nextPage} />}
         {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch)}  />}
-        {page === 2 &&<BusinessListForm formLabel='businessDetailForm' {...this.props}/>} 
+        {page === 2 &&<BusinessListForm user={this.state.user} formLabel='businessDetailForm' {...this.props}/>} 
         
       
         </Content>

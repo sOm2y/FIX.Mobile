@@ -10,7 +10,8 @@ import {
   Platform
 } from "react-native";
 import { connect } from 'react-redux';
-import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
+import { Constants, Location, Permissions, AppLoading } from 'expo';
+import MapView from 'react-native-maps';
 import { navigationBack } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 

@@ -51,7 +51,9 @@ export const postUserAccount = ( postUser ) => {
       data: postUser
     })
     .then(res => {
-      AsyncStorage.setItem(USER_KEY, "true");
+      // console.log(res.data.access_token);
+      // axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.access_token;
+      // AsyncStorage.setItem(USER_KEY, res.data.access_token);
       resolve(res);
     })
     .catch(err => {

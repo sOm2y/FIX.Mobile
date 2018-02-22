@@ -6,8 +6,8 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import MapView, { Marker, Callout, ProviderPropType } from 'expo';
-import {CustomCallout} from './CustomCallout';
+import MapView, { Marker, Callout, ProviderPropType } from 'react-native-maps';
+import CustomCallout from './CustomCallout';
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,7 +18,7 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-export class Callouts extends React.Component {
+export default class Callouts extends React.Component {
   constructor(props) {
     super(props);
 

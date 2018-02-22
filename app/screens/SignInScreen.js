@@ -39,13 +39,17 @@ class SignInScreen extends React.Component {
           <LoginForm onSubmit={
             (values,dispatch) => {
                return this.onSubmit(values, dispatch).then(res => {
-                dispatch(reset('LoginForm'));
-        
-                this.props.login();
 
-                AsyncStorage.setItem('userType', res.data.usertype);
+                AsyncStorage.setItem('userType', res.data.usertype).then(()=>{
+
+                  dispatch(reset('LoginForm'));
+          
+                  this.props.login();
+
+              
+                  toastShow("SignIn Successfully", "success", 3000);   
+                });
      
-                toastShow("SignIn Successfully", "success", 3000);   
               })
               .catch(err => {
                 console.log(err);

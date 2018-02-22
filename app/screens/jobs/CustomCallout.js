@@ -11,7 +11,7 @@ const propTypes = {
   style: PropTypes.object,
 };
 
-export class CustomCallout extends React.Component {
+export default class CustomCallout extends React.Component {
   render() {
     return (
       <View style={[styles.container, this.props.style]}>

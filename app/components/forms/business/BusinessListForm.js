@@ -14,8 +14,9 @@ import BusinessDetailForm  from "./BusinessDetailForm";
 
 
 export class BusinessListForm extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        console.log("businesslist props"+ props);
         this.state = {
             business:{}
         };
@@ -27,7 +28,7 @@ export class BusinessListForm extends React.Component{
     componentDidMount() {
         getBusinesses()
         .then(res => {
-            // this.set
+            this.setState({business:res});
             console.log(res);
         })
         .catch(err => {
@@ -49,11 +50,12 @@ export class BusinessListForm extends React.Component{
     }
 
     render(){
-        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, formName, isBusinessModalShowed } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, formName, isBusinessModalShowed, user } = this.props;
         
         return (
             <Content>
-                { this.state.business && this.state.business.length >1 &&
+                <Title>Hi {this.props.user.firstName}</Title>
+                { this.state.business && (JSON.stringify( this.state.business) !== '{}')&&
                 <Card>
                     <CardItem header>
                         <Text>{this.state.business.businessName}</Text>
@@ -99,7 +101,7 @@ export class BusinessListForm extends React.Component{
                       
                         </Header>
                         <Content padder keyboardShouldPersistTaps={'always'}>
-                            <BusinessDetailForm form={formName} onSubmit={(values, dispatch)=>this.onSubmit(values, dispatch)} />
+                            <BusinessDetailForm {...this.props} form={formName} onSubmit={(values, dispatch)=>this.onSubmit(values, dispatch)} />
                             <Button block primary
                             style={{ marginTop: 10 }}
                             onPress={this.props.hideBusinessModal}>
