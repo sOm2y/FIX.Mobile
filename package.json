@@ -9,6 +9,7 @@
     "eslint": "^4.9.0",
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-react-native": "^3.1.0",
+    "flow-bin": "^0.66.0",
     "jest-expo": "^24.0.0",
     "react-native-debugger-open": "^0.3.15",
     "react-native-scripts": "^1.8.1",
@@ -21,7 +22,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "postinstall": "rndebugger-open"
+    "postinstall": "rndebugger-open",
+    "flow": "flow"
   },
   "jest": {
     "preset": "jest-expo"

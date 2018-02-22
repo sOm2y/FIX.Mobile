@@ -5,7 +5,9 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  Platform
 } from 'react-native';
+import { Constants, Location, Permissions, AppLoading } from 'expo';
 import MapView, { Marker, Callout, ProviderPropType } from 'react-native-maps';
 import CustomCallout from './CustomCallout';
 
@@ -23,11 +25,9 @@ export default class Callouts extends React.Component {
     super(props);
 
     this.state = {
+      isReady: false,
       region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
+       
       },
       markers: [
         {
@@ -52,6 +52,19 @@ export default class Callouts extends React.Component {
     };
   }
 
+  async componentWillMount() {
+
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+        this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+        });
+    } else {
+        await this.getLocationAsync();
+        
+    }
+    
+  }
+
   show() {
     this.marker1.showCallout();
   }
@@ -60,8 +73,67 @@ export default class Callouts extends React.Component {
     this.marker1.hideCallout();
   }
 
+  getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+    this.setState({
+        errorMessage: 'Permission to access location was denied',
+    });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+
+    let coords = this.getRegionFrom(location.coords.latitude,location.coords.longitude,500);
+    console.log(coords);
+    this.setState({region:coords,isReady:true, markers: [
+      {
+        coordinate: {
+          latitude: location.coords.latitude + SPACE,
+          longitude: location.coords.longitude + SPACE,
+        },
+      },
+      {
+        coordinate: {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        },
+      },
+      {
+        coordinate: {
+          latitude: location.coords.latitude + SPACE,
+          longitude: location.coords.longitude - SPACE,
+        },
+      },
+    ]});
+    console.log(this.state.region);
+  }
+
+  
+  getRegionFrom(lat, lon, distance) {
+    distance = distance/2
+    const circumference = 40075
+    const oneDegreeOfLatitudeInMeters = 111.32 * 1000
+    const angularDistance = distance/circumference
+
+    const latitudeDelta = distance / oneDegreeOfLatitudeInMeters
+    const longitudeDelta = Math.abs(Math.atan2(
+            Math.sin(angularDistance)*Math.cos(lat),
+            Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat)))
+
+    return {
+        latitude: lat,
+        longitude: lon,
+        latitudeDelta,
+        longitudeDelta,
+    }
+  } 
+
+
   render() {
     const { region, markers } = this.state;
+    if (!this.state.isReady) {
+      return <AppLoading />;
+    }
     return (
       <View style={styles.container}>
         <MapView
@@ -81,7 +153,7 @@ export default class Callouts extends React.Component {
             <Callout style={styles.plainView}>
 
               <View>
-                <Text>This is a plain view</Text>
+                <Text>This is a your current position</Text>
               </View>
             </Callout>
           </Marker>

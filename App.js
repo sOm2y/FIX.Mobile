@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import Expo from 'expo';
 

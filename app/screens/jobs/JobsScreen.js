@@ -30,7 +30,7 @@ class JobsScreen extends React.Component {
         console.log( axios.defaults.headers.common['Authorization']);
         getJobs().then((res)=>{
           this.setState({jobs:res});
-          toastShow("SignIn Successfully", "success", 3000); 
+    
         }).catch(err=>{
           console.log(err);
           toastShow(err.data.message, "danger", 3000);   

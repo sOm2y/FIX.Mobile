@@ -1,4 +1,5 @@
 import React from "react";
+import { Permissions, Notifications } from 'expo';
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -49,14 +50,21 @@ class WizardTradieForm extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
-  onSubmit = (values, dispatch) => {
+  onSubmit = async (values, dispatch) => {
+
+    let pushToken = await Notifications.getExpoPushTokenAsync();
     values = Object.assign({userType:1},values);
+    values = Object.assign({deviceToken:pushToken},values);
+
     console.log(values);
+  
     return postUserAccount(values)
     .then(res => {
+
+
       this.props.nextPage();
       console.log(res);
-     // this.setState({user:values});
+     this.setState({user:values});
      // toastShow("Tradie account has been created", "success", 3000); 
     }).catch( err => {
       toastShow("Register failed, please try again", "danger", 3000);   

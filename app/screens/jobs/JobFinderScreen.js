@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions, AppLoading } from 'expo';
 import MapView from 'react-native-maps';
-import { navigationBack } from '../../actions/actionCreator';
+import { navigationBack, jobs } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 
 
@@ -192,7 +192,7 @@ class JobFinderScreen extends Component {
       <Header>
           <Right>
   
-              <Button transparent onPress={this.props.navigationBack}>
+              <Button transparent onPress={this.props.jobs}>
                 <Text>
                  Skip
                  </Text>
@@ -344,7 +344,8 @@ const mapStateToProps = (state, props) =>{
 }
 
 const mapDispatchToProps = {
-  navigationBack
+  navigationBack,
+  jobs
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobFinderScreen);

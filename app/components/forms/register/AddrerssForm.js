@@ -33,11 +33,19 @@ export class AddressForm extends React.Component{
           .then(res => {
             console.log(res)
             dispatch(reset('AddAddressForm'));
+            this.setState({isLoadingAddress:true});
+            getAddresses().then(res=>{
+                this.setState({addressList:res, isLoadingAddress: false})
+                console.log(res);
+            }).catch( ()=> {
+                this.setState({isLoadingAddress:false});
+            });
            
             toastShow("Add Address Successfully", "success", 3000);   
           })
           .catch(err => {
             console.log(err);
+            this.setState({isLoadingAddress:false});
             toastShow("Add Address Unsuccessfully", "danger", 3000);   
           });
     }

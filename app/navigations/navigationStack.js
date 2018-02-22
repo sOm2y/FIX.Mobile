@@ -101,7 +101,6 @@ export const HomeTabNavigator = TabNavigator(
   },
   {
     tabBarPosition: "bottom",
-    initialRouteName : 'JobsOnMap',
     animationEnabled: true,
     tabBarOptions: {
       activeTintColor: '#e91e63',
