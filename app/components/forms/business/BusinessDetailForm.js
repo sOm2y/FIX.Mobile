@@ -1,16 +1,27 @@
 import React from "react";
 import { Button, Text, Form, Spinner } from "native-base";
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
+import { renderAddress } from '../../../components/inputs/renderAddress';
+import AddAddressForm from '../../forms/address/AddAddressForm';
 
 
 export class BusinessDetailForm extends React.Component{
+    componentDidMount(){
+        change(this.props.form, 'businessPhone', this.props.user.phoneNumber);
+        change(this.props.form, 'businessEmail', this.props.user.email);
+    }
+
     static navigationOptions = ({ navigation }) => ({
     });
+
+    onSubmit = (address, dispatch, formName) =>{
+        // change(formName,, uploadResponse);
+    }
     
     render(){
-        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage, pickerItems, user } = this.props;
         
         return (
             <Form>
@@ -33,6 +44,25 @@ export class BusinessDetailForm extends React.Component{
                     type="text"
                     component={renderName}
                     label="Company Tax Number"
+                />
+
+               <Field
+                    name="businessAddress"
+                    type="text"
+                    component={renderAddress}
+                    label="Your Business address"
+                />
+                <Field
+                    name="businessPhone"
+                    type="text"
+                    component={renderName}
+                    label="Your Business phone"
+                />
+                <Field
+                    name="businessEmail"
+                    type="text"
+                    component={renderName}
+                    label="Your Business email"
                 />
 
                 

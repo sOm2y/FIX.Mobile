@@ -9,13 +9,16 @@ import {
   NavigationBack,
   CustomerRegister,
   TradieRegister,
+  TradieFinder,
   Jobs,
   CreateJob,
   ShowBusinessModal,
   HideBusinessModal,
   ShowChangePasswordModal,
   HideChangePasswordModal,
-  SetUserData
+  SetUserData,
+  LoginAsCustomer,
+  LoginAsTradie
 } from "./actionTypes";
 
 export const increment = () => {
@@ -69,6 +72,11 @@ const tradieRegister = () => ({
   type: TradieRegister
 });
 
+const tradieFinder = (businessList) => ({
+  type: TradieFinder,
+  payload: businessList
+})
+
 const jobs = () => ({
   type: Jobs
 });
@@ -98,6 +106,13 @@ const setUserData = (data) => ({
   user: data
 });
 
+const loginAsCustomer = () => ({
+  type: LoginAsCustomer
+});
+
+const loginAsTradie = () => ({
+  type: LoginAsTradie
+});
 
 
 export {
@@ -111,11 +126,14 @@ export {
   navigationBack,
   customerRegister,
   tradieRegister,
+  tradieFinder,
   jobs,
   createJob,
   showBusinessModal,
   hideBusinessModal,
   showChangePasswordModal,
   hideChangePasswordModal,
-  setUserData
+  setUserData,
+  loginAsCustomer,
+  loginAsTradie
 };

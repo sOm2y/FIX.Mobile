@@ -1,10 +1,14 @@
 import React from "react";
+import { Permissions, Notifications } from 'expo';
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
 import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from "native-base";
+
+import { postUserAccount } from '../../services/authService';
+import { toastShow } from '../../services/toastService';
 
 import CredentialForm from '../forms/register/CredentialForm';
 import DetailForm from '../forms/register/DetailForm';
@@ -37,11 +41,37 @@ const thirdIndicatorStyles = {
 }
 
 class WizardTradieForm extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      user: {}
+    }
+  }
   static navigationOptions = ({ navigation }) => ({
   });
 
+  onSubmit = async (values, dispatch) => {
+
+    let pushToken = await Notifications.getExpoPushTokenAsync();
+    values = Object.assign({ deviceToken:pushToken, userType:1 },values);
+
+    console.log(values);
+  
+    return postUserAccount(values)
+    .then(res => {
+
+
+      this.props.nextPage();
+      console.log(res);
+      this.setState({user:res});
+     // toastShow("Tradie account has been created", "success", 3000); 
+    }).catch( err => {
+      toastShow("Register failed, please try again", "danger", 3000);   
+    });
+  }
+
   render(){
-    const { t, i18n, navigation, page, onSubmit, wizardLabel, onAddBusiness } = this.props;
+    const { t, i18n, navigation, page, onSubmit, wizardLabel } = this.props;
     const displayWizardTitle = (pageIndex) => {
       let title = ''
       switch(pageIndex){
@@ -64,23 +94,24 @@ class WizardTradieForm extends React.Component {
     return (
       <Container>
         <Header>
-            <Left>
+           
             {page === 0 &&
+              <Left>
                 <Button transparent onPress={this.props.navigationBack}>
                     <Icon name="arrow-back" />
                 </Button>
+              </Left>
             }
-            </Left>
           <Body>
             <Title>{displayWizardTitle(page)}</Title>
           </Body>
-          <Right />
+          {page === 0 && <Right />}
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
         <StepIndicator stepCount={3} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Credential","Personal Detail","Business"]} />
         {page === 0 &&<CredentialForm  {...this.props} onSubmit={this.props.nextPage} />}
-        {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<BusinessListForm formLabel='businessDetailForm' {...this.props} onSubmit={onAddBusiness} />} 
+        {page === 1 &&<DetailForm  {...this.props} previousPage={this.props.previousPage} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch)}  />}
+        {page === 2 &&<BusinessListForm user={this.state.user} formLabel='businessDetailForm' {...this.props}/>} 
         
       
         </Content>

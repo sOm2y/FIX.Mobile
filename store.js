@@ -13,7 +13,7 @@ import navigationReducer from "./app/reducers/navigationReducer";
 import authReducer from "./app/reducers/authReducer";
 import businessReducer from "./app/reducers/businessReducer";
 import profileReducer from "./app/reducers/profileReducer";
-
+import jobReducer from "./app/reducers/jobReducer";
 
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
@@ -50,6 +50,7 @@ const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
   AuthReducer : persistReducer(config1, authReducer),
   BusinessReducer: businessReducer,
+  JobReducer: jobReducer,
   NavigationReducer: navigationReducer,
   form: formReducer,
   page: wizardPaginationReducer,

@@ -10,8 +10,9 @@ import {
   Platform
 } from "react-native";
 import { connect } from 'react-redux';
-import { MapView, Constants, Location, Permissions, AppLoading } from 'expo';
-import { navigationBack } from '../../actions/actionCreator';
+import { Constants, Location, Permissions, AppLoading } from 'expo';
+import MapView from 'react-native-maps';
+import { navigationBack, jobs } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 
 
@@ -27,7 +28,7 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
     
-class JobFinderScreen extends Component {
+class TradieFinderScreen extends Component {
   constructor(){
       super();
       this.state = {
@@ -61,7 +62,7 @@ class JobFinderScreen extends Component {
           errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
           });
       } else {
-          await this.getLocationAsync();
+          await this.getLocationAsync(this.props.businessList);
           
       }
       
@@ -117,7 +118,7 @@ class JobFinderScreen extends Component {
       }
   }
 
-  getLocationAsync = async () => {
+  getLocationAsync = async (businessList) => {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== 'granted') {
       this.setState({
@@ -129,37 +130,24 @@ class JobFinderScreen extends Component {
   
       let coords = this.getRegionFrom(location.coords.latitude,location.coords.longitude,500);
       console.log(coords);
-      
-      this.setState({isReady:true, region: coords, markers:[
-        {
-          coordinate: {
-            latitude: location.coords.latitude+0.001,
-            longitude: location.coords.longitude+0.001,
+
+      let availbleBusiness = {
+        isReady:true,
+        region: coords,
+        markers : businessList.map( business => (
+          {
+            coordinate: {
+              latitude: business.latitude,
+              longitude: business.longitude
             },
-            title: "Your first tradie",
-            description: "This is the fourth best place in Auckland",
+            title: business.businessLegalName,
+            description: business.businessAddress,
             image: Images[0],
-        },
-        {
-          coordinate: {
-            latitude: location.coords.latitude+0.02,
-            longitude: location.coords.longitude+0.01,
-            },
-            title: "Your second tradie",
-            description: "This is the fourth best place in Auckland",
-            image: Images[1],
-        },
-        {
-          coordinate: {
-            latitude: location.coords.latitude+0.01,
-            longitude: location.coords.longitude+0.02,
-            },
-            title: "Your third tradie",
-            description: "This is the fourth best place in Auckland",
-            image: Images[2],
-        }
-      ]});
-      console.log(this.state.region);
+          }
+        ))
+      };
+      
+      this.setState(availbleBusiness);
   }
   
   render() {
@@ -191,8 +179,10 @@ class JobFinderScreen extends Component {
       <Header>
           <Right>
   
-              <Button transparent onPress={this.props.navigationBack}>
+              <Button transparent onPress={this.props.jobs}>
+                <Text>
                  Skip
+                 </Text>
               </Button>
           
           </Right>
@@ -337,11 +327,13 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = (state, props) =>{
   return{
+    businessList : state.JobReducer.businessList
   };
 }
 
 const mapDispatchToProps = {
-  navigationBack
+  navigationBack,
+  jobs
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobFinderScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(TradieFinderScreen);

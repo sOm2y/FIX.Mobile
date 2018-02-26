@@ -1,4 +1,5 @@
 import React from "react";
+import { Permissions, Notifications } from 'expo';
 import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
@@ -11,8 +12,10 @@ class CustomerScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
-  onSubmit = (values, dispatch) => {
+  onSubmit = async (values, dispatch) => {
     console.log(values);
+    let pushToken = await Notifications.getExpoPushTokenAsync();
+    values = Object.assign({deviceToken:pushToken},values);
     return postUserAccount(values)
     .then(res => {
       dispatch(reset('WizardCustomerForm'));

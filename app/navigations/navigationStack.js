@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { AsyncStorage, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
@@ -9,11 +9,13 @@ import SignUp from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
 import Jobs from '../screens//jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
-import JobFinderScreen from '../screens/jobs/JobFinderScreen';
+import JobsOnMap from '../screens/jobs/JobsOnMapScreen';
+import TradieFinderScreen from '../screens/jobs/TradieFinderScreen';
 import CustomerRegister from '../screens/registration/CustomerScreen';
 import TradieRegister from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import Profile from '../screens/ProfileScreen';
+import FooterBottomTab from '../components/FooterBottomTab';
 
 export const JobNavigator = StackNavigator(
   { 
@@ -29,8 +31,8 @@ export const JobNavigator = StackNavigator(
         
       }
     },
-    JobFinder:{
-      screen: JobFinderScreen,
+    TradieFinder:{
+      screen: TradieFinderScreen,
       navigationOptions: {
         
       }
@@ -72,6 +74,12 @@ export const RegistrationNavigator = StackNavigator(
 
 export const HomeTabNavigator = TabNavigator(
   {
+    JobsOnMap:{
+      screen: JobsOnMap,
+      navigationOptions: {
+        
+      }
+    },
     Jobs: { 
       screen: JobNavigator,
       navigationOptions: {
@@ -93,44 +101,11 @@ export const HomeTabNavigator = TabNavigator(
   },
   {
     tabBarPosition: "bottom",
-    initialRouteName : 'Jobs',
-    animationEnabled: true,
+    animationEnabled: false,
     tabBarOptions: {
-      activeTintColor: '#e91e63',
+     // activeTintColor: '#e91e63',
     },
-    tabBarComponent: props => {
-      return (
-        <Footer>
-          <FooterTab>
-            <Button
-              vertical
-              active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("Jobs")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-home-outline' android="md-home" />
-              <Text>Jobs</Text>
-            </Button> 
-            <Button
-              vertical
-              active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Notifications")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-notifications-outline' android="md-notifications" />
-              <Text>Messages</Text>
-            </Button>
-
-            <Button
-              vertical
-              active={props.navigationState.index === 2}
-              onPress={() => props.navigation.navigate("Profile")}
-              style={{backgroundColor:'transparent'}}>
-              <Icon ios='ios-settings-outline' android="md-settings" />
-              <Text>Profile</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      );
-    }
+    tabBarComponent: ({navigationState, navigation}) => <FooterBottomTab navigation={navigation} navigationState={navigationState} />
   }
 );
 
@@ -152,7 +127,6 @@ const AppRootNavigator =  StackNavigator(
       screen: HomeTabNavigator,
       navigationOptions: {
         gesturesEnabled: false,
-        headerLeft: null
       }
     }
   },
@@ -161,5 +135,12 @@ const AppRootNavigator =  StackNavigator(
     mode: 'modal'
   }
 );
+
+const styles = StyleSheet.create({
+
+  tabText: {
+    fontSize: 10,
+  },
+});
 
 export default AppRootNavigator;

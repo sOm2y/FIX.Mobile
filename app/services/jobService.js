@@ -9,9 +9,9 @@ export const postJob = ( job ) => {
       method: 'post',
       url: '/api/jobs',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
-      data: qs.stringify(job)
+      data: job
     })
     .then(res => {
       if(res.status === 400 || res.status === 403){

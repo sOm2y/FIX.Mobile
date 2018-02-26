@@ -10,25 +10,13 @@ import WizardTradieForm from '../../components/wizards/WizardTradieForm';
 class TradieScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
-
-  onSubmit = (values, dispatch) => {
-    console.log(values);
-    return postUserAccount(values)
-    .then(res => {
-      dispatch(reset('WizardTradieForm'));
-      this.props.showBusinessModal();
-      this.props.registerSuccess();
-      toastShow("SignIn Successfully", "success", 3000); 
-    }).catch( err => {
-      toastShow("SignIn Unsuccessfully", "danger", 3000);   
-    });
-}
+  
   render(){
     const { navigation } = this.props;
     const { navigate } = navigation;
 
     return (
-     <WizardTradieForm wizardLabel='WizardTradieForm' navigation={navigation} onSubmit={(values,dispatch) => this.onSubmit(values, dispatch)} />
+     <WizardTradieForm wizardLabel='WizardTradieForm' navigation={navigation}/>
     );
   }
 }

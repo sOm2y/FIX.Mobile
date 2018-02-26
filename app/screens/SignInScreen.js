@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { connect } from "react-redux";
+import { NavigationActions } from 'react-navigation';
 import { reset } from 'redux-form';
 import PropTypes from 'prop-types';
 import I18n from 'ex-react-native-i18n';
@@ -17,20 +18,10 @@ class SignInScreen extends React.Component {
     title: 'title'
   });
 
-  onSubmit = (values, dispatch, navigation) => {
+  onSubmit = (values, dispatch) => {
     console.log(values);
-    values = Object.assign({grant_type:'password'},values);
-    return loginUserAccount(values)
-      .then(res => {
-        console.log(res)
-        dispatch(reset('LoginForm'));
-        this.props.login();
-        toastShow("SignIn Successfully", "success", 3000);   
-      })
-      .catch(err => {
-        console.log(err);
-        toastShow("SignIn Unsuccessfully", "danger", 3000);   
-      });
+   // values = Object.assign({grant_type:'password'},values);
+    return loginUserAccount(values);
 }
 
   render(){
@@ -45,7 +36,27 @@ class SignInScreen extends React.Component {
           </Body>
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-          <LoginForm onSubmit={(values,dispatch) => this.onSubmit(values, dispatch, navigation)} />
+          <LoginForm onSubmit={
+            (values,dispatch) => {
+               return this.onSubmit(values, dispatch).then(res => {
+
+                AsyncStorage.setItem('userType', res.data.usertype).then(()=>{
+
+                  dispatch(reset('LoginForm'));
+          
+                  this.props.login();
+
+              
+                  toastShow("SignIn Successfully", "success", 3000);   
+                });
+     
+              })
+              .catch(err => {
+                console.log(err);
+                toastShow("SignIn Unsuccessfully", "danger", 3000);   
+              });
+            }
+          } />
             <Button style={styles.button}
               block 
               bordered

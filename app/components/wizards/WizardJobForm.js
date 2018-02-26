@@ -10,7 +10,7 @@ import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from
 import JobDetailForm from '../forms/job/JobDetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage, navigationBack } from '../../actions/actionCreator';
+import { nextPage, previousPage, navigationBack,jobs } from '../../actions/actionCreator';
 import UploadForm  from "../forms/UploadForm";
 import DetailForm  from "../forms/register/DetailForm";
 
@@ -70,17 +70,18 @@ class WizardJobForm extends React.Component {
     return (
       <Container>
         <Header>
-            <Left>
+            
             {page === 0 &&
-                <Button transparent onPress={this.props.navigationBack}>
+              <Left>
+                <Button transparent onPress={this.props.jobs}>
                     <Icon name="arrow-back" />
                 </Button>
+              </Left>
             }
-            </Left>
           <Body>
             <Title>{displayWizardTitle(page)}</Title>
           </Body>
-          <Right />
+          {page === 0 && <Right />}
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
         <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Job Detail","Address","Upload","Confirmation"]} />
@@ -118,7 +119,8 @@ const mapStateToProps = (state, props) =>{
 const mapDispatchToProps = {
   navigationBack,
   previousPage,
-  nextPage
+  nextPage,
+  jobs
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WizardJobForm);

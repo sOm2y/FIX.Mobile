@@ -2,15 +2,17 @@ import React from "react";
 import {
   View
 } from "react-native";
+import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import { postJob } from '../../services/jobService';
+import { searchBusiness } from '../../services/businessService';
 import { toastShow } from '../../services/toastService';
 import WizardJobForm from '../../components/wizards/WizardJobForm';
+import { tradieFinder } from '../../actions/actionCreator';
 
 
 
-
-export default class CreateJobScreen extends React.Component {
+export class CreateJobScreen extends React.Component {
 
   constructor(){
     super();
@@ -30,10 +32,26 @@ export default class CreateJobScreen extends React.Component {
     .then(res => {
       
       dispatch(reset('WizardJobForm'));
-      navigation.navigate("JobFinder");
-      toastShow("SignIn Successfully", "success", 3000); 
+
+      let businessQuery = {
+        categoryId: res.businessCategoryId,
+        latitude: res.location.latitude,
+        longitude: res.location.longitude,
+        take: 5
+      };
+      searchBusiness(businessQuery)
+      .then(res => {
+
+       // navigation.navigate("TradieFinder");
+        this.props.tradieFinder(res);
+
+        toastShow("Search available tradies  Successfully", "success", 3000); 
+      }).catch(err => {
+        toastShow("Search available tradies failed, Please try again.", "danger", 3000);   
+      });
+  
     }).catch( err => {
-      toastShow("SignIn Unsuccessfully", "danger", 3000);   
+      toastShow("Post job failed, Please try again.", "danger", 3000);   
     });
 }
   render(){
@@ -47,3 +65,17 @@ export default class CreateJobScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state, props) =>{
+  return{
+    // page : state.page,
+    // form: props.wizardLabel
+  };
+}
+
+const mapDispatchToProps = {
+  tradieFinder
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateJobScreen);
