@@ -88,7 +88,7 @@ export const postBusiness = ( business ) =>{
         headers: {
           'Content-Type': 'application/json'
         },
-        data: qs.stringify(business)
+        data: business
       })
       .then(res => {
         if(res.status === 400 || res.status === 403){

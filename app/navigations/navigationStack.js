@@ -101,9 +101,9 @@ export const HomeTabNavigator = TabNavigator(
   },
   {
     tabBarPosition: "bottom",
-    animationEnabled: true,
+    animationEnabled: false,
     tabBarOptions: {
-      activeTintColor: '#e91e63',
+     // activeTintColor: '#e91e63',
     },
     tabBarComponent: ({navigationState, navigation}) => <FooterBottomTab navigation={navigation} navigationState={navigationState} />
   }

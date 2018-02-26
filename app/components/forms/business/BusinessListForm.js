@@ -37,14 +37,27 @@ export class BusinessListForm extends React.Component{
         
     }
 
-    onSubmit = (address, dispatch) => {
-        console.log(address);
-        postBusiness(address)
+    onSubmit = (business, dispatch) => {
+        console.log(business);
+        let registerBusiness = {
+            businessName: business.businessName,
+            businessLegalName: business.businessLegalName,
+            taxNumber: business.taxNumber,
+            businessAddress: business.businessAddress.description,
+            longitude: business.businessAddress.longitude,
+            latitude: business.businessAddress.latitude,
+            businessPhone: business.businessPhone,
+            businessEmail: business.businessEmail
+        } 
+        console.log(registerBusiness);
+        postBusiness(registerBusiness)
         .then(res => {
             this.setState({business: res});
+            this.props.hideBusinessModal;
             toastShow("Add business Successfully", "success", 3000);   
         })
         .catch(err => {
+            this.props.hideBusinessModal;
             toastShow("Add business unsuccessfully", "success", 3000);   
         })
     }

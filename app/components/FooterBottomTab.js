@@ -65,7 +65,7 @@ export default class FooterBottomTab extends React.Component {
                 onPress={() => navigation.navigate('Notifications')}
                 >
                 <Icon ios='ios-notifications-outline' android='md-notifications' />
-                <Text style={this.state.userType === 'Customer'? styles.tabTextCustomer: styles.tabTextTradie}> Notifications </Text>
+                <Text style={this.state.userType === 'Customer'? styles.tabTextCustomer: styles.tabTextTradie}> Alerts </Text>
             </Button> 
 
             <Button
@@ -88,10 +88,10 @@ export default class FooterBottomTab extends React.Component {
 const styles = StyleSheet.create({
 
     tabTextTradie: {
-        fontSize: 9,
+        //fontSize: 13,
     },
     tabTextCustomer: {
-        fontSize: 13,
+        //fontSize: 13,
     },
   });
   
