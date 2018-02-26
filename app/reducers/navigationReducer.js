@@ -7,6 +7,7 @@ import {
   Register,
   CustomerRegister,
   TradieRegister,
+  TradieFinder,
   RegisterSuccess,
   NavigateToLogoutScreen,
   Jobs,
@@ -66,6 +67,15 @@ const navigationReducer = (state = initialState, action) => {
         stateForLoggedOut: AppRootNavigator.router.getStateForAction(
           AppRootNavigator.router.getActionForPathAndParams("SignUp/Tradie"),
           stateForLoggedOut
+        )
+      };
+
+    case TradieFinder:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("Home/TradieFinder"),
+          stateForLoggedIn
         )
       };
 

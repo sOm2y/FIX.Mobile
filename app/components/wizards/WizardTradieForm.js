@@ -53,8 +53,7 @@ class WizardTradieForm extends React.Component {
   onSubmit = async (values, dispatch) => {
 
     let pushToken = await Notifications.getExpoPushTokenAsync();
-    values = Object.assign({userType:1},values);
-    values = Object.assign({deviceToken:pushToken},values);
+    values = Object.assign({ deviceToken:pushToken, userType:1 },values);
 
     console.log(values);
   
@@ -64,7 +63,7 @@ class WizardTradieForm extends React.Component {
 
       this.props.nextPage();
       console.log(res);
-     this.setState({user:values});
+      this.setState({user:res});
      // toastShow("Tradie account has been created", "success", 3000); 
     }).catch( err => {
       toastShow("Register failed, please try again", "danger", 3000);   

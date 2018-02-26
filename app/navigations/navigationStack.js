@@ -10,7 +10,7 @@ import SignIn from '../screens/SignInScreen';
 import Jobs from '../screens//jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
 import JobsOnMap from '../screens/jobs/JobsOnMapScreen';
-import JobFinderScreen from '../screens/jobs/JobFinderScreen';
+import TradieFinderScreen from '../screens/jobs/TradieFinderScreen';
 import CustomerRegister from '../screens/registration/CustomerScreen';
 import TradieRegister from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
@@ -31,8 +31,8 @@ export const JobNavigator = StackNavigator(
         
       }
     },
-    JobFinder:{
-      screen: JobFinderScreen,
+    TradieFinder:{
+      screen: TradieFinderScreen,
       navigationOptions: {
         
       }

@@ -9,6 +9,7 @@ import {
   NavigationBack,
   CustomerRegister,
   TradieRegister,
+  TradieFinder,
   Jobs,
   CreateJob,
   ShowBusinessModal,
@@ -68,6 +69,11 @@ const tradieRegister = () => ({
   type: TradieRegister
 });
 
+const tradieFinder = (businessList) => ({
+  type: TradieFinder,
+  payload: businessList
+})
+
 const jobs = () => ({
   type: Jobs
 });
@@ -104,6 +110,7 @@ export {
   navigationBack,
   customerRegister,
   tradieRegister,
+  tradieFinder,
   jobs,
   createJob,
   showBusinessModal,

@@ -18,11 +18,11 @@ export const loginUserAccount = ( loginUser ) =>{
  return new Promise((resolve, reject) => {
     axios({
       method: 'post',
-      url: '/oauth/token',
+      url: '/api/users/login',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
-      data: qs.stringify(loginUser)
+      data: loginUser
     })
     .then(res => {
       if(res.status === 400 || res.status === 403){
@@ -44,7 +44,7 @@ export const postUserAccount = ( postUser ) => {
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
-      url: '/api/users',
+      url: '/api/users/register',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -52,9 +52,9 @@ export const postUserAccount = ( postUser ) => {
     })
     .then(res => {
       // console.log(res.data.access_token);
-      // axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.access_token;
-      // AsyncStorage.setItem(USER_KEY, res.data.access_token);
-      resolve(res);
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.access_token;
+      AsyncStorage.setItem(USER_KEY, res.data.access_token);
+      resolve(res.data);
     })
     .catch(err => {
       reject(err.response);

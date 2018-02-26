@@ -8,6 +8,7 @@ const NavigateToLogoutScreen = "NAVIGATE_TO_LOGOUT_SCREEN";
 const NavigationBack = 'Navigation/BACK';
 const CustomerRegister = 'CUSTOMER_SIGNUP';
 const TradieRegister = 'TRADIE_SIGNUP';
+const TradieFinder = 'TRADIE_FINDER'
 const Jobs = 'JOBS';
 const CreateJob = 'CREATE_JOB';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
@@ -26,6 +27,7 @@ export {
     NavigationBack,
     CustomerRegister,
     TradieRegister,
+    TradieFinder,
     Jobs,
     CreateJob,
     ShowBusinessModal,

@@ -9,7 +9,7 @@ import { renderPicker } from "../../../components/inputs/renderPicker";
 import { renderTextarea } from "../../../components/inputs/renderTextarea";
 import { getBusinesses, postBusiness } from '../../../services/businessService';
 import { toastShow } from '../../../services/toastService';
-import {showBusinessModal, hideBusinessModal} from '../../../actions/actionCreator';
+import {showBusinessModal, hideBusinessModal, registerSuccess} from '../../../actions/actionCreator';
 import BusinessDetailForm  from "./BusinessDetailForm";
 
 
@@ -82,7 +82,7 @@ export class BusinessListForm extends React.Component{
 
                 <Button block transparent
                 style={{ marginTop: 10 }}
-                onPress={this.props.showBusinessModal} >
+                onPress={this.props.registerSuccess} >
                     <Text>Skip</Text>
                 </Button>
 
@@ -131,7 +131,8 @@ const mapStateToProps = (state, props) =>{
   
 const mapDispatchToProps = {
     showBusinessModal,
-    hideBusinessModal
+    hideBusinessModal,
+    registerSuccess
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BusinessListForm);

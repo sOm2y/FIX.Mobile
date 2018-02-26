@@ -20,7 +20,7 @@ class SignInScreen extends React.Component {
 
   onSubmit = (values, dispatch) => {
     console.log(values);
-    values = Object.assign({grant_type:'password'},values);
+   // values = Object.assign({grant_type:'password'},values);
     return loginUserAccount(values);
 }
 

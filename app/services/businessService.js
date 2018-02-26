@@ -55,6 +55,29 @@ export const getBusinesses= ( ) =>{
     });
 }
 
+export const searchBusiness = ( businessQuery ) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'post',
+      url: '/api/businesses/searchbusiness',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: businessQuery
+    })
+    .then(res => {
+      if(res.status === 400 || res.status === 403){
+        reject(res);
+      }
+      resolve(res.data);
+    
+    })
+    .catch(err => {
+      reject(err.response);
+    });
+  });
+}
+
 
 export const postBusiness = ( business ) =>{
   return new Promise((resolve, reject) => {

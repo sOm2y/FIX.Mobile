@@ -12,6 +12,7 @@ import counterReducer from "./app/reducers/countReducer";
 import navigationReducer from "./app/reducers/navigationReducer";
 import authReducer from "./app/reducers/authReducer";
 import businessReducer from "./app/reducers/businessReducer";
+import jobReducer from "./app/reducers/jobReducer";
 
 
 
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
   AuthReducer : persistReducer(config1, authReducer),
   BusinessReducer: businessReducer,
+  JobReducer: jobReducer,
   NavigationReducer: navigationReducer,
   form: formReducer,
   page: wizardPaginationReducer,
