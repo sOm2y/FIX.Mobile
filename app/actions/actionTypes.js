@@ -13,6 +13,9 @@ const Jobs = 'JOBS';
 const CreateJob = 'CREATE_JOB';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
 const HideBusinessModal = 'HIDE_BUSSINESS_FORM';
+const ShowChangePasswordModal = 'SHOW_CHANGE_PASSWORD_FORM';
+const HideChangePasswordModal = 'HIDE_CHANGE_PASSWORD_FORM';
+const SetUserData = 'SET_USER_DATA';
 const LoginAsCustomer = 'LOGIN_AS_CUSTOMER';
 const LoginAsTradie = 'LOGIN_AS_TRADIE';
 
@@ -32,6 +35,9 @@ export {
     CreateJob,
     ShowBusinessModal,
     HideBusinessModal,
+    ShowChangePasswordModal,
+    HideChangePasswordModal,
+    SetUserData,
     LoginAsCustomer,
     LoginAsTradie
 };

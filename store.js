@@ -12,8 +12,8 @@ import counterReducer from "./app/reducers/countReducer";
 import navigationReducer from "./app/reducers/navigationReducer";
 import authReducer from "./app/reducers/authReducer";
 import businessReducer from "./app/reducers/businessReducer";
+import profileReducer from "./app/reducers/profileReducer";
 import jobReducer from "./app/reducers/jobReducer";
-
 
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
@@ -54,7 +54,7 @@ const rootReducer = combineReducers({
   NavigationReducer: navigationReducer,
   form: formReducer,
   page: wizardPaginationReducer,
-
+  ProfileReducer: profileReducer
 });
 
 function configureStore() {
@@ -62,6 +62,10 @@ function configureStore() {
     rootReducer,
     applyMiddleware(middleware),
   );
+
+  store.subscribe(() => {
+    console.log(store.getState());
+  });
   let persistor = persistStore(store);
   return { persistor, store };
 }

@@ -14,6 +14,9 @@ import {
   CreateJob,
   ShowBusinessModal,
   HideBusinessModal,
+  ShowChangePasswordModal,
+  HideChangePasswordModal,
+  SetUserData,
   LoginAsCustomer,
   LoginAsTradie
 } from "./actionTypes";
@@ -90,6 +93,19 @@ const hideBusinessModal = () => ({
   type: HideBusinessModal
 });
 
+const showChangePasswordModal = () => ({
+  type: ShowChangePasswordModal
+});
+
+const hideChangePasswordModal = () => ({
+  type: HideChangePasswordModal
+});
+
+const setUserData = (data) => ({
+  type: SetUserData,
+  user: data
+});
+
 const loginAsCustomer = () => ({
   type: LoginAsCustomer
 });
@@ -115,6 +131,9 @@ export {
   createJob,
   showBusinessModal,
   hideBusinessModal,
+  showChangePasswordModal,
+  hideChangePasswordModal,
+  setUserData,
   loginAsCustomer,
   loginAsTradie
 };
