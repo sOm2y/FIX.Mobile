@@ -63,9 +63,9 @@ function configureStore() {
     applyMiddleware(middleware),
   );
 
-  store.subscribe(() => {
-    console.log(store.getState());
-  });
+  // store.subscribe(() => {
+  //   console.log(store.getState());
+  // });
   let persistor = persistStore(store);
   return { persistor, store };
 }
