@@ -9,7 +9,7 @@ import { fetchUserData } from "../services/profileService";
 import { logout, showChangePasswordModal, hideChangePasswordModal, setUserData } from "../actions/actionCreator";
 import { ChangePasswordModal } from "../components/modals/ChangePasswordModal";
 
-class ProfileScreen extends React.Component {
+export class ProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
   });
 
@@ -146,8 +146,8 @@ const mapDispatchToProps = {
   hideChangePasswordModal,
   setUserData
 };
-const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
-export default Profile;
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
+
 
 const styles = StyleSheet.create({
   listItem:{

@@ -14,7 +14,7 @@ import TradieFinderScreen from '../screens/jobs/TradieFinderScreen';
 import CustomerRegister from '../screens/registration/CustomerScreen';
 import TradieRegister from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
-import Profile from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import FooterBottomTab from '../components/FooterBottomTab';
 
 export const JobNavigator = StackNavigator(
@@ -93,7 +93,7 @@ export const HomeTabNavigator = TabNavigator(
       }
     },
     Profile: { 
-      screen: Profile,
+      screen: ProfileScreen,
       navigationOptions: {
         
       }
