@@ -18,7 +18,7 @@ export class BusinessListForm extends React.Component{
         super(props);
         console.log("businesslist props"+ props);
         this.state = {
-            business:{}
+            businesses:[]
         };
     }
 
@@ -39,25 +39,15 @@ export class BusinessListForm extends React.Component{
 
     onSubmit = (business, dispatch) => {
         console.log(business);
-        let registerBusiness = {
-            businessName: business.businessName,
-            businessLegalName: business.businessLegalName,
-            taxNumber: business.taxNumber,
-            businessAddress: business.businessAddress.description,
-            longitude: business.businessAddress.longitude,
-            latitude: business.businessAddress.latitude,
-            businessPhone: business.businessPhone,
-            businessEmail: business.businessEmail
-        } 
-        console.log(registerBusiness);
-        postBusiness(registerBusiness)
+        postBusiness(business)
         .then(res => {
-            this.setState({business: res});
-            this.props.hideBusinessModal;
+            this.state.businesses.push(business);
+            this.setState(this.state.businesses);
+            this.props.hideBusinessModal();
             toastShow("Add business Successfully", "success", 3000);   
         })
         .catch(err => {
-            this.props.hideBusinessModal;
+            this.props.hideBusinessModal();
             toastShow("Add business unsuccessfully", "success", 3000);   
         })
     }
@@ -68,22 +58,32 @@ export class BusinessListForm extends React.Component{
         return (
             <Content>
                 <Title>Hi {this.props.user.firstName}</Title>
-                { this.state.business && (JSON.stringify( this.state.business) !== '{}')&&
-                <Card>
-                    <CardItem header>
-                        <Text>{this.state.business.businessName}</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Body>
-                            <Text>
-                                {this.state.business.businessAddress}
-                            </Text>
-                        </Body>
-                    </CardItem>
-                    <CardItem footer>
-                    <Text>{this.state.business.taxNumber}</Text>
-                    </CardItem>
-                </Card>
+                { this.state.businesses  && this.state.businesses.length >0  && this.state.businesses.map( (business, key) => {
+                    return (
+                        <Card key={key}>
+                            <CardItem header>
+                                <Text>{business.businessName}</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                    <Text>
+                                        Address: {business.businessAddress.description}
+                                    </Text>
+                                    <Text>
+                                        Phone: {business.businessPhone}
+                                    </Text>
+                                    <Text>
+                                        Email: {business.businessEmail}
+                                    </Text>
+                                </Body>
+                            </CardItem>
+                            <CardItem footer>
+                            <Text>{business.taxNumber}</Text>
+                            </CardItem>
+                        </Card>
+                    );
+                }) 
+               
                 }
                
                 <Button block primary
@@ -96,7 +96,7 @@ export class BusinessListForm extends React.Component{
                 <Button block transparent
                 style={{ marginTop: 10 }}
                 onPress={this.props.registerSuccess} >
-                    <Text>Skip</Text>
+                    <Text>Finish</Text>
                 </Button>
 
              

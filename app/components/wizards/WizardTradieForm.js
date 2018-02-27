@@ -60,10 +60,10 @@ class WizardTradieForm extends React.Component {
     return postUserAccount(values)
     .then(res => {
 
-
+      this.setState({user:res});
       this.props.nextPage();
       console.log(res);
-      this.setState({user:res});
+      
      // toastShow("Tradie account has been created", "success", 3000); 
     }).catch( err => {
       toastShow("Register failed, please try again", "danger", 3000);   

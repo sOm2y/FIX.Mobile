@@ -101,9 +101,9 @@ const hideChangePasswordModal = () => ({
   type: HideChangePasswordModal
 });
 
-const setUserData = (data) => ({
+const setUserData = (user) => ({
   type: SetUserData,
-  user: data
+  payload: user
 });
 
 const loginAsCustomer = () => ({
