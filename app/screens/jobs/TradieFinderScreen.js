@@ -25,8 +25,8 @@ const Images = [
 
 const { width, height } = Dimensions.get("window");
 
-const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const CARD_HEIGHT = height / 8;
+const CARD_WIDTH = width / 2;
     
 class TradieFinderScreen extends Component {
   constructor(){
@@ -187,7 +187,7 @@ class TradieFinderScreen extends Component {
           
           </Right>
         <Body>
-          <Title>Create Job</Title>
+          <Title>Select Tradie for your job</Title>
         </Body>
         <Right />
       </Header>
@@ -240,11 +240,11 @@ class TradieFinderScreen extends Component {
         >
           {this.state.markers.map((marker, index) => (
             <View style={styles.card} key={index}>
-              <Image
+              {/* <Image
                 source={marker.image}
                 style={styles.cardImage}
                 resizeMode="cover"
-              />
+              /> */}
               <View style={styles.textContent}>
                 <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
                 <Text numberOfLines={1} style={styles.cardDescription}>
@@ -297,12 +297,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardtitle: {
-    fontSize: 12,
+    fontSize: 16,
     marginTop: 5,
+    marginBottom: 5,
     fontWeight: "bold",
   },
   cardDescription: {
-    fontSize: 12,
+    fontSize: 14,
     color: "#444",
   },
   markerWrap: {
