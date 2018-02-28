@@ -1,3 +1,9 @@
 {
     "editor.snippetSuggestions": "top",
+    "git.ignoreLimitWarning": true,
+    "cSpell.words": [
+        "padder",
+        "tradie",
+        "xero"
+    ],
 }

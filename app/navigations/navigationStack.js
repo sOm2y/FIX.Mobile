@@ -37,12 +37,14 @@ export const JobNavigator = StackNavigator(
         
       }
     }
-  },{
+  },
+  {
     headerMode: 'none',
     animationEnabled: true,
     gesturesEnabled:true,
     initialRouteName : 'Jobs',
-  });
+  }
+);
    
 export const RegistrationNavigator = StackNavigator(
   { 
@@ -64,13 +66,14 @@ export const RegistrationNavigator = StackNavigator(
         
       }
     }
-  
-  },{
+  },
+  {
     headerMode: 'none',
     animationEnabled: true,
     gesturesEnabled:true,
     initialRouteName : 'SignUp',
-  });
+  }
+);
 
 export const HomeTabNavigator = TabNavigator(
   {
@@ -109,6 +112,29 @@ export const HomeTabNavigator = TabNavigator(
   }
 );
 
+export const NotificationNavigator = StackNavigator(
+  {
+    Customer: {
+      screen: CustomerMessenger,
+      navigationOptions: {
+        
+      }
+    },
+    Tradie: {
+      screen: TradieMessenger,
+      navigationOptions: {
+        
+      }
+    }
+  },
+  {
+    headerMode: 'none',
+    animationEnabled: true,
+    gesturesEnabled:true,
+    initialRouteName : 'Notification',
+  }
+);
+
 const AppRootNavigator =  StackNavigator(
   {
     SignIn: {
@@ -137,7 +163,6 @@ const AppRootNavigator =  StackNavigator(
 );
 
 const styles = StyleSheet.create({
-
   tabText: {
     fontSize: 10,
   },
