@@ -7,7 +7,8 @@ import {
   Animated,
   Image,
   Dimensions,
-  Platform
+  Platform,
+  TouchableOpacity
 } from "react-native";
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions, AppLoading } from 'expo';
@@ -25,7 +26,7 @@ const Images = [
 
 const { width, height } = Dimensions.get("window");
 
-const CARD_HEIGHT = height / 8;
+const CARD_HEIGHT = height / 6;
 const CARD_WIDTH = width / 2;
     
 class TradieFinderScreen extends Component {
@@ -41,6 +42,7 @@ class TradieFinderScreen extends Component {
               title: "Your Location",
               description: "This is the fourth best place in Auckland",
               image: require("../../resource/images/tradie.jpg"),
+              id: 0
           }
           ],
           region: {
@@ -49,7 +51,9 @@ class TradieFinderScreen extends Component {
           latitudeDelta: 0.04864195044303443,
           longitudeDelta: 0.040142817690068,
           },
-          isReady: false
+          isReady: false,
+          invitedTradieIds: [],
+          selectedBusiness: []
       };
   }
 
@@ -62,7 +66,7 @@ class TradieFinderScreen extends Component {
           errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
           });
       } else {
-          await this.getLocationAsync(this.props.businessList);
+          await this.getLocationAsync(this.props.searchResult.businessList);
           
       }
       
@@ -143,11 +147,26 @@ class TradieFinderScreen extends Component {
             title: business.businessLegalName,
             description: business.businessAddress,
             image: Images[0],
+            id: business.id
           }
         ))
       };
       
       this.setState(availbleBusiness);
+  }
+
+  invitedTradies = (business, key) => {
+    if(this.state.selectedBusiness.length >0){
+      this.state.selectedBusiness.map((value,index)=>{
+        if(value.key === key){
+          this.state.selectedBusiness.splice(index,1);
+        }
+      })
+    }else{
+      this.state.selectedBusiness.push({key:key,value:business});
+    }
+    this.setState(this.state.selectedBusiness);
+
   }
   
   render() {
@@ -177,19 +196,19 @@ class TradieFinderScreen extends Component {
     return (
       <Container>
       <Header>
-          <Right>
-  
-              <Button transparent onPress={this.props.jobs}>
-                <Text>
-                 Skip
-                 </Text>
-              </Button>
-          
-          </Right>
+      <Left />
         <Body>
           <Title>Select Tradie for your job</Title>
         </Body>
-        <Right />
+        <Right>
+  
+        <Button transparent onPress={this.props.jobs}>
+          <Text>
+           Skip
+           </Text>
+        </Button>
+    
+    </Right>
       </Header>
       <View style={styles.container}>
         <MapView
@@ -239,19 +258,26 @@ class TradieFinderScreen extends Component {
           contentContainerStyle={styles.endPadding}
         >
           {this.state.markers.map((marker, index) => (
-            <View style={styles.card} key={index}>
+            <TouchableOpacity onPress={() => this.invitedTradies( marker, index)} style={styles.card} key={index}>
               {/* <Image
                 source={marker.image}
                 style={styles.cardImage}
                 resizeMode="cover"
               /> */}
+              {
+                this.state.selectedBusiness.length>0 && this.state.selectedBusiness.map((value)=>{
+                  if(value.key === index ){
+                    return <Icon name='checkmark-circle' />
+                  }
+                })
+              }
               <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>
+                <Text numberOfLines={2} style={styles.cardtitle}>{marker.title}</Text>
+                <Text numberOfLines={3} style={styles.cardDescription}>
                   {marker.description}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </Animated.ScrollView>
       </View>
@@ -297,13 +323,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardtitle: {
-    fontSize: 16,
+    fontSize: 15,
     marginTop: 5,
     marginBottom: 5,
     fontWeight: "bold",
   },
   cardDescription: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#444",
   },
   markerWrap: {
@@ -328,7 +354,7 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = (state, props) =>{
   return{
-    businessList : state.JobReducer.businessList
+    searchResult : state.JobReducer.searchResult
   };
 }
 

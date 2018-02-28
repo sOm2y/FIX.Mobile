@@ -29,21 +29,21 @@ export class CreateJobScreen extends React.Component {
     this.setState({isVisible:true});
     
     return postJob(values)
-    .then(res => {
+    .then(job => {
       
       dispatch(reset('WizardJobForm'));
 
       let businessQuery = {
-        categoryId: res.businessCategoryId,
-        latitude: res.location.latitude,
-        longitude: res.location.longitude,
+        categoryId: job.businessCategoryId,
+        latitude: job.location.latitude,
+        longitude: job.location.longitude,
         take: 5
       };
-      searchBusiness(businessQuery)
-      .then(res => {
+      searchBusiness(businessQuery, job.id)
+      .then(businessList => {
 
        // navigation.navigate("TradieFinder");
-        this.props.tradieFinder(res);
+        this.props.tradieFinder({jobId:job.id,businessList:businessList});
 
         toastShow("Search available tradies  Successfully", "success", 3000); 
       }).catch(err => {

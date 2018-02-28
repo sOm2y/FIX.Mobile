@@ -1,12 +1,12 @@
 import { TradieFinder } from "../actions/actionTypes";
 
-const initialState = { businessList: [] };
+const initialState = { searchResult: {} };
 
 const jobReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case TradieFinder:
-      return { ...state, businessList: action.payload };
+      return { ...state, searchResult: action.payload };
 
     default:
       return state;
