@@ -4,6 +4,7 @@ import { Container, Content, Card, CardItem, Header, Body, Title, Button, Text, 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
+import { getNotifications } from '../services/notificationService';
 
 const pratik = require("../resource/images/xero.png");
 const sanket = require("../resource/images/xero.png");
@@ -51,6 +52,21 @@ const datas = [
     }
   ];
 class NotificationsScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      notifications:[]
+     }
+  }
+
+  componentDidMount(){
+    getNotifications().then(res=>{
+      this.setState({notifications: res })
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
   static navigationOptions = ({ navigation }) => ({
   });
   render(){
@@ -68,18 +84,18 @@ class NotificationsScreen extends React.Component {
         <Content>
        
         <List
-        dataArray={datas}
-        renderRow={data =>
+        dataArray={this.state.notifications}
+        renderRow={notification =>
           <ListItem avatar  style={styles.listItem}>
             <Left>
-              <Thumbnail small source={data.img} />
+              <Thumbnail small source={notification.img} />
             </Left>
             <Body>
-              <Text>{data.text}</Text>
-              <Text numberOfLines={1} note>{data.note}</Text>
+              <Text>{notification.content}</Text>
+              <Text numberOfLines={1} note>{notification.jobId}</Text>
             </Body>
             <Right>
-              <Text note>{data.time}</Text>
+              <Text note>{notification.time}</Text>
             </Right>
           </ListItem>}
       />

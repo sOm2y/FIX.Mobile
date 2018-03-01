@@ -15,7 +15,8 @@ import { Constants, Location, Permissions, AppLoading } from 'expo';
 import MapView from 'react-native-maps';
 import { navigationBack, jobs } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
-
+import {inviteTradies} from '../../services/jobService';
+import { toastShow } from '../../services/toastService';
 
 const Images = [
     { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -42,7 +43,7 @@ class TradieFinderScreen extends Component {
               title: "Your Location",
               description: "This is the fourth best place in Auckland",
               image: require("../../resource/images/tradie.jpg"),
-              id: 0
+              ownerId: 0
           }
           ],
           region: {
@@ -147,7 +148,7 @@ class TradieFinderScreen extends Component {
             title: business.businessLegalName,
             description: business.businessAddress,
             image: Images[0],
-            id: business.id
+            ownerId: business.ownerId
           }
         ))
       };
@@ -158,17 +159,43 @@ class TradieFinderScreen extends Component {
   invitedTradies = (business, key) => {
     if(this.state.selectedBusiness.length >0){
       this.state.selectedBusiness.map((value,index)=>{
-        if(value.key === key){
-          this.state.selectedBusiness.splice(index,1);
+        if(value.index === key){
+          this.setState({selectedBusiness: [
+            ...this.state.selectedBusiness.slice(0, key),
+            ...this.state.selectedBusiness.slice(key+1)
+          ]});
+        }else{
+          this.state.selectedBusiness.push({index:key,value:business});
+          this.setState(this.state.selectedBusiness);
         }
       })
     }else{
-      this.state.selectedBusiness.push({key:key,value:business});
+      this.state.selectedBusiness.push({index:key,value:business});
+      this.setState(this.state.selectedBusiness);
     }
-    this.setState(this.state.selectedBusiness);
+
+    console.log(this.state.selectedBusiness);
+
 
   }
   
+  submitInvitedTradie = () => {
+    let tempTradies = [];
+    this.state.selectedBusiness.map( (tradie, key) => {
+      tempTradies.push(tradie.value.ownerId);
+    });
+    let invitedTradies ={
+      jobId: this.props.searchResult.jobId,
+      invitedTradieIds: tempTradies
+    }
+    inviteTradies(invitedTradies).then( res => {
+      toastShow("Invite selected tradies  successfully", "success", 3000); 
+      this.props.jobs();
+    }).catch( err => {
+      toastShow("Failed to invite tradies Please try again.", "danger", 3000);   
+    });
+  }
+
   render() {
     const { navigation } = this.props;
     const interpolations = this.state.markers.map((marker, index) => {
@@ -265,9 +292,9 @@ class TradieFinderScreen extends Component {
                 resizeMode="cover"
               /> */}
               {
-                this.state.selectedBusiness.length>0 && this.state.selectedBusiness.map((value)=>{
-                  if(value.key === index ){
-                    return <Icon name='checkmark-circle' />
+                this.state.selectedBusiness.length>0 && this.state.selectedBusiness.map((value,key)=>{
+                  if(value.index === index ){
+                     return <Icon style={styles.iconStyle} key={key} name='checkmark-circle' />
                   }
                 })
               }
@@ -280,6 +307,9 @@ class TradieFinderScreen extends Component {
             </TouchableOpacity>
           ))}
         </Animated.ScrollView>
+        <Button block light onPress={() => this.submitInvitedTradie() }>
+            <Text>Invite Tradies</Text>
+          </Button>
       </View>
       </Container>
     );
@@ -335,6 +365,11 @@ const styles = StyleSheet.create({
   markerWrap: {
     alignItems: "center",
     justifyContent: "center",
+  },
+  iconStyle: {
+    // position: 'absolute',
+    // right: 0,
+    color: '#2F823C'
   },
   marker: {
     width: 8,
