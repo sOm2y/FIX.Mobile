@@ -156,13 +156,13 @@ class TradieFinderScreen extends Component {
       this.setState(availbleBusiness);
   }
 
-  invitedTradies = (business, key) => {
+  selectTradies = (business, key) => {
     if(this.state.selectedBusiness.length >0){
       this.state.selectedBusiness.map((value,index)=>{
         if(value.index === key){
           this.setState({selectedBusiness: [
-            ...this.state.selectedBusiness.slice(0, key),
-            ...this.state.selectedBusiness.slice(key+1)
+            ...this.state.selectedBusiness.slice(0, index),
+            ...this.state.selectedBusiness.slice(index+1)
           ]});
         }else{
           this.state.selectedBusiness.push({index:key,value:business});
@@ -285,7 +285,7 @@ class TradieFinderScreen extends Component {
           contentContainerStyle={styles.endPadding}
         >
           {this.state.markers.map((marker, index) => (
-            <TouchableOpacity onPress={() => this.invitedTradies( marker, index)} style={styles.card} key={index}>
+            <TouchableOpacity onPress={() => this.selectTradies( marker, index)} style={styles.card} key={index}>
               {/* <Image
                 source={marker.image}
                 style={styles.cardImage}
