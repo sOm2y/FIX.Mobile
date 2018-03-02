@@ -311,6 +311,7 @@ class TradieFinderScreen extends Component {
             </TouchableOpacity>
           ))}
         </Animated.ScrollView>
+
         <Button block light onPress={() => this.submitInvitedTradie() }>
             <Text>Invite Tradies</Text>
           </Button>
@@ -371,24 +372,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   iconStyle: {
-    // position: 'absolute',
-    // right: 0,
+    position: 'absolute',
+    top:2,
+    right: 0,
     color: '#2F823C'
   },
   marker: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "rgba(130,4,150, 0.9)",
+    backgroundColor: "rgba(21, 126, 252, 0.9)",
   },
   ring: {
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: "rgba(130,4,150, 0.3)",
+    backgroundColor: "rgba(21, 126, 252, 0.3)",
     position: "absolute",
     borderWidth: 1,
-    borderColor: "rgba(130,4,150, 0.5)",
+    borderColor: "rgba(21, 126, 252, 0.5)",
   },
 });
 const mapStateToProps = (state, props) =>{

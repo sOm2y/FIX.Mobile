@@ -11,9 +11,10 @@ export class ChangePasswordModal extends React.Component {
     return postChangePassword(values)
     .then(res => {
       dispatch(reset('ChangePasswordForm'));
-      this.props.closeModel;
+      this.props.closeModel();
       toastShow("Password has been changed Successfully.", "success", 3000);   
     }).catch(err => {
+      this.props.closeModel();
       toastShow("Change password failed, please try again.", "danger", 3000);   
     });
   }

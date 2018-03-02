@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image, Dimensions } from 'react-native';
+import { StyleSheet, Image, Dimensions, AsyncStorage } from 'react-native';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
@@ -19,9 +19,15 @@ class JobsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobs:[]
+      jobs:[],
+      userType: ''
     }
   }
+
+  async componentWillMount(){
+    let userType = await AsyncStorage.getItem('userType');
+    this.setState({userType: userType});
+}
 
   componentDidMount(){
     getAccessToken().then(value=>{
@@ -61,13 +67,16 @@ class JobsScreen extends React.Component {
          
         </Header>
         <Content padder>
-        <Button style={styles.button}
-              block 
-              primary
-              onPress={this.props.createJob}
-            >
-             <Text>Add new Job</Text>
-            </Button>
+        {!!this.state.userType && this.state.userType === 'Customer' && 
+          <Button style={styles.button}
+            block 
+            primary
+            onPress={this.props.createJob}
+          >
+            <Text>Add new Job</Text>
+          </Button>
+        }
+       
 
         {this.state.jobs && this.state.jobs.length > 0 &&
           this.state.jobs.reverse().map((job, key) => {

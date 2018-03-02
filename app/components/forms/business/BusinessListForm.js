@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Text, Card, CardItem, Spinner, List, ListItem, Content, Container, Header, Left, Icon, Body, Title, Right } from "native-base";
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
 import { renderPicker } from "../../../components/inputs/renderPicker";
@@ -44,6 +44,8 @@ export class BusinessListForm extends React.Component{
             this.state.businesses.push(business);
             this.setState(this.state.businesses);
             this.props.hideBusinessModal();
+            dispatch(reset('businessDetailForm'));
+            dispatch(reset('WizardTradieForm'));
             toastShow("Add business Successfully", "success", 3000);   
         })
         .catch(err => {

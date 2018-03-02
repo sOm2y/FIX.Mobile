@@ -100,6 +100,7 @@ export const HomeTabNavigator = TabNavigator(
     }
   },
   {
+    initialRouteName : 'Jobs',
     tabBarPosition: "bottom",
     animationEnabled: false,
     tabBarOptions: {

@@ -6,51 +6,6 @@ import { connect } from 'react-redux';
 import { onSignOut } from "../services/authService";
 import { getNotifications } from '../services/notificationService';
 
-const pratik = require("../resource/images/xero.png");
-const sanket = require("../resource/images/xero.png");
-const megha = require("../resource/images/xero.png");
-const atul = require("../resource/images/xero.png");
-const saurabh = require("../resource/images/xero.png");
-const varun = require("../resource/images/xero.png");
-
-const datas = [
-    {
-      img: pratik,
-      text: "Kumar Pratik",
-      note: "Its time to build a difference . .",
-      time: "3:43 pm"
-    },
-    {
-      img: sanket,
-      text: "Kumar Sanket",
-      note: "One needs courage to be happy and smiling all time . . ",
-      time: "1:12 pm"
-    },
-    {
-      img: megha,
-      text: "Megha",
-      note: "Live a life style that matchs your vision",
-      time: "10:03 am"
-    },
-    {
-      img: atul,
-      text: "Atul Ranjan",
-      note: "Failure is temporary, giving up makes it permanent",
-      time: "5:47 am"
-    },
-    {
-      img: saurabh,
-      text: "Saurabh Sahu",
-      note: "The biggest risk is a missed opportunity !!",
-      time: "11:11 pm"
-    },
-    {
-      img: varun,
-      text: "Varun Sahu",
-      note: "Wish I had a Time machine . .",
-      time: "8:54 pm"
-    }
-  ];
 class NotificationsScreen extends React.Component {
   constructor() {
     super();
@@ -88,14 +43,14 @@ class NotificationsScreen extends React.Component {
         renderRow={notification =>
           <ListItem avatar  style={styles.listItem}>
             <Left>
-              <Thumbnail small source={notification.img} />
+              <Thumbnail small source={require("../resource/images/user1.png")} />
             </Left>
             <Body>
               <Text>{notification.content}</Text>
-              <Text numberOfLines={1} note>{notification.jobId}</Text>
+             {/*} <Text numberOfLines={1} note>{notification.daysAgo}</Text>*/}
             </Body>
             <Right>
-              <Text note>{notification.time}</Text>
+              <Text note>{notification.daysAgo}</Text>
             </Right>
           </ListItem>}
       />
