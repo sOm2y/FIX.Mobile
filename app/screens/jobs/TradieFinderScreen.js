@@ -156,24 +156,28 @@ class TradieFinderScreen extends Component {
       this.setState(availbleBusiness);
   }
 
-  selectTradies = (business, key) => {
-    if(this.state.selectedBusiness.length >0){
-      this.state.selectedBusiness.map((value,index)=>{
-        if(value.index === key){
-          this.setState({selectedBusiness: [
-            ...this.state.selectedBusiness.slice(0, index),
-            ...this.state.selectedBusiness.slice(index+1)
-          ]});
-        }else{
-          this.state.selectedBusiness.push({index:key,value:business});
-          this.setState(this.state.selectedBusiness);
-        }
-      })
-    }else{
-      this.state.selectedBusiness.push({index:key,value:business});
-      this.setState(this.state.selectedBusiness);
-    }
+  remove = (array, element) => {
+    return array.filter(e => e !== element);
+  }
 
+  selectTradies = (business, key) => {
+    let currentBusinessList = this.state.selectedBusiness;
+    let isDuplicate = false;
+    if(currentBusinessList.length >0){
+      currentBusinessList.map((value,index)=>{
+        if(value.index === key){
+        
+          currentBusinessList = [...currentBusinessList.slice(0, index), ...currentBusinessList.slice(index+1)];
+          isDuplicate = true;
+        }
+      });
+      if(!isDuplicate){
+        currentBusinessList.push({index:key,value:business});
+      }
+    }else{
+      currentBusinessList.push({index:key,value:business});
+    }
+    this.setState({selectedBusiness: currentBusinessList});
     console.log(this.state.selectedBusiness);
 
 
