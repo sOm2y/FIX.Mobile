@@ -1,5 +1,6 @@
 import { AsyncStorage } from "react-native";
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga';
 import { reducer as formReducer } from 'redux-form';
 import wizardPaginationReducer from './app/reducers/wizardPaginationReducer';
 import {
@@ -32,6 +33,8 @@ const config2 = {
   storage: AsyncStorage
 };
 
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 // Object of all the reducers for redux-persist
 // const reducer = {
@@ -60,14 +63,14 @@ const rootReducer = combineReducers({
 function configureStore() {
   let store = createStore(
     rootReducer,
-    applyMiddleware(middleware),
+    applyMiddleware(middleware,sagaMiddleware),
   );
 
   // store.subscribe(() => {
   //   console.log(store.getState());
   // });
   let persistor = persistStore(store);
-  return { persistor, store };
+  return { persistor, store, sagaMiddleware};
 }
 
 export default configureStore;
