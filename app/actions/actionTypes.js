@@ -9,7 +9,9 @@ const NavigationBack = 'Navigation/BACK';
 const CustomerRegister = 'CUSTOMER_SIGNUP';
 const TradieRegister = 'TRADIE_SIGNUP';
 const TradieFinder = 'TRADIE_FINDER'
-const Jobs = 'JOBS';
+const RefreshJobs = 'REFRESH_JOBS';
+const RefreshJobsSuccess ='REFRESH_JOBS_SUCCESS';
+const RefreshJobsFailed ='REFRESH_JOBS_FAILED';
 const CreateJob = 'CREATE_JOB';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
 const HideBusinessModal = 'HIDE_BUSSINESS_FORM';
@@ -31,7 +33,9 @@ export {
     CustomerRegister,
     TradieRegister,
     TradieFinder,
-    Jobs,
+    RefreshJobs,
+    RefreshJobsSuccess,
+    RefreshJobsFailed,
     CreateJob,
     ShowBusinessModal,
     HideBusinessModal,

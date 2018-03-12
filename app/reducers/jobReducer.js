@@ -1,9 +1,17 @@
-import { TradieFinder } from "../actions/actionTypes";
+import { TradieFinder, RefreshJobs, RefreshJobsFailed, RefreshJobsSuccess } from "../actions/actionTypes";
 
-const initialState = { searchResult: {} };
+const initialState = { searchResult: {}, jobResult: {}, isRefreshing: true };
 
 const jobReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RefreshJobs:
+      return { ...state, isRefreshing: true };
+
+    case RefreshJobsSuccess:
+      return { ...state, isRefreshing: false, jobResult: action.payload };
+    
+    case RefreshJobsFailed:
+      return { ...state, isRefreshing: false, errorResult: action.payload };
 
     case TradieFinder:
       return { ...state, searchResult: action.payload };

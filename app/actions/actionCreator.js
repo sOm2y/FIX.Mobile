@@ -10,7 +10,7 @@ import {
   CustomerRegister,
   TradieRegister,
   TradieFinder,
-  Jobs,
+  RefreshJobs,
   CreateJob,
   ShowBusinessModal,
   HideBusinessModal,
@@ -52,9 +52,15 @@ const register = () => ({
   type: Register
 });
 
-const registerSuccess = () => ({
-  type: RegisterSuccess
+const registerSuccess = (jobs) => ({
+  type: RegisterSuccess,
+  payload: jobs
 });
+// const registerSuccess = (jobs) => ({
+//   type: RegisterSuccess,
+//   payload: jobs
+// });
+
 
 const navigateToLogoutScreen = () => ({
   type: NavigateToLogoutScreen
@@ -77,8 +83,8 @@ const tradieFinder = (businessList) => ({
   payload: businessList
 })
 
-const jobs = () => ({
-  type: Jobs
+const refreshJobs = () => ({
+  type: RefreshJobs
 });
 
 const createJob = () => ({
@@ -127,7 +133,7 @@ export {
   customerRegister,
   tradieRegister,
   tradieFinder,
-  jobs,
+  refreshJobs,
   createJob,
   showBusinessModal,
   hideBusinessModal,

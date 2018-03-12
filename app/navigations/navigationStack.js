@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
-import SignUp from '../screens/SignUpScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
-import Jobs from '../screens//jobs/JobsScreen';
+import JobsScreen from '../screens//jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
 import JobsOnMap from '../screens/jobs/JobsOnMapScreen';
 import TradieFinderScreen from '../screens/jobs/TradieFinderScreen';
@@ -20,7 +20,7 @@ import FooterBottomTab from '../components/FooterBottomTab';
 export const JobNavigator = StackNavigator(
   { 
     Jobs:{
-      screen: Jobs,
+      screen: JobsScreen,
       navigationOptions: {
         
       }
@@ -47,7 +47,7 @@ export const JobNavigator = StackNavigator(
 export const RegistrationNavigator = StackNavigator(
   { 
     SignUp:{
-      screen: SignUp,
+      screen: SignUpScreen,
       navigationOptions: {
         
       }

@@ -1,20 +1,19 @@
 import React from "react";
-import { StyleSheet, Image, Dimensions, AsyncStorage } from 'react-native';
+import { StyleSheet, Image, Dimensions, AsyncStorage, RefreshControl } from 'react-native';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
-import { createJob, navigationBack } from '../../actions/actionCreator';
 import {getAccessToken} from '../../services/authService';
 import {getJobs} from '../../services/jobService';
 import { toastShow } from '../../services/toastService';
-import {logout} from '../../actions/actionCreator';
+import { logout, refreshJobs, createJob, navigationBack } from '../../actions/actionCreator';
 
 const deviceWidth = Dimensions.get("window").width;
 
 const logo = require("../../resource/images/xero.png");
 const cardImage = require("../../resource/images/tradie.jpg");
 
-class JobsScreen extends React.Component {
+export class JobsScreen extends React.Component {
   //TODO: Put job state to reducer
   constructor(props) {
     super(props);
@@ -47,6 +46,9 @@ class JobsScreen extends React.Component {
       console.log(err);
       toastShow('Token expired, please login again', "danger", 3000);   
     });    
+    
+    this.props.refreshJobs();
+
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -54,7 +56,7 @@ class JobsScreen extends React.Component {
 
   render(){
 
-    const { navigation } = this.props;
+    const { navigation, isRefreshing } = this.props;
     const { navigate } = navigation;
 
     return (
@@ -66,7 +68,12 @@ class JobsScreen extends React.Component {
           </Body>
          
         </Header>
-        <Content padder>
+        <Content padder refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={this.props.refreshJobs}
+          />
+        }>
         {!!this.state.userType && this.state.userType === 'Customer' && 
           <Button style={styles.button}
             block 
@@ -144,12 +151,18 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = (state, props) =>{
+  return{
+    isRefreshing : state.JobReducer.isRefreshing,
+    // form: props.wizardLabel
+  };
+}
+
 const mapDispatchToProps = {
   navigationBack,
   createJob,
+  refreshJobs,
   logout
 };
 
-const Jobs = connect(null, mapDispatchToProps)(JobsScreen);
-
-export default Jobs;
+export default connect(mapStateToProps, mapDispatchToProps)(JobsScreen);

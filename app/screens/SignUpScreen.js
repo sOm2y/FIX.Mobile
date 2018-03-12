@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 import { navigationBack, customerRegister, tradieRegister } from "../actions/actionCreator";
 
-class SignUpScreen extends React.Component {
+export class SignUpScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
 
   });
@@ -59,6 +59,4 @@ const mapDispatchToProps = {
   tradieRegister
 };
 
-const SignUp = connect(null, mapDispatchToProps)(SignUpScreen);
-
-export default SignUp;
+export default connect(null, mapDispatchToProps)(SignUpScreen);
