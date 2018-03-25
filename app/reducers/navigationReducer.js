@@ -11,7 +11,8 @@ import {
   RegisterSuccess,
   NavigateToLogoutScreen,
   Jobs,
-  CreateJob
+  CreateJob,
+  JobDetail
 
 } from "../actions/actionTypes";
 
@@ -28,7 +29,7 @@ const stateForLoggedIn = AppRootNavigator.router.getStateForAction(
   stateForLoggedOut
 );
 
-const initialState = { stateForLoggedOut, stateForLoggedIn };
+const initialState = { stateForLoggedOut, stateForLoggedIn, job:{} };
 
 const navigationReducer = (state = initialState, action) => {
   let nextState;
@@ -84,6 +85,15 @@ const navigationReducer = (state = initialState, action) => {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(
           AppRootNavigator.router.getActionForPathAndParams("Home/Jobs"),
+          stateForLoggedIn
+        )
+      };
+    
+    case JobDetail:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("Home/JobDetail"),
           stateForLoggedIn
         )
       };

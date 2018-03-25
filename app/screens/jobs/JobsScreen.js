@@ -7,7 +7,7 @@ import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, C
 import { getAccessToken, postDeviceInfo } from '../../services/authService';
 import { getJobs} from '../../services/jobService';
 import { toastShow } from '../../services/toastService';
-import { logout, refreshJobs, createJob, navigationBack } from '../../actions/actionCreator';
+import { logout, refreshJobs, createJob, navigationBack, jobDetail } from '../../actions/actionCreator';
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -94,7 +94,7 @@ export class JobsScreen extends React.Component {
         {this.state.jobs && this.state.jobs.length > 0 &&
           this.state.jobs.reverse().map((job, key) => {
             return <Card style={styles.mb} key={key}>
-              <CardItem button bordered onPress={this.props.jobDetail(job)}>
+              <CardItem button bordered onPress={() => this.props.jobDetail(job)}>
                 <Left>
                   <Thumbnail source={logo} />
                   <Body>
@@ -171,7 +171,8 @@ const mapDispatchToProps = {
   navigationBack,
   createJob,
   refreshJobs,
-  logout
+  logout,
+  jobDetail
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobsScreen);

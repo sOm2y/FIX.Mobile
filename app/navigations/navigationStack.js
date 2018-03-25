@@ -16,11 +16,18 @@ import TradieRegister from '../screens/registration/TradieScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FooterBottomTab from '../components/FooterBottomTab';
+import JobDetailScreen from '../screens/jobs/JobDetailScreen';
 
 export const JobNavigator = StackNavigator(
   { 
     Jobs:{
       screen: JobsScreen,
+      navigationOptions: {
+        
+      }
+    },
+    JobDetail:{
+      screen: JobDetailScreen,
       navigationOptions: {
         
       }

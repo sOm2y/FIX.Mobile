@@ -13,6 +13,7 @@ import {
   RefreshJobs,
   CreateJob,
   Jobs,
+  JobDetail,
   ShowBusinessModal,
   HideBusinessModal,
   ShowChangePasswordModal,
@@ -96,6 +97,11 @@ const jobs = () => ({
   type: Jobs
 });
 
+const jobDetail = ( job ) => ({
+  type: JobDetail,
+  payload: job
+});
+
 const showBusinessModal = () => ({
   type: ShowBusinessModal
 });
@@ -141,6 +147,7 @@ export {
   refreshJobs,
   createJob,
   jobs,
+  jobDetail,
   showBusinessModal,
   hideBusinessModal,
   showChangePasswordModal,

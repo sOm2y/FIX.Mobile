@@ -14,6 +14,7 @@ const RefreshJobsSuccess ='REFRESH_JOBS_SUCCESS';
 const RefreshJobsFailed ='REFRESH_JOBS_FAILED';
 const CreateJob = 'CREATE_JOB';
 const Jobs = 'JOBS';
+const JobDetail = 'JOBDETAIL';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
 const HideBusinessModal = 'HIDE_BUSSINESS_FORM';
 const ShowChangePasswordModal = 'SHOW_CHANGE_PASSWORD_FORM';
@@ -39,6 +40,7 @@ export {
     RefreshJobsFailed,
     CreateJob,
     Jobs,
+    JobDetail,
     ShowBusinessModal,
     HideBusinessModal,
     ShowChangePasswordModal,

@@ -24,7 +24,8 @@ import {
   Thumbnail,
   Left,
   Right,
-  Icon
+  Icon,
+  Input
 } from "native-base";
 import { getAccessToken, postDeviceInfo } from "../../services/authService";
 import { getJobs } from "../../services/jobService";
@@ -33,6 +34,7 @@ import {
   logout,
   refreshJobs,
   createJob,
+  jobs,
   navigationBack
 } from "../../actions/actionCreator";
 
@@ -54,38 +56,47 @@ export class JobDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { navigation, isRefreshing } = this.props;
+    const { navigation, isRefreshing, job} = this.props;
     const { navigate } = navigation;
 
     return (
       <Container>
         <Header>
+          <Left>
+            <Button transparent onPress={this.props.jobs}>
+                <Icon name="arrow-back" />
+            </Button>
+          </Left>
           <Body>
             <Title>Job Detail</Title>
           </Body>
+          <Right />
         </Header>
         <Content padder>
-          <Card style={styles.mb} key={key}>
+          <Card style={styles.mb}>
             <CardItem bordered>
               <Left>
-                <Thumbnail source={logo} />
                 <Body>
                   <Text>{job.title}</Text>
                   <Text note>{job.jobDate}</Text>
+                  <Text>{job.description}</Text>
                 </Body>
               </Left>
+              <Right>
+                <Text>{job.jobStatus}</Text>
+              </Right>
             </CardItem>
 
             <CardItem>
               <Body>
                 {job.jobImages &&
-                  job.jobImages.length > 0 && (
+                  job.jobImages.length > 0 && ( 
                     <Image
                       style={{
                         alignSelf: "center",
                         height: 150,
                         resizeMode: "cover",
-                        width: deviceWidth / 1.18,
+                        width: 320,
                         marginVertical: 5
                       }}
                       source={{
@@ -95,7 +106,6 @@ export class JobDetailScreen extends React.Component {
                       }}
                     />
                   )}
-                <Text>{job.description}</Text>
               </Body>
             </CardItem>
             <CardItem style={{ paddingVertical: 0 }}>
@@ -107,6 +117,33 @@ export class JobDetailScreen extends React.Component {
               </Left>
             </CardItem>
           </Card>
+
+          {/* Quotes */}
+          {job.quotes && job.quotes.length > 0 && 
+            job.quotes.reverse().map((quote, key) => {
+              return (
+                <Card key={key}>
+                  <CardItem header>
+                    <Text>{quote.hours}</Text>
+                    <Text>{quote.amount}</Text>
+                    <Text>{quote.notes}</Text> 
+                    <Right>
+                      <Icon name="ios-arrow-forward-outline" />
+                    </Right>
+                    {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
+                  </CardItem>
+                  <CardItem footer>
+                    <Body>
+                      <Text note>{quote.startTime}</Text>
+                      <Text note>{quote.businessName}</Text>
+                    </Body>
+                  </CardItem>
+                </Card>
+              );
+            
+            })
+          }
+        
         </Content>
       </Container>
     );
@@ -132,7 +169,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, props) => {
   return {
-    isRefreshing: state.JobReducer.isRefreshing
+    isRefreshing: state.JobReducer.isRefreshing,
+    job: state.JobReducer.job
     // form: props.wizardLabel
   };
 };
@@ -141,6 +179,7 @@ const mapDispatchToProps = {
   navigationBack,
   createJob,
   refreshJobs,
+  jobs,
   logout
 };
 
