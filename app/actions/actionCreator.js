@@ -12,6 +12,7 @@ import {
   TradieFinder,
   RefreshJobs,
   CreateJob,
+  Jobs,
   ShowBusinessModal,
   HideBusinessModal,
   ShowChangePasswordModal,
@@ -91,6 +92,10 @@ const createJob = () => ({
   type: CreateJob
 });
 
+const jobs = () => ({
+  type: Jobs
+});
+
 const showBusinessModal = () => ({
   type: ShowBusinessModal
 });
@@ -135,6 +140,7 @@ export {
   tradieFinder,
   refreshJobs,
   createJob,
+  jobs,
   showBusinessModal,
   hideBusinessModal,
   showChangePasswordModal,
