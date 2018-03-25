@@ -63,3 +63,22 @@ export const postUserAccount = ( postUser ) => {
 }
 
 
+export const postDeviceInfo = ( device ) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'post',
+      url: '/api/devices',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: device
+    })
+    .then(res => {    
+      resolve(res.data);
+    })
+    .catch(err => {
+      reject(err.response);
+    });
+  });
+}
+

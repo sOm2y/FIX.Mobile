@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import I18n from 'ex-react-native-i18n';
 import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
 
-import { loginUserAccount } from '../services/authService';
+import { loginUserAccount, postDeviceInfo } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
 import { login, register } from "../actions/actionCreator";
@@ -45,8 +45,7 @@ class SignInScreen extends React.Component {
                   dispatch(reset('LoginForm'));
           
                   this.props.login();
-
-              
+                  
                   toastShow("SignIn Successfully", "success", 3000);   
                 });
      

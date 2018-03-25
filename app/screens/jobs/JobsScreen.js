@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Image, Dimensions, AsyncStorage, RefreshControl } from 'react-native';
+import { Notifications, Expo } from 'expo';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
-import {getAccessToken} from '../../services/authService';
-import {getJobs} from '../../services/jobService';
+import { getAccessToken, postDeviceInfo } from '../../services/authService';
+import { getJobs} from '../../services/jobService';
 import { toastShow } from '../../services/toastService';
 import { logout, refreshJobs, createJob, navigationBack } from '../../actions/actionCreator';
 
@@ -25,6 +26,16 @@ export class JobsScreen extends React.Component {
 
   async componentWillMount(){
     let userType = await AsyncStorage.getItem('userType');
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+
+    let deviceInfo = {
+      description: Expo.Constants.deviceName,
+      deviceToken: token,
+      registrationDate: Date.now()
+    }
+
+    postDeviceInfo(deviceInfo);
     this.setState({userType: userType});
 }
 
@@ -46,8 +57,8 @@ export class JobsScreen extends React.Component {
       console.log(err);
       toastShow('Token expired, please login again', "danger", 3000);   
     });    
-    
-    this.props.refreshJobs();
+
+    //this.props.refreshJobs();
 
   }
 
@@ -68,12 +79,7 @@ export class JobsScreen extends React.Component {
           </Body>
          
         </Header>
-        <Content padder refreshControl={
-          <RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={this.props.refreshJobs}
-          />
-        }>
+        <Content padder>
         {!!this.state.userType && this.state.userType === 'Customer' && 
           <Button style={styles.button}
             block 
@@ -88,7 +94,7 @@ export class JobsScreen extends React.Component {
         {this.state.jobs && this.state.jobs.length > 0 &&
           this.state.jobs.reverse().map((job, key) => {
             return <Card style={styles.mb} key={key}>
-              <CardItem bordered>
+              <CardItem button bordered onPress={this.props.jobDetail(job)}>
                 <Left>
                   <Thumbnail source={logo} />
                   <Body>
@@ -96,6 +102,9 @@ export class JobsScreen extends React.Component {
                     <Text note>{job.jobDate}</Text>
                   </Body>
                 </Left>
+                <Right>
+                <Icon name="ios-arrow-forward-outline" />
+                </Right>
               </CardItem>
   
             <CardItem>
