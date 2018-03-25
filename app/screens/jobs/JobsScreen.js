@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Image, Dimensions, AsyncStorage, RefreshControl } from 'react-native';
-import { Notifications, Expo } from 'expo';
+import { Notifications, Expo, Constants } from 'expo';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
@@ -29,13 +29,13 @@ export class JobsScreen extends React.Component {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
 
-    let deviceInfo = {
-      description: Expo.Constants.deviceName,
-      deviceToken: token,
-      registrationDate: Date.now()
-    }
+    // let deviceInfo = {
+    //   description: Constants.deviceName,
+    //   deviceToken: token,
+    //   registrationDate: Date.now()
+    // }
 
-    postDeviceInfo(deviceInfo);
+    //postDeviceInfo(deviceInfo);
     this.setState({userType: userType});
 }
 
@@ -44,21 +44,21 @@ export class JobsScreen extends React.Component {
       if(value !== null){
         axios.defaults.headers.common['Authorization'] = 'Bearer '+ value;
         console.log( axios.defaults.headers.common['Authorization']);
-        getJobs().then((res)=>{
-          this.setState({jobs:res});
+        // getJobs().then((res)=>{
+        //   this.setState({jobs:res});
     
-        }).catch(err=>{
-          console.log(err);
-          toastShow(err.data.message, "danger", 3000);   
-          this.props.logout();
-        });
+        // }).catch(err=>{
+        //   console.log(err);
+        //   toastShow(err.data.message, "danger", 3000);   
+        //   this.props.logout();
+        // });
+        this.props.refreshJobs();
       }
     }).catch((err)=>{
       console.log(err);
       toastShow('Token expired, please login again', "danger", 3000);   
     });    
 
-    //this.props.refreshJobs();
 
   }
 
@@ -67,7 +67,7 @@ export class JobsScreen extends React.Component {
 
   render(){
 
-    const { navigation, isRefreshing } = this.props;
+    const { navigation, isRefreshing, jobs } = this.props;
     const { navigate } = navigation;
 
     return (
@@ -90,11 +90,11 @@ export class JobsScreen extends React.Component {
           </Button>
         }
        
-
-        {this.state.jobs && this.state.jobs.length > 0 &&
-          this.state.jobs.reverse().map((job, key) => {
+        {jobs && jobs.length > 0 &&
+          jobs.reverse().map((job, key) => {
             return <Card style={styles.mb} key={key}>
-              <CardItem button bordered onPress={this.props.jobDetail(job)}>
+            {/* //onPress={this.props.jobDetail(job)} */}
+              <CardItem button bordered >
                 <Left>
                   <Thumbnail source={logo} />
                   <Body>
@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, props) =>{
   return{
     isRefreshing : state.JobReducer.isRefreshing,
+    jobs: state.JobReducer.jobResult
     // form: props.wizardLabel
   };
 }

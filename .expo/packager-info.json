@@ -1,8 +1,8 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 6524,
-  "expoServerNgrokUrl": "https://p8-6j4.andylin83930.fix-mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.p8-6j4.andylin83930.fix-mobile.exp.direct",
-  "ngrokPid": 6557
+  "packagerPort": 19003,
+  "packagerPid": 45735,
+  "expoServerNgrokUrl": "https://f5-byx.yylucas.fix-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.f5-byx.yylucas.fix-mobile.exp.direct",
+  "ngrokPid": 45750
 }
