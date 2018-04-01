@@ -73,3 +73,52 @@ export const getJobs = ( ) =>{
     });
 }
 
+export const getAssignedJobs = ( ) =>{
+  return new Promise((resolve, reject) => {
+
+      axios({
+        method: 'get',
+        url: '/api/jobs/get-assigned-jobs',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        if(res.status === 400 || res.status === 403){
+          reject(res);
+        }
+        console.log(res);
+        resolve(res.data);
+      
+      })
+      .catch(err => {
+        reject(err.response);
+      });
+    });
+}
+
+
+export const getJobById = ( jobId ) =>{
+  return new Promise((resolve, reject) => {
+
+      axios({
+        method: 'get',
+        url: '/api/jobs/'+jobId,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        if(res.status === 400 || res.status === 403){
+          reject(res);
+        }
+        console.log(res);
+        resolve(res.data);
+      
+      })
+      .catch(err => {
+        reject(err.response);
+      });
+    });
+}
+

@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, props) => {
   return {
     isRefreshing: state.JobReducer.isRefreshing,
-    job: state.JobReducer.job
+    job: state.JobReducer.jobResult
     // form: props.wizardLabel
   };
 };

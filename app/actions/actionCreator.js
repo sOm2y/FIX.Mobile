@@ -85,8 +85,9 @@ const tradieFinder = (businessList) => ({
   payload: businessList
 })
 
-const refreshJobs = () => ({
-  type: RefreshJobs
+const refreshJobs = (value) => ({
+  type: RefreshJobs,
+  payload: value
 });
 
 const createJob = () => ({
@@ -97,9 +98,11 @@ const jobs = () => ({
   type: Jobs
 });
 
-const jobDetail = ( job ) => ({
+const jobDetail = ( jobId ) => ({
   type: JobDetail,
-  payload: job
+  payload: {
+    jobId
+  }
 });
 
 const showBusinessModal = () => ({
