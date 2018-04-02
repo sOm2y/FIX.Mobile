@@ -33,8 +33,8 @@ import { toastShow } from "../../services/toastService";
 import {
   logout,
   refreshJobs,
-  createJob,
-  jobs,
+  navigateToCreateJob,
+  navigateToJobs,
   navigationBack
 } from "../../actions/actionCreator";
 
@@ -63,7 +63,7 @@ export class JobDetailScreen extends React.Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.jobs}>
+            <Button transparent onPress={this.props.navigateToJobs}>
                 <Icon name="arrow-back" />
             </Button>
           </Left>
@@ -143,6 +143,16 @@ export class JobDetailScreen extends React.Component {
             
             })
           }
+
+          {
+            job.assignedBusiness === null && 
+            <Button style={styles.button}
+              block 
+              bordered
+            >
+              <Text>Quote this job</Text>
+            </Button>
+          }
         
         </Content>
       </Container>
@@ -177,9 +187,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = {
   navigationBack,
-  createJob,
+  navigateToCreateJob,
   refreshJobs,
-  jobs,
+  navigateToJobs,
   logout
 };
 

@@ -32,7 +32,7 @@ import { toastShow } from "../../services/toastService";
 import {
   logout,
   refreshJobs,
-  createJob,
+  navigateToCreateJob,
   navigationBack,
   jobDetail
 } from "../../actions/actionCreator";
@@ -110,7 +110,7 @@ export class JobsScreen extends React.Component {
                 style={styles.button}
                 block
                 primary
-                onPress={this.props.createJob}
+                onPress={this.props.navigateToCreateJob}
               >
                 <Text>Add new Job</Text>
               </Button>
@@ -204,7 +204,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = {
   navigationBack,
-  createJob,
+  navigateToCreateJob,
   refreshJobs,
   logout,
   jobDetail

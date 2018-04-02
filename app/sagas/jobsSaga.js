@@ -2,7 +2,7 @@ import {
   RefreshJobs,
   RefreshJobsSuccess,
   RefreshJobsFailed,
-  CreateJob,
+  NavigateToCreateJob,
   JobDetail,
   JobDetailSuccess,
   JobDetailFailed,
@@ -10,24 +10,36 @@ import {
   SubmitJobDetailSuccess,
   SubmitJobDetailFailed
 } from "../actions/actionTypes";
-import { call, put, take, fork, takeEvery, takeLatest } from "redux-saga/effects";
-import { getJobs, postJob, getJobById, getAssignedJobs } from "../services/jobService";
+import {
+  call,
+  put,
+  take,
+  fork,
+  takeEvery,
+  takeLatest
+} from "redux-saga/effects";
+import {
+  getJobs,
+  postJob,
+  getJobById,
+  getAssignedJobs
+} from "../services/jobService";
 
 function* postJobSaga(action) {
   try {
     const job = yield call(postJob, action.payload);
-    yield put({type: SubmitJobDetailSuccess, payload:job});
+    yield put({ type: SubmitJobDetailSuccess, payload: job });
   } catch (error) {
-    yield put({type: SubmitJobDetailFailed, payload: error});
+    yield put({ type: SubmitJobDetailFailed, payload: error });
   }
 }
 
 function* getJobsSaga(action) {
   try {
     let jobs = null;
-    if(action.payload === 'Customer'){
+    if (action.payload === "Customer") {
       jobs = yield call(getJobs);
-    }else if(action.payload === 'Tradie'){
+    } else if (action.payload === "Tradie") {
       jobs = yield call(getAssignedJobs);
     }
     //Change the name of parameter to payload as reducer defined
@@ -41,9 +53,9 @@ function* getJobsSaga(action) {
 
 function* getJobByIdSaga(action) {
   try {
-    const job = yield call(getJobById,action.payload.jobId);
+    const job = yield call(getJobById, action.payload.jobId);
     //Change the name of parameter to payload as reducer defined
-    console.log('job: '+job);
+    console.log("job: " + job);
     const payload = job;
     yield put({ type: JobDetailSuccess, payload });
   } catch (error) {

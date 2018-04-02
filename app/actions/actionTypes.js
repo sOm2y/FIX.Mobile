@@ -12,11 +12,11 @@ const TradieFinder = 'TRADIE_FINDER'
 const RefreshJobs = 'REFRESH_JOBS';
 const RefreshJobsSuccess ='REFRESH_JOBS_SUCCESS';
 const RefreshJobsFailed ='REFRESH_JOBS_FAILED';
-const CreateJob = 'CREATE_JOB';
+const NavigateToCreateJob = 'CREATE_JOB';
 const SubmitJobDetail = 'SUBMIT_JOB_DETAIL';
 const SubmitJobDetailSuccess = 'SUBMIT_JOB_DETAIL_SUCCESS';
 const SubmitJobDetailFailed = 'SUBMIT_JOB_DETAIL_FAILED';
-const Jobs = 'JOBS';
+const NavigateToJobs = 'JOBS';
 const JobDetail = 'JOBDETAIL';
 const JobDetailSuccess = 'JOB_DETAIL_SUCCESS';
 const JobDetailFailed = 'JOB_DETAIL_FAILED';
@@ -43,11 +43,11 @@ export {
     RefreshJobs,
     RefreshJobsSuccess,
     RefreshJobsFailed,
-    CreateJob,
+    NavigateToCreateJob,
     SubmitJobDetail,
     SubmitJobDetailSuccess,
     SubmitJobDetailFailed,
-    Jobs,
+    NavigateToJobs,
     JobDetail,
     JobDetailSuccess,
     JobDetailFailed,

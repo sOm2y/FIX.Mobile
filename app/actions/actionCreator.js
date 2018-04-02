@@ -11,9 +11,9 @@ import {
   TradieRegister,
   TradieFinder,
   RefreshJobs,
-  CreateJob,
+  NavigateToCreateJob,
   SubmitJobDetail,
-  Jobs,
+  NavigateToJobs,
   JobDetail,
   ShowBusinessModal,
   HideBusinessModal,
@@ -91,8 +91,8 @@ const refreshJobs = (value) => ({
   payload: value
 });
 
-const createJob = () => ({
-  type: CreateJob
+const navigateToCreateJob = () => ({
+  type: NavigateToCreateJob
 });
 
 const submitJobDetail = (job) => ({
@@ -100,8 +100,8 @@ const submitJobDetail = (job) => ({
   payload: job
 });
 
-const jobs = () => ({
-  type: Jobs
+const navigateToJobs = () => ({
+  type: NavigateToJobs
 });
 
 const jobDetail = ( jobId ) => ({
@@ -154,9 +154,9 @@ export {
   tradieRegister,
   tradieFinder,
   refreshJobs,
-  createJob,
+  navigateToCreateJob,
   submitJobDetail,
-  jobs,
+  navigateToJobs,
   jobDetail,
   showBusinessModal,
   hideBusinessModal,
