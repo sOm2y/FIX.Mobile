@@ -6,14 +6,20 @@ import {
   JobDetail,
   JobDetailSuccess,
   JobDetailFailed,
+  SubmitJobDetail,
+  SubmitJobDetailSuccess,
+  SubmitJobDetailFailed
 } from "../actions/actionTypes";
-import { call, put, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, put, take, fork, takeEvery, takeLatest } from "redux-saga/effects";
 import { getJobs, postJob, getJobById, getAssignedJobs } from "../services/jobService";
 
 function* postJobSaga(action) {
-  // console.log("postJobSaga");
-  // const job = yield call(postJob, action.payload);
-  // yield put({type: "USER_FETCH_SUCCEEDED", job: job});
+  try {
+    const job = yield call(postJob, action.payload);
+    yield put({type: SubmitJobDetailSuccess, payload:job});
+  } catch (error) {
+    yield put({type: SubmitJobDetailFailed, payload: error});
+  }
 }
 
 function* getJobsSaga(action) {
@@ -47,9 +53,9 @@ function* getJobByIdSaga(action) {
 }
 
 function* jobsSaga() {
-  yield takeEvery(RefreshJobs, getJobsSaga);
-  yield takeEvery(CreateJob, postJobSaga);
-  yield takeEvery(JobDetail, getJobByIdSaga);
+  yield takeLatest(RefreshJobs, getJobsSaga);
+  yield takeEvery(SubmitJobDetail, postJobSaga);
+  yield takeLatest(JobDetail, getJobByIdSaga);
 }
 
 export default jobsSaga;

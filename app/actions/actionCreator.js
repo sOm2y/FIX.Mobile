@@ -12,6 +12,7 @@ import {
   TradieFinder,
   RefreshJobs,
   CreateJob,
+  SubmitJobDetail,
   Jobs,
   JobDetail,
   ShowBusinessModal,
@@ -94,6 +95,11 @@ const createJob = () => ({
   type: CreateJob
 });
 
+const submitJobDetail = (job) => ({
+  type: SubmitJobDetail,
+  payload: job
+});
+
 const jobs = () => ({
   type: Jobs
 });
@@ -149,6 +155,7 @@ export {
   tradieFinder,
   refreshJobs,
   createJob,
+  submitJobDetail,
   jobs,
   jobDetail,
   showBusinessModal,
