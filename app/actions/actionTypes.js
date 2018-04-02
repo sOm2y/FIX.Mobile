@@ -13,6 +13,9 @@ const RefreshJobs = 'REFRESH_JOBS';
 const RefreshJobsSuccess ='REFRESH_JOBS_SUCCESS';
 const RefreshJobsFailed ='REFRESH_JOBS_FAILED';
 const CreateJob = 'CREATE_JOB';
+const SubmitJobDetail = 'SUBMIT_JOB_DETAIL';
+const SubmitJobDetailSuccess = 'SUBMIT_JOB_DETAIL_SUCCESS';
+const SubmitJobDetailFailed = 'SUBMIT_JOB_DETAIL_FAILED';
 const Jobs = 'JOBS';
 const JobDetail = 'JOBDETAIL';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
@@ -39,6 +42,9 @@ export {
     RefreshJobsSuccess,
     RefreshJobsFailed,
     CreateJob,
+    SubmitJobDetail,
+    SubmitJobDetailSuccess,
+    SubmitJobDetailFailed,
     Jobs,
     JobDetail,
     ShowBusinessModal,

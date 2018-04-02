@@ -1,4 +1,4 @@
-import { TradieFinder, RefreshJobs, RefreshJobsFailed, RefreshJobsSuccess, JobDetail } from "../actions/actionTypes";
+import { TradieFinder, RefreshJobs, RefreshJobsFailed, RefreshJobsSuccess, JobDetail, SubmitJobDetail, SubmitJobDetailSuccess, SubmitJobDetailFailed } from "../actions/actionTypes";
 
 const initialState = { searchResult: {}, jobResult: {}, isRefreshing: true };
 
@@ -12,6 +12,15 @@ const jobReducer = (state = initialState, action) => {
     
     case RefreshJobsFailed:
       return { ...state, isRefreshing: false, errorResult: action.payload };
+
+    case SubmitJobDetail:
+      return { ...state, isVisible: true };
+
+    case SubmitJobDetailSuccess:
+      return { ...state, isJobSubmitted: true, jobDetail: action.payload };
+    
+    case SubmitJobDetailFailed:
+      return { ...state, isJobSubmitted: false, errorResult: action.payload };
 
     case TradieFinder:
       return { ...state, searchResult: action.payload };

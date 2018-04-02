@@ -1,28 +1,28 @@
-import { RefreshJobs, RefreshJobsSuccess, RefreshJobsFailed, CreateJob } from "../actions/actionTypes";
-import { call, put, take, takeEvery, takeLatest } from 'redux-saga/effects'
+import { RefreshJobs, RefreshJobsSuccess, RefreshJobsFailed, SubmitJobDetail, SubmitJobDetailSuccess, SubmitJobDetailFailed } from "../actions/actionTypes";
+import { call, put, fork, takeEvery, takeLatest } from 'redux-saga/effects'
 import { getJobs, postJob } from '../services/jobService';
 
 function* postJobSaga(action) {
-  // console.log("postJobSaga");
-  // const job = yield call(postJob, action.payload);
-  // yield put({type: "USER_FETCH_SUCCEEDED", job: job});
+  try {
+    const job = yield call(postJob, action.payload);
+    yield put({type: SubmitJobDetailSuccess, payload:job});
+  } catch (error) {
+    yield put({type: SubmitJobDetailFailed, payload: error});
+  }
 }
 
 function* getJobsSaga(action) {
   try {
     const jobs = yield call(getJobs);
-    //Change the name of parameter to payload as reducer defined
-    const payload = jobs;
-    yield put({type: RefreshJobsSuccess, payload});
+    yield put({type: RefreshJobsSuccess, payload: jobs});
   } catch (error) {
-    const payload = error;
-    yield put({type: RefreshJobsFailed, payload});
+    yield put({type: RefreshJobsFailed, payload: error});
   }
 }
 
 function* jobsSaga() {
-    yield takeEvery(RefreshJobs, getJobsSaga);
-    yield takeEvery(CreateJob, postJobSaga);
+    yield takeLatest(RefreshJobs, getJobsSaga);
+    yield takeEvery(SubmitJobDetail, postJobSaga);
 }
 
 export default jobsSaga;
