@@ -1,0 +1,193 @@
+import React from "react";
+import {
+  StyleSheet,
+  Image,
+  Dimensions,
+  AsyncStorage,
+  RefreshControl
+} from "react-native";
+import { Notifications, Expo } from "expo";
+import { connect } from "react-redux";
+import axios from "axios";
+import {
+  Container,
+  Header,
+  Body,
+  Title,
+  Content,
+  List,
+  ListItem,
+  Button,
+  Text,
+  Card,
+  CardItem,
+  Thumbnail,
+  Left,
+  Right,
+  Icon,
+  Input
+} from "native-base";
+import { getAccessToken, postDeviceInfo } from "../../services/authService";
+import { getJobs } from "../../services/jobService";
+import { toastShow } from "../../services/toastService";
+import {
+  logout,
+  refreshJobs,
+  navigateToCreateJob,
+  navigateToJobs,
+  navigationBack
+} from "../../actions/actionCreator";
+
+export class JobDetailScreen extends React.Component {
+  //TODO: Put job state to reducer
+  constructor(props) {
+    super(props);
+    this.state = {
+      job: {}
+    };
+  }
+
+  async componentWillMount() {}
+
+  componentDidMount() {
+    //this.props.refreshJobs();
+  }
+
+  static navigationOptions = ({ navigation }) => ({});
+
+  render() {
+    const { navigation, isRefreshing, job} = this.props;
+    const { navigate } = navigation;
+
+    return (
+      <Container>
+        <Header>
+          <Left>
+            <Button transparent onPress={this.props.navigateToJobs}>
+                <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Job Detail</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Content padder>
+          <Card style={styles.mb}>
+            <CardItem bordered>
+              <Left>
+                <Body>
+                  <Text>{job.title}</Text>
+                  <Text note>{job.jobDate}</Text>
+                  <Text>{job.description}</Text>
+                </Body>
+              </Left>
+              <Right>
+                <Text>{job.jobStatus}</Text>
+              </Right>
+            </CardItem>
+
+            <CardItem>
+              <Body>
+                {job.jobImages &&
+                  job.jobImages.length > 0 && ( 
+                    <Image
+                      style={{
+                        alignSelf: "center",
+                        height: 150,
+                        resizeMode: "cover",
+                        width: 320,
+                        marginVertical: 5
+                      }}
+                      source={{
+                        uri:
+                          "https://smartgeoio.blob.core.windows.net/fix/" +
+                          job.jobImages[0].fileName
+                      }}
+                    />
+                  )}
+              </Body>
+            </CardItem>
+            <CardItem style={{ paddingVertical: 0 }}>
+              <Left>
+                <Button transparent>
+                  <Icon name="ios-locate-outline" />
+                  <Text>{job.location.description}</Text>
+                </Button>
+              </Left>
+            </CardItem>
+          </Card>
+
+          {/* Quotes */}
+          {job.quotes && job.quotes.length > 0 && 
+            job.quotes.reverse().map((quote, key) => {
+              return (
+                <Card key={key}>
+                  <CardItem header>
+                    <Text>{quote.hours}</Text>
+                    <Text>{quote.amount}</Text>
+                    <Text>{quote.notes}</Text> 
+                    <Right>
+                      <Icon name="ios-arrow-forward-outline" />
+                    </Right>
+                    {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
+                  </CardItem>
+                  <CardItem footer>
+                    <Body>
+                      <Text note>{quote.startTime}</Text>
+                      <Text note>{quote.businessName}</Text>
+                    </Body>
+                  </CardItem>
+                </Card>
+              );
+            
+            })
+          }
+
+          {
+            job.assignedBusiness === null && 
+            <Button block style={styles.button}>
+              <Text>Quote this job</Text>
+            </Button>
+          }
+        
+        </Content>
+      </Container>
+    );
+  }
+}
+
+//TODO: Bug from nativebase
+let { width } = Dimensions.get("window");
+const styles = StyleSheet.create({
+  listItem: {
+    marginLeft: 0,
+    paddingLeft: 17
+  },
+  button: {
+    marginBottom: 20
+  },
+  image: {
+    width: width,
+    flex: 1,
+    height: 200
+  }
+});
+
+const mapStateToProps = (state, props) => {
+  return {
+    isRefreshing: state.JobReducer.isRefreshing,
+    job: state.JobReducer.jobResult
+    // form: props.wizardLabel
+  };
+};
+
+const mapDispatchToProps = {
+  navigationBack,
+  navigateToCreateJob,
+  refreshJobs,
+  navigateToJobs,
+  logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobDetailScreen);

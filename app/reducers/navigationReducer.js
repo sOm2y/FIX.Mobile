@@ -10,8 +10,9 @@ import {
   TradieFinder,
   RegisterSuccess,
   NavigateToLogoutScreen,
-  Jobs,
-  CreateJob
+  NavigateToJobs,
+  NavigateToCreateJob,
+  JobDetailSuccess
 
 } from "../actions/actionTypes";
 
@@ -28,7 +29,7 @@ const stateForLoggedIn = AppRootNavigator.router.getStateForAction(
   stateForLoggedOut
 );
 
-const initialState = { stateForLoggedOut, stateForLoggedIn };
+const initialState = { stateForLoggedOut, stateForLoggedIn, job:{} };
 
 const navigationReducer = (state = initialState, action) => {
   let nextState;
@@ -79,7 +80,7 @@ const navigationReducer = (state = initialState, action) => {
         )
       };
 
-    case Jobs:
+    case NavigateToJobs:
       return {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(
@@ -87,8 +88,17 @@ const navigationReducer = (state = initialState, action) => {
           stateForLoggedIn
         )
       };
+    
+    case JobDetailSuccess:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          AppRootNavigator.router.getActionForPathAndParams("Home/JobDetail"),
+          stateForLoggedIn
+        )
+      };
 
-    case CreateJob:
+    case NavigateToCreateJob:
       return {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(

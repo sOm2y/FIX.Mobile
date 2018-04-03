@@ -7,14 +7,16 @@ import {
   Animated,
   Image,
   Dimensions,
-  Platform
+  Platform,
+  TouchableOpacity
 } from "react-native";
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions, AppLoading } from 'expo';
 import MapView from 'react-native-maps';
-import { navigationBack, jobs } from '../../actions/actionCreator';
+import { navigationBack, navigateToJobs } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
-
+import {inviteTradies} from '../../services/jobService';
+import { toastShow } from '../../services/toastService';
 
 const Images = [
     { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -25,8 +27,8 @@ const Images = [
 
 const { width, height } = Dimensions.get("window");
 
-const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const CARD_HEIGHT = height / 6;
+const CARD_WIDTH = width / 2;
     
 class TradieFinderScreen extends Component {
   constructor(){
@@ -41,6 +43,7 @@ class TradieFinderScreen extends Component {
               title: "Your Location",
               description: "This is the fourth best place in Auckland",
               image: require("../../resource/images/tradie.jpg"),
+              ownerId: 0
           }
           ],
           region: {
@@ -49,7 +52,9 @@ class TradieFinderScreen extends Component {
           latitudeDelta: 0.04864195044303443,
           longitudeDelta: 0.040142817690068,
           },
-          isReady: false
+          isReady: false,
+          invitedTradieIds: [],
+          selectedBusiness: []
       };
   }
 
@@ -62,7 +67,7 @@ class TradieFinderScreen extends Component {
           errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
           });
       } else {
-          await this.getLocationAsync(this.props.businessList);
+          await this.getLocationAsync(this.props.searchResult.businessList);
           
       }
       
@@ -143,13 +148,58 @@ class TradieFinderScreen extends Component {
             title: business.businessLegalName,
             description: business.businessAddress,
             image: Images[0],
+            ownerId: business.ownerId
           }
         ))
       };
       
       this.setState(availbleBusiness);
   }
+
+  remove = (array, element) => {
+    return array.filter(e => e !== element);
+  }
+
+  selectTradies = (business, key) => {
+    let currentBusinessList = this.state.selectedBusiness;
+    let isDuplicate = false;
+    if(currentBusinessList.length >0){
+      currentBusinessList.map((value,index)=>{
+        if(value.index === key){
+        
+          currentBusinessList = [...currentBusinessList.slice(0, index), ...currentBusinessList.slice(index+1)];
+          isDuplicate = true;
+        }
+      });
+      if(!isDuplicate){
+        currentBusinessList.push({index:key,value:business});
+      }
+    }else{
+      currentBusinessList.push({index:key,value:business});
+    }
+    this.setState({selectedBusiness: currentBusinessList});
+    console.log(this.state.selectedBusiness);
+
+
+  }
   
+  submitInvitedTradie = () => {
+    let tempTradies = [];
+    this.state.selectedBusiness.map( (tradie, key) => {
+      tempTradies.push(tradie.value.ownerId);
+    });
+    let invitedTradies ={
+      jobId: this.props.searchResult.jobId,
+      invitedTradieIds: tempTradies
+    }
+    inviteTradies(invitedTradies).then( res => {
+      toastShow("Invite selected tradies  successfully", "success", 3000); 
+      this.props.navigateToJobs();
+    }).catch( err => {
+      toastShow("Failed to invite tradies Please try again.", "danger", 3000);   
+    });
+  }
+
   render() {
     const { navigation } = this.props;
     const interpolations = this.state.markers.map((marker, index) => {
@@ -177,19 +227,19 @@ class TradieFinderScreen extends Component {
     return (
       <Container>
       <Header>
-          <Right>
-  
-              <Button transparent onPress={this.props.jobs}>
-                <Text>
-                 Skip
-                 </Text>
-              </Button>
-          
-          </Right>
+      <Left />
         <Body>
-          <Title>Create Job</Title>
+          <Title>Select Tradie for your job</Title>
         </Body>
-        <Right />
+        <Right>
+  
+        <Button transparent onPress={this.props.navigateToJobs}>
+          <Text>
+           Skip
+           </Text>
+        </Button>
+    
+    </Right>
       </Header>
       <View style={styles.container}>
         <MapView
@@ -239,21 +289,32 @@ class TradieFinderScreen extends Component {
           contentContainerStyle={styles.endPadding}
         >
           {this.state.markers.map((marker, index) => (
-            <View style={styles.card} key={index}>
-              <Image
+            <TouchableOpacity onPress={() => this.selectTradies( marker, index)} style={styles.card} key={index}>
+              {/* <Image
                 source={marker.image}
                 style={styles.cardImage}
                 resizeMode="cover"
-              />
+              /> */}
+              {
+                this.state.selectedBusiness.length>0 && this.state.selectedBusiness.map((value,key)=>{
+                  if(value.index === index ){
+                     return <Icon style={styles.iconStyle} key={key} name='checkmark-circle' />
+                  }
+                })
+              }
               <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>
+                <Text numberOfLines={2} style={styles.cardtitle}>{marker.title}</Text>
+                <Text numberOfLines={3} style={styles.cardDescription}>
                   {marker.description}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </Animated.ScrollView>
+
+        <Button block light onPress={() => this.submitInvitedTradie() }>
+            <Text>Invite Tradies</Text>
+          </Button>
       </View>
       </Container>
     );
@@ -297,43 +358,50 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardtitle: {
-    fontSize: 12,
+    fontSize: 15,
     marginTop: 5,
+    marginBottom: 5,
     fontWeight: "bold",
   },
   cardDescription: {
-    fontSize: 12,
+    fontSize: 13,
     color: "#444",
   },
   markerWrap: {
     alignItems: "center",
     justifyContent: "center",
   },
+  iconStyle: {
+    position: 'absolute',
+    top:2,
+    right: 0,
+    color: '#2F823C'
+  },
   marker: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "rgba(130,4,150, 0.9)",
+    backgroundColor: "rgba(21, 126, 252, 0.9)",
   },
   ring: {
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: "rgba(130,4,150, 0.3)",
+    backgroundColor: "rgba(21, 126, 252, 0.3)",
     position: "absolute",
     borderWidth: 1,
-    borderColor: "rgba(130,4,150, 0.5)",
+    borderColor: "rgba(21, 126, 252, 0.5)",
   },
 });
 const mapStateToProps = (state, props) =>{
   return{
-    businessList : state.JobReducer.businessList
+    searchResult : state.JobReducer.searchResult
   };
 }
 
 const mapDispatchToProps = {
   navigationBack,
-  jobs
+  navigateToJobs
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradieFinderScreen);

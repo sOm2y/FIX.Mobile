@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
-import { Container, Content, Header, Body, Title, Text, List, ListItem, Icon, Left} from "native-base";
-import { View, Modal, StyleSheet, Button } from 'react-native';
+import { reset } from 'redux-form';
+import { Container, Content, Header, Button, Body, Title, Text, List, ListItem, Icon, Left} from "native-base";
+import { View, Modal, StyleSheet  } from 'react-native';
+import ChangePasswordForm from '../forms/ChangePasswordForm';
+import { postChangePassword } from '../../services/profileService';
+import { toastShow } from '../../services/toastService';
 
 export class ChangePasswordModal extends React.Component {
+  onSubmit = (values, dispatch) => {
+    return postChangePassword(values)
+    .then(res => {
+      dispatch(reset('ChangePasswordForm'));
+      this.props.closeModel();
+      toastShow("Password has been changed Successfully.", "success", 3000);   
+    }).catch(err => {
+      this.props.closeModel();
+      toastShow("Change password failed, please try again.", "danger", 3000);   
+    });
+  }
 
   render() {
     return (
@@ -15,30 +30,19 @@ export class ChangePasswordModal extends React.Component {
           <Container>
             <Header>
               <Body>
-                <Title>CHANGE PASSWORD</Title>
+                <Title>Change Password</Title>
               </Body>
             </Header>
             
-            <Content>
-              <List>
-                <ListItem icon style={styles.listItem}>
-                  <Left>
-                    <Icon name="lock" />
-                  </Left>
-                  <Body>
-                    <Text>Old Password: </Text>
-                  </Body>
-                </ListItem>
-              </List>
+            <Content padder keyboardShouldPersistTaps={'always'}>
+              <ChangePasswordForm onSubmit={(values, dispatch) => {this.onSubmit(values, dispatch) }} />
 
-              <Button
-                onPress={this.props.closeModel}
-                title="Change Password"
-              />
-              <Button
-                onPress={this.props.closeModel}
-                title="Cancel"
-              />
+              <Button block transparent
+              onPress={this.props.closeModel}
+              style={{ marginTop: 10 }}>
+               <Text>Cancel</Text>
+              </Button>
+
             </Content>
           </Container>
         </Modal>

@@ -1,69 +1,74 @@
 import React from "react";
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet, AsyncStorage } from "react-native";
 import { connect } from "react-redux";
-import { NavigationActions } from 'react-navigation';
-import { reset } from 'redux-form';
-import PropTypes from 'prop-types';
-import I18n from 'ex-react-native-i18n';
-import { Container, Header, Body, Title, Text, Button, Content, Toast} from "native-base";
+import { NavigationActions } from "react-navigation";
+import { reset } from "redux-form";
+import PropTypes from "prop-types";
+import I18n from "ex-react-native-i18n";
+import {
+  Container,
+  Header,
+  Body,
+  Title,
+  Text,
+  Button,
+  Content,
+  Toast
+} from "native-base";
 
-import { loginUserAccount } from '../services/authService';
-import { toastShow } from '../services/toastService';
-import LoginForm  from '../components/forms/LoginForm';
-import { login, register } from "../actions/actionCreator";
-
+import { loginUserAccount, postDeviceInfo } from "../services/authService";
+import { toastShow } from "../services/toastService";
+import LoginForm from "../components/forms/LoginForm";
+import { login, register, setUserType } from "../actions/actionCreator";
 
 class SignInScreen extends React.Component {
-  static navigationOptions = ({ navigation}) => ({
-    title: 'title'
+  static navigationOptions = ({ navigation }) => ({
+    title: "title"
   });
 
   onSubmit = (values, dispatch) => {
     console.log(values);
-   // values = Object.assign({grant_type:'password'},values);
+    // values = Object.assign({grant_type:'password'},values);
     return loginUserAccount(values);
-}
+  };
 
-  render(){
+  render() {
     const { navigation } = this.props;
     const { navigate } = navigation;
-    
+
     return (
       <Container>
         <Header>
           <Body>
-            <Title>{I18n.t('signin')}</Title>
+            <Title>{I18n.t("signin")}</Title>
           </Body>
         </Header>
-        <Content padder keyboardShouldPersistTaps={'always'}>
-          <LoginForm onSubmit={
-            (values,dispatch) => {
-               return this.onSubmit(values, dispatch).then(res => {
+        <Content padder keyboardShouldPersistTaps={"always"}>
+          <LoginForm
+            onSubmit={(values, dispatch) => {
+              return this.onSubmit(values, dispatch)
+                .then(res => {
+                      dispatch(reset("LoginForm"));
 
-                AsyncStorage.setItem('userType', res.data.usertype).then(()=>{
+                      this.props.setUserType(res.data.usertype);
+                      this.props.login();
 
-                  dispatch(reset('LoginForm'));
-          
-                  this.props.login();
-
-              
-                  toastShow("SignIn Successfully", "success", 3000);   
+                      toastShow("SignIn Successfully", "success", 3000);
+                })
+                .catch(err => {
+                  console.log(err);
+                  toastShow("SignIn Unsuccessfully", "danger", 3000);
                 });
-     
-              })
-              .catch(err => {
-                console.log(err);
-                toastShow("SignIn Unsuccessfully", "danger", 3000);   
-              });
-            }
-          } />
-            <Button style={styles.button}
-              block 
-              bordered
-              onPress={this.props.register}
-            >
-             <Text>Sign Up</Text>
-            </Button>
+            }}
+          />
+          <Button
+            style={styles.button}
+            block
+            bordered
+            onPress={this.props.register}
+          >
+            <Text>Sign Up</Text>
+          </Button>
         </Content>
       </Container>
     );
@@ -72,19 +77,19 @@ class SignInScreen extends React.Component {
 
 //TODO: Bug from nativebase
 const styles = StyleSheet.create({
-  button:{
+  button: {
     marginTop: 20
   }
- 
 });
 
 SignInScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
 const mapDispatchToProps = {
   login,
-  register
+  register,
+  setUserType
 };
 
 const SignIn = connect(null, mapDispatchToProps)(SignInScreen);

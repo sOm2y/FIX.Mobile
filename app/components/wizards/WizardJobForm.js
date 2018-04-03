@@ -86,7 +86,7 @@ class WizardJobForm extends React.Component {
         <Content padder keyboardShouldPersistTaps={'always'}>
         <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Job Detail","Address","Upload","Confirmation"]} />
         {page === 0 &&<JobDetailForm {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 1 &&<AddrerssForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
+        {page === 1 &&<AddrerssForm  {...this.props} selectAddressName={'jobAddress'} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 2 &&<UploadForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
         {page === 3 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
         </Content>

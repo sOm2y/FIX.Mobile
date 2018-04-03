@@ -10,13 +10,17 @@ import {
   CustomerRegister,
   TradieRegister,
   TradieFinder,
-  Jobs,
-  CreateJob,
+  RefreshJobs,
+  NavigateToCreateJob,
+  SubmitJobDetail,
+  NavigateToJobs,
+  JobDetail,
   ShowBusinessModal,
   HideBusinessModal,
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
+  SetUserType,
   LoginAsCustomer,
   LoginAsTradie
 } from "./actionTypes";
@@ -52,9 +56,15 @@ const register = () => ({
   type: Register
 });
 
-const registerSuccess = () => ({
-  type: RegisterSuccess
+const registerSuccess = (jobs) => ({
+  type: RegisterSuccess,
+  payload: jobs
 });
+// const registerSuccess = (jobs) => ({
+//   type: RegisterSuccess,
+//   payload: jobs
+// });
+
 
 const navigateToLogoutScreen = () => ({
   type: NavigateToLogoutScreen
@@ -77,12 +87,29 @@ const tradieFinder = (businessList) => ({
   payload: businessList
 })
 
-const jobs = () => ({
-  type: Jobs
+const refreshJobs = (value) => ({
+  type: RefreshJobs,
+  payload: value
 });
 
-const createJob = () => ({
-  type: CreateJob
+const navigateToCreateJob = () => ({
+  type: NavigateToCreateJob
+});
+
+const submitJobDetail = (job) => ({
+  type: SubmitJobDetail,
+  payload: job
+});
+
+const navigateToJobs = () => ({
+  type: NavigateToJobs
+});
+
+const jobDetail = ( jobId ) => ({
+  type: JobDetail,
+  payload: {
+    jobId
+  }
 });
 
 const showBusinessModal = () => ({
@@ -101,9 +128,14 @@ const hideChangePasswordModal = () => ({
   type: HideChangePasswordModal
 });
 
-const setUserData = (data) => ({
+const setUserData = (user) => ({
   type: SetUserData,
-  user: data
+  payload: user
+});
+
+const setUserType = (userType) => ({
+  type: SetUserType,
+  payload: userType
 });
 
 const loginAsCustomer = () => ({
@@ -127,13 +159,17 @@ export {
   customerRegister,
   tradieRegister,
   tradieFinder,
-  jobs,
-  createJob,
+  refreshJobs,
+  navigateToCreateJob,
+  submitJobDetail,
+  navigateToJobs,
+  jobDetail,
   showBusinessModal,
   hideBusinessModal,
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
+  setUserType,
   loginAsCustomer,
   loginAsTradie
 };

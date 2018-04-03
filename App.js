@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import Expo from 'expo';
 
@@ -12,8 +10,9 @@ import { Root } from 'native-base';
 import AppNavigation from './app/navigations/index';
 import configureStore from "./store";
 import {getAccessToken} from './app/services/authService';
+import rootSaga from './app/sagas/jobsSaga';
 
-const { store, persistor } = configureStore();
+const { store, persistor, sagaMiddleware } = configureStore();
 
 
 
@@ -68,6 +67,7 @@ export default class App extends React.Component {
     }
 
     this.setState({ isReady: true });
+    sagaMiddleware.run(rootSaga);
   }
   render() {
     if (!this.state.isReady) {

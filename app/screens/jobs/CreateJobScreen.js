@@ -8,7 +8,7 @@ import { postJob } from '../../services/jobService';
 import { searchBusiness } from '../../services/businessService';
 import { toastShow } from '../../services/toastService';
 import WizardJobForm from '../../components/wizards/WizardJobForm';
-import { tradieFinder } from '../../actions/actionCreator';
+import { tradieFinder, submitJobDetail } from '../../actions/actionCreator';
 
 
 
@@ -25,38 +25,49 @@ export class CreateJobScreen extends React.Component {
   });
 
   onSubmit = (values, dispatch, navigation) => {
-    console.log(values);
+
+    const { jobDetail, isJobSubmitted } = this.props;
     this.setState({isVisible:true});
     
-    return postJob(values)
-    .then(res => {
-      
-      dispatch(reset('WizardJobForm'));
+    // return postJob(values)
+    this.props.submitJobDetail(values);
+    dispatch(reset('WizardJobForm'));
 
+
+    // .then(job => {
+      
+      
+
+      
+
+      
+  
+    // }).catch( err => {
+    //   toastShow("Post job failed, Please try again.", "danger", 3000);   
+    // });
+}
+  render(){
+    const { navigation, jobDetail, isJobSubmitted } = this.props;
+    const { navigate } = navigation;
+
+    if (isJobSubmitted){
       let businessQuery = {
-        categoryId: res.businessCategoryId,
-        latitude: res.location.latitude,
-        longitude: res.location.longitude,
+        categoryId: jobDetail.businessCategoryId,
+        latitude: jobDetail.location.latitude,
+        longitude: jobDetail.location.longitude,
         take: 5
       };
-      searchBusiness(businessQuery)
-      .then(res => {
 
-       // navigation.navigate("TradieFinder");
-        this.props.tradieFinder(res);
+      searchBusiness(businessQuery, jobDetail.id)
+      .then(businessList => {
+        // navigation.navigate("TradieFinder");
+        this.props.tradieFinder({jobId:jobDetail.id,businessList:businessList});
 
         toastShow("Search available tradies  Successfully", "success", 3000); 
       }).catch(err => {
         toastShow("Search available tradies failed, Please try again.", "danger", 3000);   
       });
-  
-    }).catch( err => {
-      toastShow("Post job failed, Please try again.", "danger", 3000);   
-    });
-}
-  render(){
-    const { navigation } = this.props;
-    const { navigate } = navigation;
+    }
 
     return (
 
@@ -68,13 +79,16 @@ export class CreateJobScreen extends React.Component {
 
 const mapStateToProps = (state, props) =>{
   return{
+    jobDetail: state.JobReducer.jobDetail,
+    isJobSubmitted: state.JobReducer.isJobSubmitted
     // page : state.page,
     // form: props.wizardLabel
   };
 }
 
 const mapDispatchToProps = {
-  tradieFinder
+  tradieFinder,
+  submitJobDetail
 };
 
 

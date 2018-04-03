@@ -52,7 +52,7 @@ export default class Callouts extends React.Component {
     };
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
 
     if (Platform.OS === 'android' && !Constants.isDevice) {
         this.setState({

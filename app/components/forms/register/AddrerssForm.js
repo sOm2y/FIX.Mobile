@@ -60,7 +60,7 @@ export class AddressForm extends React.Component{
 
     
     render(){
-        const { handleSubmit, navigation, pristine, submitting, previousPage } = this.props;
+        const { handleSubmit, navigation, pristine, submitting, previousPage, selectAddressName } = this.props;
         
         return (
             <Form>
@@ -68,7 +68,7 @@ export class AddressForm extends React.Component{
                 {this.state.isLoadingAddress && <Spinner color='white' />}
 
                 <Field label="Select Address" 
-                name="addressId" 
+                name={selectAddressName}
                 iosHeader="Select Address" 
                 iosIcon={<Icon name="ios-arrow-down-outline" />}
                 style={{ width: undefined }}
@@ -76,7 +76,7 @@ export class AddressForm extends React.Component{
                 placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
                     {this.state.addressList && this.state.addressList[0] &&
                         this.state.addressList.map((value, key) => {
-                        return <Item key={key} label={value.description} value={value.id} />
+                        return <Item key={key} label={value.description} value={value} />
                         })
                      }
                 </Field>

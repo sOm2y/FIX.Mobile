@@ -1,13 +1,27 @@
 import React from "react";
-import { Button, Text, Form, Spinner } from "native-base";
+import { Button, Text, Form, Spinner, Icon, Item } from "native-base";
 import { Field, reduxForm, change } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderName } from '../../../components/inputs/renderUsername';
 import { renderAddress } from '../../../components/inputs/renderAddress';
+import { renderPicker } from "../../../components/inputs/renderPicker";
 import AddAddressForm from '../../forms/address/AddAddressForm';
+import { getBusinessCategories } from '../../../services/businessService';
 
 
 export class BusinessDetailForm extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            businessCategories: []
+        };
+      }
+
+    componentWillMount(){
+        getBusinessCategories().then(res => {
+            this.setState({businessCategories:res});
+        });
+    }
     componentDidMount(){
         change(this.props.form, 'businessPhone', this.props.user.phoneNumber);
         change(this.props.form, 'businessEmail', this.props.user.email);
@@ -64,6 +78,20 @@ export class BusinessDetailForm extends React.Component{
                     component={renderName}
                     label="Your Business email"
                 />
+
+                 <Field label="Business Categories" 
+                name="businessCategoryIds" 
+                iosHeader="Select Business Category" 
+                iosIcon={<Icon name="ios-arrow-down-outline" />}
+                style={{ width: undefined }}
+                placeholder="Select Business Category"
+                placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
+                    {this.state.businessCategories && this.state.businessCategories[0] &&
+                        this.state.businessCategories.map((value, key) => {
+                        return <Item key={key} label={value.name} value={[value.id]} />
+                        })
+                     }
+                </Field>
 
                 
                 <Button block primary
