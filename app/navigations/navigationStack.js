@@ -48,7 +48,7 @@ export const JobNavigator = StackNavigator(
     headerMode: 'none',
     animationEnabled: true,
     gesturesEnabled:true,
-    initialRouteName : 'Jobs',
+    initialRouteName : 'Jobs'
   });
    
 export const RegistrationNavigator = StackNavigator(
@@ -107,7 +107,6 @@ export const HomeTabNavigator = TabNavigator(
     }
   },
   {
-    initialRouteName : 'Jobs',
     tabBarPosition: "bottom",
     animationEnabled: false,
     tabBarOptions: {
