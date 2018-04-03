@@ -19,12 +19,12 @@ import jobReducer from "./app/reducers/jobReducer";
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
 const config = {
-  key: "root",
+  key: "auth",
   storage: AsyncStorage,
 };
 
 const config1 = {
-  key: "primary",
+  key: "profile",
   storage: AsyncStorage
 };
 
@@ -51,13 +51,13 @@ const sagaMiddleware = createSagaMiddleware();
 // combineReducer applied on persisted(counterReducer) and NavigationReducer
 const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
-  AuthReducer : persistReducer(config1, authReducer),
+  AuthReducer : persistReducer(config, authReducer),
   BusinessReducer: businessReducer,
   JobReducer: jobReducer,
   NavigationReducer: navigationReducer,
   form: formReducer,
   page: wizardPaginationReducer,
-  ProfileReducer: profileReducer
+  ProfileReducer: persistReducer(config1, profileReducer)
 });
 
 function configureStore() {

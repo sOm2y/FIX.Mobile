@@ -69,10 +69,9 @@ export class JobsScreen extends React.Component {
         if (value !== null) {
           axios.defaults.headers.common["Authorization"] = "Bearer " + value;
           console.log(axios.defaults.headers.common["Authorization"]);
-          AsyncStorage.getItem("userType").then(value => {
-            this.setState({ userType: value });
-            this.props.refreshJobs(value);
-          });
+          if(this.props.userType){
+            this.props.refreshJobs(this.props.userType);
+          }
           // getJobs().then((res)=>{
           //   this.setState({jobs:res});
 
@@ -93,7 +92,7 @@ export class JobsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { navigation, isRefreshing, jobs } = this.props;
+    const { navigation, isRefreshing, jobs, userType } = this.props;
     const { navigate } = navigation;
 
     return (
@@ -104,8 +103,7 @@ export class JobsScreen extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          {!!this.state.userType &&
-            this.state.userType === "Customer" && (
+          {!!userType && userType === "Customer" && (
               <Button
                 style={styles.button}
                 block
@@ -197,7 +195,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, props) => {
   return {
     isRefreshing: state.JobReducer.isRefreshing,
-    jobs: state.JobReducer.jobsResult
+    jobs: state.JobReducer.jobsResult,
+    userType: state.ProfileReducer.userType
     // form: props.wizardLabel
   };
 };

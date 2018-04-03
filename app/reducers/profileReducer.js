@@ -1,8 +1,15 @@
-import {ShowChangePasswordModal, HideChangePasswordModal, SetUserData} from "../actions/actionTypes";
+import {
+  ShowChangePasswordModal,
+  HideChangePasswordModal,
+  SetUserData,
+  SetUserType,
+  Logout
+} from "../actions/actionTypes";
 
-const initialState = { 
+const initialState = {
   isPasswordChanged: false,
-  user:{} 
+  user: {},
+  userType: ""
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -12,7 +19,11 @@ const profileReducer = (state = initialState, action) => {
     case HideChangePasswordModal:
       return { ...state, isPasswordChanged: false };
     case SetUserData:
-      return { ...state, user:action.payload}
+      return { ...state, user: action.payload };
+    case SetUserType:
+      return { ...state, userType: action.payload };
+    case Logout:
+      return { ...state, userType: '', user: {} };
     default:
       return state;
   }

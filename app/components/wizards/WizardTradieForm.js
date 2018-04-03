@@ -1,5 +1,5 @@
 import React from "react";
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Constants } from 'expo';
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -51,8 +51,10 @@ class WizardTradieForm extends React.Component {
   });
 
   onSubmit = async (values, dispatch) => {
-
-    let pushToken = await Notifications.getExpoPushTokenAsync();
+    let pushToken = '';
+    if(Constants.isDevice){
+      pushToken = await Notifications.getExpoPushTokenAsync();
+    }
     values = Object.assign({ deviceToken:pushToken, userType:1 },values);
 
     console.log(values);

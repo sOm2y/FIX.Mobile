@@ -146,10 +146,7 @@ export class JobDetailScreen extends React.Component {
 
           {
             job.assignedBusiness === null && 
-            <Button style={styles.button}
-              block 
-              bordered
-            >
+            <Button block style={styles.button}>
               <Text>Quote this job</Text>
             </Button>
           }

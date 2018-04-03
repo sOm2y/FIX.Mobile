@@ -20,6 +20,7 @@ import {
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
+  SetUserType,
   LoginAsCustomer,
   LoginAsTradie
 } from "./actionTypes";
@@ -132,6 +133,11 @@ const setUserData = (user) => ({
   payload: user
 });
 
+const setUserType = (userType) => ({
+  type: SetUserType,
+  payload: userType
+});
+
 const loginAsCustomer = () => ({
   type: LoginAsCustomer
 });
@@ -163,6 +169,7 @@ export {
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
+  setUserType,
   loginAsCustomer,
   loginAsTradie
 };
