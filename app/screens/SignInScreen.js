@@ -11,6 +11,7 @@ import { loginUserAccount, postDeviceInfo } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm  from '../components/forms/LoginForm';
 import { login, register } from "../actions/actionCreator";
+import ReviewStars  from '../components/reviews/ReviewStars';
 
 
 class SignInScreen extends React.Component {
@@ -63,6 +64,7 @@ class SignInScreen extends React.Component {
             >
              <Text>Sign Up</Text>
             </Button>
+            <ReviewStars />
         </Content>
       </Container>
     );
