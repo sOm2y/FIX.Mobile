@@ -27,13 +27,12 @@ import {
   Icon
 } from "native-base";
 import { getAccessToken, postDeviceInfo } from "../../services/authService";
-import { getJobs } from "../../services/jobService";
 import { toastShow } from "../../services/toastService";
 import {
   logout,
   refreshJobs,
   navigateToCreateJob,
-  navigationBack,
+  navigationBackLoggedIn,
   jobDetail
 } from "../../actions/actionCreator";
 
@@ -43,24 +42,10 @@ const logo = require("../../resource/images/xero.png");
 const cardImage = require("../../resource/images/tradie.jpg");
 
 export class JobsScreen extends React.Component {
+
   //TODO: Put job state to reducer
   constructor(props) {
     super(props);
-    this.state = {
-      jobs: [],
-      userType: ""
-    };
-  }
-
-  async componentWillMount() {
-    // Get the token that uniquely identifies this device
-    // let token = await Notifications.getExpoPushTokenAsync();
-    // let deviceInfo = {
-    //   description: Constants.deviceName,
-    //   deviceToken: token,
-    //   registrationDate: Date.now()
-    // }
-    //postDeviceInfo(deviceInfo);
   }
 
   componentDidMount() {
@@ -71,16 +56,8 @@ export class JobsScreen extends React.Component {
           console.log(axios.defaults.headers.common["Authorization"]);
           if(this.props.userType){
             this.props.refreshJobs(this.props.userType);
+            console.log(this.props.userType);
           }
-          // getJobs().then((res)=>{
-          //   this.setState({jobs:res});
-
-          // }).catch(err=>{
-          //   console.log(err);
-          //   toastShow(err.data.message, "danger", 3000);
-          //   this.props.logout();
-          // });
-         
         }
       })
       .catch(err => {
@@ -202,7 +179,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedIn,
   navigateToCreateJob,
   refreshJobs,
   logout,

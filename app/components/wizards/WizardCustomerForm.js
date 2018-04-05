@@ -10,7 +10,7 @@ import CredentialForm from '../forms/register/CredentialForm';
 import DetailForm from '../forms/register/DetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage, navigationBack } from '../../actions/actionCreator';
+import { nextPage, previousPage, navigationBackLoggedOut } from '../../actions/actionCreator';
 
 
 const thirdIndicatorStyles = {
@@ -69,7 +69,7 @@ class WizardCustomerForm extends React.Component {
            
             {page === 0 &&
               <Left>
-                <Button transparent onPress={this.props.navigationBack}>
+                <Button transparent onPress={this.props.navigationBackLoggedOut}>
                     <Icon name="arrow-back" />
                 </Button>
               </Left>
@@ -113,7 +113,7 @@ const mapStateToProps = (state, props) =>{
 }
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedOut,
   previousPage,
   nextPage
 };

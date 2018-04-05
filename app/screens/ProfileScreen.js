@@ -34,7 +34,7 @@ export class ProfileScreen extends React.Component {
 }
 
   render(){
-    const { isPasswordChanged, user } = this.props;
+    const { isPasswordModalOpened, user } = this.props;
     return (  
       <Container>
         <Header>
@@ -44,8 +44,8 @@ export class ProfileScreen extends React.Component {
         </Header>
         <Content>
 
-        <ChangePasswordModal showModal={isPasswordChanged} 
-                             closeModel={this.props.hideChangePasswordModal} />
+        <ChangePasswordModal showModal={isPasswordModalOpened} 
+                             closeModal={this.props.hideChangePasswordModal} />
         
 
         <List>
@@ -135,7 +135,7 @@ export class ProfileScreen extends React.Component {
 
 const mapStateToProps = (state, props) =>{
   return{
-    isPasswordChanged : state.ProfileReducer.isPasswordChanged,
+    isPasswordModalOpened : state.ProfileReducer.isPasswordModalOpened,
     user : state.ProfileReducer.user
   };
 }

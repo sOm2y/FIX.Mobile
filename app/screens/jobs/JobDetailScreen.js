@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   Image,
   Dimensions,
   AsyncStorage,
   RefreshControl
-} from "react-native";
-import { Notifications, Expo } from "expo";
-import { connect } from "react-redux";
-import axios from "axios";
+} from 'react-native';
+import { Notifications, Expo } from 'expo';
+import { connect } from 'react-redux';
+import axios from 'axios';
 import {
   Container,
   Header,
@@ -26,17 +26,18 @@ import {
   Right,
   Icon,
   Input
-} from "native-base";
-import { getAccessToken, postDeviceInfo } from "../../services/authService";
-import { getJobs } from "../../services/jobService";
-import { toastShow } from "../../services/toastService";
+} from 'native-base';
+import { getAccessToken, postDeviceInfo } from '../../services/authService';
+import { toastShow } from '../../services/toastService';
 import {
   logout,
-  refreshJobs,
   navigateToCreateJob,
   navigateToJobs,
-  navigationBack
-} from "../../actions/actionCreator";
+  navigationBackLoggedIn,
+  showQuoteModal,
+  hideQuoteModal
+} from '../../actions/actionCreator';
+import { QuoteModal } from '../../components/modals/QuoteModal';
 
 export class JobDetailScreen extends React.Component {
   //TODO: Put job state to reducer
@@ -56,15 +57,15 @@ export class JobDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { navigation, isRefreshing, job} = this.props;
+    const { navigation, isRefreshing, job, isQuoteModalOpened } = this.props;
     const { navigate } = navigation;
 
     return (
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.navigateToJobs}>
-                <Icon name="arrow-back" />
+            <Button transparent onPress={this.props.navigationBackLoggedIn}>
+              <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>
@@ -90,18 +91,18 @@ export class JobDetailScreen extends React.Component {
             <CardItem>
               <Body>
                 {job.jobImages &&
-                  job.jobImages.length > 0 && ( 
+                  job.jobImages.length > 0 && (
                     <Image
                       style={{
-                        alignSelf: "center",
+                        alignSelf: 'center',
                         height: 150,
-                        resizeMode: "cover",
+                        resizeMode: 'cover',
                         width: 320,
                         marginVertical: 5
                       }}
                       source={{
                         uri:
-                          "https://smartgeoio.blob.core.windows.net/fix/" +
+                          'https://smartgeoio.blob.core.windows.net/fix/' +
                           job.jobImages[0].fileName
                       }}
                     />
@@ -119,14 +120,15 @@ export class JobDetailScreen extends React.Component {
           </Card>
 
           {/* Quotes */}
-          {job.quotes && job.quotes.length > 0 && 
+          {job.quotes &&
+            job.quotes.length > 0 &&
             job.quotes.reverse().map((quote, key) => {
               return (
                 <Card key={key}>
                   <CardItem header>
                     <Text>{quote.hours}</Text>
                     <Text>{quote.amount}</Text>
-                    <Text>{quote.notes}</Text> 
+                    <Text>{quote.notes}</Text>
                     <Right>
                       <Icon name="ios-arrow-forward-outline" />
                     </Right>
@@ -140,17 +142,21 @@ export class JobDetailScreen extends React.Component {
                   </CardItem>
                 </Card>
               );
-            
-            })
-          }
+            })}
 
-          {
-            job.assignedBusiness === null && 
-            <Button block style={styles.button}>
+          {job.assignedBusiness === null && (
+            <Button
+              block
+              style={styles.button}
+              onPress={this.props.showQuoteModal}
+            >
               <Text>Quote this job</Text>
             </Button>
-          }
-        
+          )}
+          <QuoteModal
+            showModal={isQuoteModalOpened}
+            closeModal={this.props.hideQuoteModal}
+          />
         </Content>
       </Container>
     );
@@ -158,7 +164,7 @@ export class JobDetailScreen extends React.Component {
 }
 
 //TODO: Bug from nativebase
-let { width } = Dimensions.get("window");
+let { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   listItem: {
     marginLeft: 0,
@@ -177,16 +183,18 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, props) => {
   return {
     isRefreshing: state.JobReducer.isRefreshing,
-    job: state.JobReducer.jobResult
+    job: state.JobReducer.jobResult,
+    isQuoteModalOpened: state.QuoteReducer.isQuoteModalOpened
     // form: props.wizardLabel
   };
 };
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedIn,
   navigateToCreateJob,
-  refreshJobs,
   navigateToJobs,
+  showQuoteModal,
+  hideQuoteModal,
   logout
 };
 

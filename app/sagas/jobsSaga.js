@@ -9,7 +9,7 @@ import {
   SubmitJobDetail,
   SubmitJobDetailSuccess,
   SubmitJobDetailFailed
-} from "../actions/actionTypes";
+} from '../actions/actionTypes';
 import {
   call,
   put,
@@ -17,13 +17,13 @@ import {
   fork,
   takeEvery,
   takeLatest
-} from "redux-saga/effects";
+} from 'redux-saga/effects';
 import {
   getJobs,
   postJob,
   getJobById,
   getAssignedJobs
-} from "../services/jobService";
+} from '../services/jobService';
 
 function* postJobSaga(action) {
   try {
@@ -37,11 +37,12 @@ function* postJobSaga(action) {
 function* getJobsSaga(action) {
   try {
     let jobs = null;
-    if (action.payload === "Customer") {
+    if (action.payload === 'Customer') {
       jobs = yield call(getJobs);
-    } else if (action.payload === "Tradie") {
+    } else if (action.payload === 'Tradie') {
       jobs = yield call(getAssignedJobs);
     }
+    console.log('jobs: ' + jobs);
     //Change the name of parameter to payload as reducer defined
     const payload = jobs;
     yield put({ type: RefreshJobsSuccess, payload });
@@ -55,7 +56,7 @@ function* getJobByIdSaga(action) {
   try {
     const job = yield call(getJobById, action.payload.jobId);
     //Change the name of parameter to payload as reducer defined
-    console.log("job: " + job);
+    console.log('job: ' + job);
     const payload = job;
     yield put({ type: JobDetailSuccess, payload });
   } catch (error) {

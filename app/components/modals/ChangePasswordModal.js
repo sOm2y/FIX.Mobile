@@ -11,10 +11,10 @@ export class ChangePasswordModal extends React.Component {
     return postChangePassword(values)
     .then(res => {
       dispatch(reset('ChangePasswordForm'));
-      this.props.closeModel();
+      this.props.closeModal();
       toastShow("Password has been changed Successfully.", "success", 3000);   
     }).catch(err => {
-      this.props.closeModel();
+      this.props.closeModal();
       toastShow("Change password failed, please try again.", "danger", 3000);   
     });
   }
@@ -25,7 +25,7 @@ export class ChangePasswordModal extends React.Component {
         <Modal
             visible={this.props.showModal}
             animationType={'slide'}
-            onRequestClose={this.props.closeModel}
+            onRequestClose={this.props.closeModal}
         >
           <Container>
             <Header>
@@ -38,7 +38,7 @@ export class ChangePasswordModal extends React.Component {
               <ChangePasswordForm onSubmit={(values, dispatch) => {this.onSubmit(values, dispatch) }} />
 
               <Button block transparent
-              onPress={this.props.closeModel}
+              onPress={this.props.closeModal}
               style={{ marginTop: 10 }}>
                <Text>Cancel</Text>
               </Button>

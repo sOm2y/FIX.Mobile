@@ -13,7 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions, AppLoading } from 'expo';
 import MapView from 'react-native-maps';
-import { navigationBack, navigateToJobs } from '../../actions/actionCreator';
+import { navigationBackLoggedIn, navigateToJobs } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 import {inviteTradies} from '../../services/jobService';
 import { toastShow } from '../../services/toastService';
@@ -400,7 +400,7 @@ const mapStateToProps = (state, props) =>{
 }
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedIn,
   navigateToJobs
 };
 
