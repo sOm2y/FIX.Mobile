@@ -81,14 +81,14 @@ export const RegistrationNavigator = StackNavigator(
 
 export const HomeTabNavigator = TabNavigator(
   {
-    JobsOnMap:{
-      screen: JobsOnMap,
+    Jobs: { 
+      screen: JobNavigator,
       navigationOptions: {
         
       }
     },
-    Jobs: { 
-      screen: JobNavigator,
+    JobsOnMap:{
+      screen: JobsOnMap,
       navigationOptions: {
         
       }

@@ -5,7 +5,8 @@ const Logout = "LOGOUT";
 const Register = "REGISTER";
 const RegisterSuccess = "REGISTER_SUCCESS";
 const NavigateToLogoutScreen = "NAVIGATE_TO_LOGOUT_SCREEN";
-const NavigationBack = 'Navigation/BACK';
+const NavigationBackForLoggedIn = 'Navigation_BACK_LOGGEDIN';
+const NavigationBackForLoggedOut = 'Navigation_BACK_LOGGEDOUT';
 const CustomerRegister = 'CUSTOMER_SIGNUP';
 const TradieRegister = 'TRADIE_SIGNUP';
 const TradieFinder = 'TRADIE_FINDER'
@@ -22,6 +23,8 @@ const JobDetailSuccess = 'JOB_DETAIL_SUCCESS';
 const JobDetailFailed = 'JOB_DETAIL_FAILED';
 const ShowBusinessModal = 'SHOW_BUSSINESS_FORM';
 const HideBusinessModal = 'HIDE_BUSSINESS_FORM';
+const ShowQuoteModal = 'SHOW_QUOTE_MODAL';
+const HideQuoteModal = 'HIDE_QUOTE_MODAL';
 const ShowChangePasswordModal = 'SHOW_CHANGE_PASSWORD_FORM';
 const HideChangePasswordModal = 'HIDE_CHANGE_PASSWORD_FORM';
 const SetUserData = 'SET_USER_DATA';
@@ -37,7 +40,8 @@ export {
     Register,
     RegisterSuccess,
     NavigateToLogoutScreen,
-    NavigationBack,
+    NavigationBackForLoggedIn,
+    NavigationBackForLoggedOut,
     CustomerRegister,
     TradieRegister,
     TradieFinder,
@@ -54,6 +58,8 @@ export {
     JobDetailFailed,
     ShowBusinessModal,
     HideBusinessModal,
+    ShowQuoteModal,
+    HideQuoteModal,
     ShowChangePasswordModal,
     HideChangePasswordModal,
     SetUserData,

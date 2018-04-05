@@ -38,24 +38,25 @@ export class FooterBottomTab extends React.Component {
     return (
         <Footer>
             <FooterTab>
+        
+            <Button
+                vertical
+                active={navigationState.index === 0}
+                onPress={() => navigation.navigate('Jobs')}
+            >
+                <Icon ios='ios-home-outline' android='md-home' />
+                <Text style={userType === 'Customer'? styles.tabTextCustomer: styles.tabTextTradie}> Jobs </Text>
+            </Button> 
             { !!userType && userType === 'Tradie' &&   
                 <Button
                 vertical
-                active={navigationState.index === 0}
+                active={navigationState.index === 1}
                 onPress={() => navigation.navigate('JobsOnMap')}
                 >
                     <Icon ios='ios-pin-outline' android='md-pin' />
                     <Text style={styles.tabTextTradie}> Map </Text>
                 </Button>
             }
-            <Button
-                vertical
-                active={navigationState.index === 1}
-                onPress={() => navigation.navigate('Jobs')}
-            >
-                <Icon ios='ios-home-outline' android='md-home' />
-                <Text style={userType === 'Customer'? styles.tabTextCustomer: styles.tabTextTradie}> Jobs </Text>
-            </Button> 
             <Button
                 vertical
                 active={navigationState.index === 2}

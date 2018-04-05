@@ -10,7 +10,7 @@ import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from
 import JobDetailForm from '../forms/job/JobDetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage, navigationBack,jobs } from '../../actions/actionCreator';
+import { nextPage, previousPage, navigationBackLoggedIn,jobs } from '../../actions/actionCreator';
 import UploadForm  from "../forms/UploadForm";
 import DetailForm  from "../forms/register/DetailForm";
 
@@ -73,7 +73,7 @@ class WizardJobForm extends React.Component {
             
             {page === 0 &&
               <Left>
-                <Button transparent onPress={this.props.jobs}>
+                <Button transparent onPress={this.props.navigationBackLoggedIn}>
                     <Icon name="arrow-back" />
                 </Button>
               </Left>
@@ -117,7 +117,7 @@ const mapStateToProps = (state, props) =>{
 }
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedIn,
   previousPage,
   nextPage,
   jobs

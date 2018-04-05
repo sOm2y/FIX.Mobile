@@ -12,7 +12,9 @@ import {
   NavigateToLogoutScreen,
   NavigateToJobs,
   NavigateToCreateJob,
-  JobDetailSuccess
+  JobDetailSuccess,
+  NavigationBackForLoggedIn,
+  NavigationBackForLoggedOut
 
 } from "../actions/actionTypes";
 
@@ -136,7 +138,16 @@ const navigationReducer = (state = initialState, action) => {
         };
       */
 
-    case "Navigation/BACK":
+    case NavigationBackForLoggedIn:
+      return {
+        ...state,
+        stateForLoggedIn: AppRootNavigator.router.getStateForAction(
+          NavigationActions.back(),
+          stateForLoggedIn
+        )
+      };
+    
+    case NavigationBackForLoggedOut:
       return {
         ...state,
         stateForLoggedOut: AppRootNavigator.router.getStateForAction(

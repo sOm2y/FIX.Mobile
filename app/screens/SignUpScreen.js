@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from 'react-native';
 import { connect } from "react-redux";
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
-import { navigationBack, customerRegister, tradieRegister } from "../actions/actionCreator";
+import { navigationBackLoggedOut, customerRegister, tradieRegister } from "../actions/actionCreator";
 
 export class SignUpScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -16,7 +16,7 @@ export class SignUpScreen extends React.Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.navigationBack}>
+            <Button transparent onPress={this.props.navigationBackLoggedOut}>
                 <Icon name="arrow-back" />
             </Button>
             </Left>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedOut,
   customerRegister,
   tradieRegister
 };

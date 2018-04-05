@@ -6,7 +6,6 @@ import {
   Register,
   RegisterSuccess,
   NavigateToLogoutScreen,
-  NavigationBack,
   CustomerRegister,
   TradieRegister,
   TradieFinder,
@@ -17,12 +16,16 @@ import {
   JobDetail,
   ShowBusinessModal,
   HideBusinessModal,
+  ShowQuoteModal,
+  HideQuoteModal,
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
   SetUserType,
   LoginAsCustomer,
-  LoginAsTradie
+  LoginAsTradie,
+  NavigationBackForLoggedIn,
+  NavigationBackForLoggedOut
 } from "./actionTypes";
 
 export const increment = () => {
@@ -70,8 +73,12 @@ const navigateToLogoutScreen = () => ({
   type: NavigateToLogoutScreen
 });
 
-const navigationBack = () => ({
-  type: NavigationBack
+const navigationBackLoggedIn = () => ({
+  type: NavigationBackForLoggedIn
+});
+
+const navigationBackLoggedOut = () => ({
+  type: NavigationBackForLoggedOut
 });
 
 const customerRegister = () => ({
@@ -120,6 +127,15 @@ const hideBusinessModal = () => ({
   type: HideBusinessModal
 });
 
+
+const showQuoteModal = () => ({
+  type: ShowQuoteModal
+});
+
+const hideQuoteModal = () => ({
+  type: HideQuoteModal
+});
+
 const showChangePasswordModal = () => ({
   type: ShowChangePasswordModal
 });
@@ -155,7 +171,8 @@ export {
   register,
   registerSuccess,
   navigateToLogoutScreen,
-  navigationBack,
+  navigationBackLoggedIn,
+  navigationBackLoggedOut,
   customerRegister,
   tradieRegister,
   tradieFinder,
@@ -166,6 +183,8 @@ export {
   jobDetail,
   showBusinessModal,
   hideBusinessModal,
+  showQuoteModal,
+  hideQuoteModal,
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
