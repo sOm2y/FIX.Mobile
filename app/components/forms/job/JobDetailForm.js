@@ -1,4 +1,5 @@
 import React from "react";
+import {Platform} from 'react-native';
 import { Button, Text, Form, Item, Icon } from "native-base";
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
@@ -51,7 +52,7 @@ export class JobDetailForm extends React.Component{
                 name="businessCategoryId" 
                 iosHeader="Select Business Category" 
                 iosIcon={<Icon name="ios-arrow-down-outline" />}
-                style={{ width: undefined }}
+                style={{ flex:(Platform.OS === 'ios') ? undefined : 1 }}
                 placeholder="Select Business Category"
                 placeholderStyle={{ color: "#bfc6ea" }} mode="dropdown" component={renderPicker} >
                     {this.state.businessCategories && this.state.businessCategories[0] &&
