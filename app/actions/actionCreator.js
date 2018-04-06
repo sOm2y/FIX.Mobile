@@ -25,7 +25,8 @@ import {
   LoginAsCustomer,
   LoginAsTradie,
   NavigationBackForLoggedIn,
-  NavigationBackForLoggedOut
+  NavigationBackForLoggedOut,
+  SubmitQuote
 } from "./actionTypes";
 
 export const increment = () => {
@@ -162,6 +163,11 @@ const loginAsTradie = () => ({
   type: LoginAsTradie
 });
 
+/* Quote Action */
+const submitQuote = (quote) => ({
+  type:SubmitQuote,
+  payload: quote
+});
 
 export {
   nextPage,
@@ -190,5 +196,6 @@ export {
   setUserData,
   setUserType,
   loginAsCustomer,
-  loginAsTradie
+  loginAsTradie,
+  submitQuote
 };

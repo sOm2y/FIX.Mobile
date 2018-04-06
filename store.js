@@ -9,7 +9,6 @@ import {
   persistReducer
 } from 'redux-persist';
 import { middleware } from './app/navigations/index';
-import counterReducer from './app/reducers/countReducer';
 import navigationReducer from './app/reducers/navigationReducer';
 import authReducer from './app/reducers/authReducer';
 import businessReducer from './app/reducers/businessReducer';

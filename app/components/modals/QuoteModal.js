@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 import {
   Container,
@@ -15,25 +16,15 @@ import {
 } from 'native-base';
 import { View, Modal, StyleSheet } from 'react-native';
 import QuoteForm from '../forms/quote/QuoteForm';
-import { postChangePassword } from '../../services/profileService';
-import { toastShow } from '../../services/toastService';
 
 export class QuoteModal extends React.Component {
   onSubmit = (values, dispatch) => {
-      
-    return postChangePassword(values)
-      .then(res => {
-        dispatch(reset('QuoteForm'));
-        this.props.closeModel();
-        toastShow('Password has been changed Successfully.', 'success', 3000);
-      })
-      .catch(err => {
-        this.props.closeModel();
-        toastShow('Change password failed, please try again.', 'danger', 3000);
-      });
+    Object.assign(values,{jobId:this.props.jobId,businessId:this.props.businessId})
+    this.props.submitQuote(values);
+    dispatch(reset('QuoteForm'));
   };
-
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Modal
@@ -50,9 +41,9 @@ export class QuoteModal extends React.Component {
 
             <Content padder keyboardShouldPersistTaps={'always'}>
               <QuoteForm
-                onSubmit={(values, dispatch) => {
-                  this.onSubmit(values, dispatch);
-                }}
+                 onSubmit={(values, dispatch) =>
+                  this.onSubmit(values, dispatch)
+                }
               />
 
               <Button
@@ -71,11 +62,11 @@ export class QuoteModal extends React.Component {
   }
 }
 
-export default QuoteModal;
-
 const styles = StyleSheet.create({
   listItem: {
     marginLeft: 0,
     paddingLeft: 17
   }
 });
+
+

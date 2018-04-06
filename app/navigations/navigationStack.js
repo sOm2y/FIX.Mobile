@@ -7,7 +7,7 @@ import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
 import SignUpScreen from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
-import JobsScreen from '../screens//jobs/JobsScreen';
+import JobsScreen from '../screens/jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
 import JobsOnMap from '../screens/jobs/JobsOnMapScreen';
 import TradieFinderScreen from '../screens/jobs/TradieFinderScreen';

@@ -10,7 +10,7 @@ import { Root } from 'native-base';
 import AppNavigation from './app/navigations/index';
 import configureStore from "./store";
 import {getAccessToken} from './app/services/authService';
-import rootSaga from './app/sagas/jobsSaga';
+import rootSaga from './app/sagas/rootSaga';
 
 const { store, persistor, sagaMiddleware } = configureStore();
 

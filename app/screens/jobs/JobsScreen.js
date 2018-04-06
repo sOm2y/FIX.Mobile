@@ -43,11 +43,6 @@ const cardImage = require("../../resource/images/tradie.jpg");
 
 export class JobsScreen extends React.Component {
 
-  //TODO: Put job state to reducer
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     getAccessToken()
       .then(value => {
@@ -69,7 +64,7 @@ export class JobsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { navigation, isRefreshing, jobs, userType } = this.props;
+    const { navigation, jobs, userType } = this.props;
     const { navigate } = navigation;
 
     return (
@@ -171,7 +166,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, props) => {
   return {
-    isRefreshing: state.JobReducer.isRefreshing,
     jobs: state.JobReducer.jobsResult,
     userType: state.ProfileReducer.userType
     // form: props.wizardLabel

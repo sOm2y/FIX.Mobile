@@ -32,6 +32,11 @@ const SetUserType = 'SET_USER_TYPE';
 const LoginAsCustomer = 'LOGIN_AS_CUSTOMER';
 const LoginAsTradie = 'LOGIN_AS_TRADIE';
 
+/* Quote Action Type */
+const SubmitQuote = 'SUBMIT_QUOTE';
+const SubmitQuoteSuccess = 'SUBMIT_QUOTE_SUCCESS';
+const SubmitQuoteFailed = 'SUBMIT_QUOTE_FAILED';
+
 export {
     NextPage,
     PreviousPage,
@@ -65,5 +70,8 @@ export {
     SetUserData,
     SetUserType,
     LoginAsCustomer,
-    LoginAsTradie
+    LoginAsTradie,
+    SubmitQuote,
+    SubmitQuoteSuccess,
+    SubmitQuoteFailed
 };

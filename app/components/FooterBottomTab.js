@@ -20,17 +20,6 @@ export class FooterBottomTab extends React.Component {
 
     });
 
-    async componentWillMount(){
-    }
-
-    componentDidMount(){
-
-        // if(this.props.navigationState.index !== 0 && this.state.isFirstTimeload ){
-        //     this.props.navigationState.index = 0;
-        //     this.setState({isFirstTimeload:false});
-        // }
-    }
-  
 
   render(){
     const { navigation, navigationState, userType } = this.props;

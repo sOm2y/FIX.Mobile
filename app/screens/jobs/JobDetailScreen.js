@@ -35,7 +35,8 @@ import {
   navigateToJobs,
   navigationBackLoggedIn,
   showQuoteModal,
-  hideQuoteModal
+  hideQuoteModal,
+  submitQuote
 } from '../../actions/actionCreator';
 import { QuoteModal } from '../../components/modals/QuoteModal';
 
@@ -57,7 +58,7 @@ export class JobDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { navigation, isRefreshing, job, isQuoteModalOpened } = this.props;
+    const { navigation, isRefreshing, job, isQuoteModalOpened, userType, user} = this.props;
     const { navigate } = navigation;
 
     return (
@@ -126,25 +127,33 @@ export class JobDetailScreen extends React.Component {
               return (
                 <Card key={key}>
                   <CardItem header>
-                    <Text>{quote.hours}</Text>
-                    <Text>{quote.amount}</Text>
-                    <Text>{quote.notes}</Text>
+                    <Text>Quote From: {quote.businessName}</Text>
+                  
+                    {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
+                  </CardItem>
+                  <CardItem>
+                    <Body>
+                      <Text>
+                        Estimate Cost ${quote.amount}
+                      </Text>
+                      <Text>
+                        Estimate Time {quote.hours}
+                      </Text>
+                    </Body>
                     <Right>
                       <Icon name="ios-arrow-forward-outline" />
                     </Right>
-                    {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
                   </CardItem>
                   <CardItem footer>
                     <Body>
                       <Text note>{quote.startTime}</Text>
-                      <Text note>{quote.businessName}</Text>
                     </Body>
                   </CardItem>
                 </Card>
               );
             })}
 
-          {job.assignedBusiness === null && (
+          {job.assignedBusiness === null && userType === 'Tradie' &&
             <Button
               block
               style={styles.button}
@@ -152,8 +161,11 @@ export class JobDetailScreen extends React.Component {
             >
               <Text>Quote this job</Text>
             </Button>
-          )}
+          }
           <QuoteModal
+            jobId={job.id}
+            businessId={this.props.user.businesses&& this.props.user.businesses.length>0&&this.props.user.businesses[0].id}
+            submitQuote={this.props.submitQuote}
             showModal={isQuoteModalOpened}
             closeModal={this.props.hideQuoteModal}
           />
@@ -184,7 +196,9 @@ const mapStateToProps = (state, props) => {
   return {
     isRefreshing: state.JobReducer.isRefreshing,
     job: state.JobReducer.jobResult,
-    isQuoteModalOpened: state.QuoteReducer.isQuoteModalOpened
+    isQuoteModalOpened: state.QuoteReducer.isQuoteModalOpened,
+    userType: state.ProfileReducer.userType,
+    user : state.ProfileReducer.user
     // form: props.wizardLabel
   };
 };
@@ -195,6 +209,7 @@ const mapDispatchToProps = {
   navigateToJobs,
   showQuoteModal,
   hideQuoteModal,
+  submitQuote,
   logout
 };
 
