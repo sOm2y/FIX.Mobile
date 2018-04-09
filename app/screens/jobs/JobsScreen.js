@@ -1,13 +1,40 @@
 import React from "react";
-import { StyleSheet, Image, Dimensions, AsyncStorage, RefreshControl } from 'react-native';
-import { Notifications, Expo, Constants } from 'expo';
+import {
+  StyleSheet,
+  Image,
+  Dimensions,
+  AsyncStorage,
+  RefreshControl
+} from "react-native";
+import { Notifications, Expo, Constants } from "expo";
 import { connect } from "react-redux";
-import axios from 'axios';
-import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Card, CardItem, Thumbnail, Left, Right, Icon } from "native-base";
-import { getAccessToken, postDeviceInfo } from '../../services/authService';
-import { getJobs} from '../../services/jobService';
-import { toastShow } from '../../services/toastService';
-import { logout, refreshJobs, createJob, navigationBack, jobDetail } from '../../actions/actionCreator';
+import axios from "axios";
+import {
+  Container,
+  Header,
+  Body,
+  Title,
+  Content,
+  List,
+  ListItem,
+  Button,
+  Text,
+  Card,
+  CardItem,
+  Thumbnail,
+  Left,
+  Right,
+  Icon
+} from "native-base";
+import { getAccessToken, postDeviceInfo } from "../../services/authService";
+import { toastShow } from "../../services/toastService";
+import {
+  logout,
+  refreshJobs,
+  navigateToCreateJob,
+  navigationBackLoggedIn,
+  jobDetail
+} from "../../actions/actionCreator";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -15,127 +42,105 @@ const logo = require("../../resource/images/xero.png");
 const cardImage = require("../../resource/images/tradie.jpg");
 
 export class JobsScreen extends React.Component {
-  //TODO: Put job state to reducer
-  constructor(props) {
-    super(props);
-    this.state = {
-      jobs:[],
-      userType: ''
-    }
+
+  componentDidMount() {
+    getAccessToken()
+      .then(value => {
+        if (value !== null) {
+          axios.defaults.headers.common["Authorization"] = "Bearer " + value;
+          console.log(axios.defaults.headers.common["Authorization"]);
+          if(this.props.userType){
+            this.props.refreshJobs(this.props.userType);
+            console.log(this.props.userType);
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        toastShow("Token expired, please login again", "danger", 3000);
+      });
   }
 
-  async componentWillMount(){
-    let userType = await AsyncStorage.getItem('userType');
-    // Get the token that uniquely identifies this device
-    let token = await Notifications.getExpoPushTokenAsync();
+  static navigationOptions = ({ navigation }) => ({});
 
-    // let deviceInfo = {
-    //   description: Constants.deviceName,
-    //   deviceToken: token,
-    //   registrationDate: Date.now()
-    // }
-
-    //postDeviceInfo(deviceInfo);
-    this.setState({userType: userType});
-}
-
-  componentDidMount(){
-    getAccessToken().then(value=>{
-      if(value !== null){
-        axios.defaults.headers.common['Authorization'] = 'Bearer '+ value;
-        console.log( axios.defaults.headers.common['Authorization']);
-        // getJobs().then((res)=>{
-        //   this.setState({jobs:res});
-    
-        // }).catch(err=>{
-        //   console.log(err);
-        //   toastShow(err.data.message, "danger", 3000);   
-        //   this.props.logout();
-        // });
-        this.props.refreshJobs();
-      }
-    }).catch((err)=>{
-      console.log(err);
-      toastShow('Token expired, please login again', "danger", 3000);   
-    });    
-
-
-  }
-
-  static navigationOptions = ({ navigation }) => ({
-  });
-
-  render(){
-
-    const { navigation, isRefreshing, jobs } = this.props;
+  render() {
+    const { navigation, jobs, userType } = this.props;
     const { navigate } = navigation;
 
     return (
       <Container>
         <Header>
-       
           <Body>
             <Title>Jobs</Title>
           </Body>
-         
         </Header>
         <Content padder>
-        {!!this.state.userType && this.state.userType === 'Customer' && 
-          <Button style={styles.button}
-            block 
-            primary
-            onPress={this.props.createJob}
-          >
-            <Text>Add new Job</Text>
-          </Button>
-        }
-       
-        {jobs && jobs.length > 0 &&
-          jobs.reverse().map((job, key) => {
-            return <Card style={styles.mb} key={key}>
-              <CardItem button bordered onPress={() => this.props.jobDetail(job)}>
-                <Left>
-                  <Thumbnail source={logo} />
-                  <Body>
-                    <Text>{job.title}</Text>
-                    <Text note>{job.jobDate}</Text>
-                  </Body>
-                </Left>
-                <Right>
-                <Icon name="ios-arrow-forward-outline" />
-                </Right>
-              </CardItem>
-  
-            <CardItem>
-              <Body>
-                {job.jobImages && job.jobImages.length > 0 &&
-                <Image
-                  style={{
-                    alignSelf: "center",
-                    height: 150,
-                    resizeMode: "cover",
-                    width: deviceWidth / 1.18,
-                    marginVertical: 5
-                  }}
-                  source={{uri:'https://smartgeoio.blob.core.windows.net/fix/'+job.jobImages[0].fileName}}
-                />
-                }
-                <Text>
-                 {job.description}
-                </Text>
-              </Body>
-            </CardItem>
-            <CardItem style={{ paddingVertical: 0 }}>
-              <Left>
-                <Button transparent>
-                  <Icon name="ios-locate-outline" />
-                  <Text>{job.location.description}</Text>
-                </Button>
-              </Left>
-            </CardItem>
-          </Card>
-          })
-        }    
+          {!!userType && userType === "Customer" && (
+              <Button
+                style={styles.button}
+                block
+                primary
+                onPress={this.props.navigateToCreateJob}
+              >
+                <Text>Add new Job</Text>
+              </Button>
+            )}
+
+          {jobs &&
+            jobs.length > 0 &&
+            jobs.reverse().map((job, key) => {
+              return (
+                <Card style={styles.mb} key={key}>
+                  <CardItem
+                    button
+                    bordered
+                    onPress={() => this.props.jobDetail(job.id)}
+                  >
+                    <Left>
+                      <Thumbnail source={logo} />
+                      <Body>
+                        <Text>{job.title}</Text>
+                        <Text note>{job.jobDate}</Text>
+                      </Body>
+                    </Left>
+                    <Right>
+                      <Icon name="ios-arrow-forward-outline" />
+                    </Right>
+                  </CardItem>
+
+                  <CardItem>
+                    <Body>
+                      {job.jobImages &&
+                        job.jobImages.length > 0 && (
+                          <Image
+                            style={{
+                              alignSelf: "center",
+                              height: 150,
+                              resizeMode: "cover",
+                              width: deviceWidth / 1.18,
+                              marginVertical: 5
+                            }}
+                            source={{
+                              uri:
+                                "https://smartgeoio.blob.core.windows.net/fix/" +
+                                job.jobImages[0].fileName
+                            }}
+                          />
+                        )}
+                      <Text>{job.description}</Text>
+                    </Body>
+                  </CardItem>
+                  <CardItem style={{ paddingVertical: 0 }}>
+                    <Left>
+                      <Button transparent>
+                        <Icon name="ios-locate-outline" />
+                        <Text>{job.location.description}</Text>
+                      </Button>
+                    </Left>
+                  </CardItem>
+                </Card>
+              );
+            })}
         </Content>
       </Container>
     );
@@ -143,33 +148,33 @@ export class JobsScreen extends React.Component {
 }
 
 //TODO: Bug from nativebase
-let {width} = Dimensions.get('window');
+let { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
-  listItem:{
-    marginLeft: 0, 
+  listItem: {
+    marginLeft: 0,
     paddingLeft: 17
   },
-  button:{
+  button: {
     marginBottom: 20
   },
-  image:{
-   width: width,
-   flex: 1,
-   height:200
+  image: {
+    width: width,
+    flex: 1,
+    height: 200
   }
 });
 
-const mapStateToProps = (state, props) =>{
-  return{
-    isRefreshing : state.JobReducer.isRefreshing,
-    jobs: state.JobReducer.jobResult
+const mapStateToProps = (state, props) => {
+  return {
+    jobs: state.JobReducer.jobsResult,
+    userType: state.ProfileReducer.userType
     // form: props.wizardLabel
   };
-}
+};
 
 const mapDispatchToProps = {
-  navigationBack,
-  createJob,
+  navigationBackLoggedIn,
+  navigateToCreateJob,
   refreshJobs,
   logout,
   jobDetail

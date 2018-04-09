@@ -7,7 +7,7 @@ import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 
 import SignUpScreen from '../screens/SignUpScreen';
 import SignIn from '../screens/SignInScreen';
-import JobsScreen from '../screens//jobs/JobsScreen';
+import JobsScreen from '../screens/jobs/JobsScreen';
 import CreateJobScreen from '../screens/jobs/CreateJobScreen';
 import JobsOnMap from '../screens/jobs/JobsOnMapScreen';
 import TradieFinderScreen from '../screens/jobs/TradieFinderScreen';
@@ -48,7 +48,7 @@ export const JobNavigator = StackNavigator(
     headerMode: 'none',
     animationEnabled: true,
     gesturesEnabled:true,
-    initialRouteName : 'Jobs',
+    initialRouteName : 'Jobs'
   });
    
 export const RegistrationNavigator = StackNavigator(
@@ -81,14 +81,14 @@ export const RegistrationNavigator = StackNavigator(
 
 export const HomeTabNavigator = TabNavigator(
   {
-    JobsOnMap:{
-      screen: JobsOnMap,
+    Jobs: { 
+      screen: JobNavigator,
       navigationOptions: {
         
       }
     },
-    Jobs: { 
-      screen: JobNavigator,
+    JobsOnMap:{
+      screen: JobsOnMap,
       navigationOptions: {
         
       }
@@ -107,7 +107,6 @@ export const HomeTabNavigator = TabNavigator(
     }
   },
   {
-    initialRouteName : 'Jobs',
     tabBarPosition: "bottom",
     animationEnabled: false,
     tabBarOptions: {

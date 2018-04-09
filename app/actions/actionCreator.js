@@ -6,21 +6,27 @@ import {
   Register,
   RegisterSuccess,
   NavigateToLogoutScreen,
-  NavigationBack,
   CustomerRegister,
   TradieRegister,
   TradieFinder,
   RefreshJobs,
-  CreateJob,
-  Jobs,
+  NavigateToCreateJob,
+  SubmitJobDetail,
+  NavigateToJobs,
   JobDetail,
   ShowBusinessModal,
   HideBusinessModal,
+  ShowQuoteModal,
+  HideQuoteModal,
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
+  SetUserType,
   LoginAsCustomer,
-  LoginAsTradie
+  LoginAsTradie,
+  NavigationBackForLoggedIn,
+  NavigationBackForLoggedOut,
+  SubmitQuote
 } from "./actionTypes";
 
 export const increment = () => {
@@ -68,8 +74,12 @@ const navigateToLogoutScreen = () => ({
   type: NavigateToLogoutScreen
 });
 
-const navigationBack = () => ({
-  type: NavigationBack
+const navigationBackLoggedIn = () => ({
+  type: NavigationBackForLoggedIn
+});
+
+const navigationBackLoggedOut = () => ({
+  type: NavigationBackForLoggedOut
 });
 
 const customerRegister = () => ({
@@ -85,21 +95,29 @@ const tradieFinder = (businessList) => ({
   payload: businessList
 })
 
-const refreshJobs = () => ({
-  type: RefreshJobs
+const refreshJobs = (value) => ({
+  type: RefreshJobs,
+  payload: value
 });
 
-const createJob = () => ({
-  type: CreateJob
+const navigateToCreateJob = () => ({
+  type: NavigateToCreateJob
 });
 
-const jobs = () => ({
-  type: Jobs
-});
-
-const jobDetail = ( job ) => ({
-  type: JobDetail,
+const submitJobDetail = (job) => ({
+  type: SubmitJobDetail,
   payload: job
+});
+
+const navigateToJobs = () => ({
+  type: NavigateToJobs
+});
+
+const jobDetail = ( jobId ) => ({
+  type: JobDetail,
+  payload: {
+    jobId
+  }
 });
 
 const showBusinessModal = () => ({
@@ -108,6 +126,15 @@ const showBusinessModal = () => ({
 
 const hideBusinessModal = () => ({
   type: HideBusinessModal
+});
+
+
+const showQuoteModal = () => ({
+  type: ShowQuoteModal
+});
+
+const hideQuoteModal = () => ({
+  type: HideQuoteModal
 });
 
 const showChangePasswordModal = () => ({
@@ -123,6 +150,11 @@ const setUserData = (user) => ({
   payload: user
 });
 
+const setUserType = (userType) => ({
+  type: SetUserType,
+  payload: userType
+});
+
 const loginAsCustomer = () => ({
   type: LoginAsCustomer
 });
@@ -131,6 +163,11 @@ const loginAsTradie = () => ({
   type: LoginAsTradie
 });
 
+/* Quote Action */
+const submitQuote = (quote) => ({
+  type:SubmitQuote,
+  payload: quote
+});
 
 export {
   nextPage,
@@ -140,19 +177,25 @@ export {
   register,
   registerSuccess,
   navigateToLogoutScreen,
-  navigationBack,
+  navigationBackLoggedIn,
+  navigationBackLoggedOut,
   customerRegister,
   tradieRegister,
   tradieFinder,
   refreshJobs,
-  createJob,
-  jobs,
+  navigateToCreateJob,
+  submitJobDetail,
+  navigateToJobs,
   jobDetail,
   showBusinessModal,
   hideBusinessModal,
+  showQuoteModal,
+  hideQuoteModal,
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
+  setUserType,
   loginAsCustomer,
-  loginAsTradie
+  loginAsTradie,
+  submitQuote
 };

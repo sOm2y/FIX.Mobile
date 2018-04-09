@@ -1,5 +1,5 @@
-import { AsyncStorage } from "react-native";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { AsyncStorage } from 'react-native';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { reducer as formReducer } from 'redux-form';
 import wizardPaginationReducer from './app/reducers/wizardPaginationReducer';
@@ -7,29 +7,28 @@ import {
   persistCombineReducers,
   persistStore,
   persistReducer
-} from "redux-persist";
-import {middleware} from './app/navigations/index';
-import counterReducer from "./app/reducers/countReducer";
-import navigationReducer from "./app/reducers/navigationReducer";
-import authReducer from "./app/reducers/authReducer";
-import businessReducer from "./app/reducers/businessReducer";
-import profileReducer from "./app/reducers/profileReducer";
-import jobReducer from "./app/reducers/jobReducer";
-
+} from 'redux-persist';
+import { middleware } from './app/navigations/index';
+import navigationReducer from './app/reducers/navigationReducer';
+import authReducer from './app/reducers/authReducer';
+import businessReducer from './app/reducers/businessReducer';
+import profileReducer from './app/reducers/profileReducer';
+import jobReducer from './app/reducers/jobReducer';
+import quoteReducer from './app/reducers/quoteReducer';
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
 const config = {
-  key: "root",
-  storage: AsyncStorage,
+  key: 'auth',
+  storage: AsyncStorage
 };
 
 const config1 = {
-  key: "primary",
+  key: 'profile',
   storage: AsyncStorage
 };
 
 const config2 = {
-  key: "form",
+  key: 'form',
   storage: AsyncStorage
 };
 
@@ -51,26 +50,27 @@ const sagaMiddleware = createSagaMiddleware();
 // combineReducer applied on persisted(counterReducer) and NavigationReducer
 const rootReducer = combineReducers({
   //CounterReducer : persistReducer(config, counterReducer),
-  AuthReducer : persistReducer(config1, authReducer),
+  AuthReducer: persistReducer(config, authReducer),
   BusinessReducer: businessReducer,
   JobReducer: jobReducer,
   NavigationReducer: navigationReducer,
   form: formReducer,
   page: wizardPaginationReducer,
-  ProfileReducer: profileReducer
+  ProfileReducer: persistReducer(config1, profileReducer),
+  QuoteReducer: quoteReducer
 });
 
 function configureStore() {
   let store = createStore(
     rootReducer,
-    applyMiddleware(middleware,sagaMiddleware),
+    applyMiddleware(middleware, sagaMiddleware)
   );
 
   // store.subscribe(() => {
   //   console.log(store.getState());
   // });
   let persistor = persistStore(store);
-  return { persistor, store, sagaMiddleware};
+  return { persistor, store, sagaMiddleware };
 }
 
 export default configureStore;

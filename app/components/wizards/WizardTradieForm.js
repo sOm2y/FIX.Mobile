@@ -1,5 +1,5 @@
 import React from "react";
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Constants } from 'expo';
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ import CredentialForm from '../forms/register/CredentialForm';
 import DetailForm from '../forms/register/DetailForm';
 import BusinessListForm from '../forms/business/BusinessListForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage, navigationBack } from '../../actions/actionCreator';
+import { nextPage, previousPage, navigationBackLoggedOut } from '../../actions/actionCreator';
 
 const thirdIndicatorStyles = {
   stepIndicatorSize: 25,
@@ -51,8 +51,10 @@ class WizardTradieForm extends React.Component {
   });
 
   onSubmit = async (values, dispatch) => {
-
-    let pushToken = await Notifications.getExpoPushTokenAsync();
+    let pushToken = '';
+    if(Constants.isDevice){
+      pushToken = await Notifications.getExpoPushTokenAsync();
+    }
     values = Object.assign({ deviceToken:pushToken, userType:1 },values);
 
     console.log(values);
@@ -97,7 +99,7 @@ class WizardTradieForm extends React.Component {
            
             {page === 0 &&
               <Left>
-                <Button transparent onPress={this.props.navigationBack}>
+                <Button transparent onPress={this.props.navigationBackLoggedOut}>
                     <Icon name="arrow-back" />
                 </Button>
               </Left>
@@ -142,7 +144,7 @@ const mapStateToProps = (state, props) =>{
 }
 
 const mapDispatchToProps = {
-  navigationBack,
+  navigationBackLoggedOut,
   previousPage,
   nextPage
 };

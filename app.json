@@ -1,7 +1,7 @@
 {
   "expo": {
     "sdkVersion": "25.0.0",
-    "slug": "FIX.MOBILE",
+    "slug": "FIX-MOBILE",
     "name": "FIX.MOBILE",
     "androidStatusBarColor": "#157EFC",
     "androidStatusBar": {

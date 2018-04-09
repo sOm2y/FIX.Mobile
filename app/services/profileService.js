@@ -14,7 +14,7 @@ export const fetchUserData = () => {
       if(res.status === 400 || res.status === 403){
         reject(res);
       }
-      // console.log(res);
+      console.log(res);
       resolve(res);
     
     })

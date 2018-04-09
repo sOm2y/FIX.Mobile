@@ -13,7 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { Constants, Location, Permissions, AppLoading } from 'expo';
 import MapView from 'react-native-maps';
-import { navigationBack, jobs } from '../../actions/actionCreator';
+import { navigationBackLoggedIn, navigateToJobs } from '../../actions/actionCreator';
 import { Container,Header, Body, Title, Content, List, ListItem, Button, Text, Left, Right, Icon } from "native-base";
 import {inviteTradies} from '../../services/jobService';
 import { toastShow } from '../../services/toastService';
@@ -194,7 +194,7 @@ class TradieFinderScreen extends Component {
     }
     inviteTradies(invitedTradies).then( res => {
       toastShow("Invite selected tradies  successfully", "success", 3000); 
-      this.props.jobs();
+      this.props.navigateToJobs();
     }).catch( err => {
       toastShow("Failed to invite tradies Please try again.", "danger", 3000);   
     });
@@ -233,7 +233,7 @@ class TradieFinderScreen extends Component {
         </Body>
         <Right>
   
-        <Button transparent onPress={this.props.jobs}>
+        <Button transparent onPress={this.props.navigateToJobs}>
           <Text>
            Skip
            </Text>
@@ -400,8 +400,8 @@ const mapStateToProps = (state, props) =>{
 }
 
 const mapDispatchToProps = {
-  navigationBack,
-  jobs
+  navigationBackLoggedIn,
+  navigateToJobs
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradieFinderScreen);
