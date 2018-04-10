@@ -1,4 +1,7 @@
 import {
+  UpdateQuote,
+  UpdateQuoteSuccess,
+  UpdateQuoteFailed,
   SubmitQuote,
   SubmitQuoteSuccess,
   SubmitQuoteFailed
@@ -11,9 +14,9 @@ import {
   takeEvery,
   takeLatest
 } from 'redux-saga/effects';
-import { postQuote } from '../services/quoteService';
+import { postQuote, updateQuoteStatus } from '../services/quoteService';
 
-function* postJobSaga(action) {
+function* postQuoteSaga(action) {
   try {
     yield call(postQuote, action.payload);
     yield put({ type: SubmitQuoteSuccess });
@@ -22,8 +25,20 @@ function* postJobSaga(action) {
   }
 }
 
+
+function* updateQuoteSaga(action) {
+  try {
+    yield call(updateQuoteStatus, action.payload);
+    yield put({ type: UpdateQuoteSuccess });
+  } catch (error) {
+    yield put({ type: UpdateQuoteFailed, payload: error });
+  }
+}
+
+
 function* quotesSaga() {
-  yield takeEvery(SubmitQuote, postJobSaga);
+  yield takeEvery(SubmitQuote, postQuoteSaga);
+  yield takeEvery(UpdateQuote, updateQuoteSaga)
 }
 
 export default quotesSaga;

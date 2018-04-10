@@ -18,6 +18,8 @@ import {
   HideBusinessModal,
   ShowQuoteModal,
   HideQuoteModal,
+  ShowQuoteDetailModal,
+  HideQuoteDetailModal,
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
@@ -26,7 +28,8 @@ import {
   LoginAsTradie,
   NavigationBackForLoggedIn,
   NavigationBackForLoggedOut,
-  SubmitQuote
+  SubmitQuote,
+  UpdateQuote
 } from "./actionTypes";
 
 export const increment = () => {
@@ -137,6 +140,15 @@ const hideQuoteModal = () => ({
   type: HideQuoteModal
 });
 
+const showQuoteDetailModal = (quote) => ({
+  type: ShowQuoteDetailModal,
+  payload: quote
+});
+
+const hideQuoteDetailModal = () => ({
+  type: HideQuoteDetailModal
+});
+
 const showChangePasswordModal = () => ({
   type: ShowChangePasswordModal
 });
@@ -169,6 +181,11 @@ const submitQuote = (quote) => ({
   payload: quote
 });
 
+const updateQuote = quoteStatus => ({
+  type: UpdateQuote,
+  payload: quoteStatus
+})
+
 export {
   nextPage,
   previousPage,
@@ -191,11 +208,14 @@ export {
   hideBusinessModal,
   showQuoteModal,
   hideQuoteModal,
+  showQuoteDetailModal,
+  hideQuoteDetailModal,
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
   setUserType,
   loginAsCustomer,
   loginAsTradie,
-  submitQuote
+  submitQuote,
+  updateQuote
 };

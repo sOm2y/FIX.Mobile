@@ -15,14 +15,14 @@ import {
   Left
 } from 'native-base';
 import { View, Modal, StyleSheet } from 'react-native';
-import QuoteForm from '../forms/quote/QuoteForm';
+import QuoteDetailForm from '../forms/quote/QuoteDetailForm';
 
-export class QuoteModal extends React.Component {
-  onSubmit = (values, dispatch) => {
-    Object.assign(values,{jobId:this.props.jobId,businessId:this.props.businessId})
-    this.props.submitQuote(values);
-    dispatch(reset('QuoteForm'));
-  };
+export class QuoteDetailModal extends React.Component {
+  //   onSubmit = (values, dispatch) => {
+  //     Object.assign(values,{jobId:this.props.jobId,businessId:this.props.businessId})
+  //     this.props.submitQuote(values);
+  //     dispatch(reset('QuoteForm'));
+  //   };
   render() {
     const { navigation } = this.props;
     return (
@@ -35,17 +35,12 @@ export class QuoteModal extends React.Component {
           <Container>
             <Header>
               <Body>
-                <Title>Quotation</Title>
+                <Title>Quote Detail</Title>
               </Body>
             </Header>
 
             <Content padder keyboardShouldPersistTaps={'always'}>
-         
-                 <QuoteForm
-                 onSubmit={(values, dispatch) =>
-                  this.onSubmit(values, dispatch)
-                }
-              />
+              <QuoteDetailForm />
 
               <Button
                 block
