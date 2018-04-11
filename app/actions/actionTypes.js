@@ -42,6 +42,10 @@ const SubmitQuote = 'SUBMIT_QUOTE';
 const SubmitQuoteSuccess = 'SUBMIT_QUOTE_SUCCESS';
 const SubmitQuoteFailed = 'SUBMIT_QUOTE_FAILED';
 
+/* ErrorHandler Action Type */
+const ToastSuccess = 'TOAST_SUCCESS';
+const ToastError = 'TOAST_ERROR';
+
 export {
     NextPage,
     PreviousPage,
@@ -83,5 +87,7 @@ export {
     LoginAsTradie,
     SubmitQuote,
     SubmitQuoteSuccess,
-    SubmitQuoteFailed
+    SubmitQuoteFailed,
+    ToastSuccess,
+    ToastError,
 };
