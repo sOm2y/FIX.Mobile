@@ -1,10 +1,10 @@
 import { Toast } from "native-base";
 
-export const toastShow = (title, type, duration) => {
+export const toastShow = (message) => {
     Toast.show({
-        text: title,
-        type: type,
+        text: message.text,
+        type: message.type,
         buttonText: "Dismiss",
-        duration: duration
+        duration: message.duration
     });  
 } 
