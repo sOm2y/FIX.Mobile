@@ -56,7 +56,7 @@ class NotificationsScreen extends React.Component {
         </Header>
         <Content>
           <List
-            dataArray={this.state.notifications}
+            dataArray={this.state.notifications.reverse()}
             renderRow={notification => (
               <ListItem avatar style={styles.listItem}>
                 <Left>

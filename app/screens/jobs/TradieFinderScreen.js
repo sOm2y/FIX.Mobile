@@ -194,7 +194,7 @@ class TradieFinderScreen extends Component {
     }
     inviteTradies(invitedTradies).then( res => {
       toastShow("Invite selected tradies  successfully", "success", 3000); 
-      this.props.navigateToJobs();
+      this.props.navigationBackLoggedIn();
     }).catch( err => {
       toastShow("Failed to invite tradies Please try again.", "danger", 3000);   
     });

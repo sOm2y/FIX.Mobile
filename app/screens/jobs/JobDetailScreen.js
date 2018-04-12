@@ -97,8 +97,8 @@ export class JobDetailScreen extends React.Component {
                 </Body>
               </Left>
               <Right>
-                <Badge success> 
-                <Text>{job.jobStatus}</Text>
+                <Badge success>
+                  <Text>{job.jobStatus}</Text>
                 </Badge>
               </Right>
             </CardItem>
@@ -148,6 +148,14 @@ export class JobDetailScreen extends React.Component {
                     <Text>Quote From: {quote.businessName}</Text>
 
                     {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
+                    {job.assignedBusiness &&
+                      job.assignedBusiness.id === quote.businessId && (
+                        <Right>
+                          <Badge success>
+                            <Text>Accepted</Text>
+                          </Badge>
+                        </Right>
+                      )}
                   </CardItem>
                   <CardItem
                     button

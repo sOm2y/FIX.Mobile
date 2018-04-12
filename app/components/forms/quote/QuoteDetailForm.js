@@ -21,7 +21,7 @@ export class QuoteDetailForm extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { handleSubmit, navigation, submitting, quote, isUpdating } = this.props;
+    const { handleSubmit, navigation, submitting, quote, isUpdating, userType } = this.props;
 
     return (
       <View>
@@ -45,7 +45,7 @@ export class QuoteDetailForm extends React.Component {
             </Body>
           </CardItem>
         </Card>
-        <Button
+        {userType&& userType === 'Customer' &&  <Button
           block
           primary
           style={{ marginTop: 10 }}
@@ -55,10 +55,11 @@ export class QuoteDetailForm extends React.Component {
               quoteOwnerId: quote.quoteOwnerId,
               accepted: true
           })}
-          disabled={isUpdating}
+          disabled={isUpdating || !quote.canBeAccepted }
         >
           {isUpdating ? <Spinner color="white" /> : <Text>Accept Quote</Text>}
-        </Button>
+        </Button>}
+      
         {/* <Button
           block
           primary
@@ -80,6 +81,7 @@ const mapStateToProps = (state, props) => {
     return {
         quote: state.QuoteReducer.quoteDetail,
         isUpdating: state.QuoteReducer.isUpdating,
+        userType: state.ProfileReducer.userType
 
       // form: props.wizardLabel
     };

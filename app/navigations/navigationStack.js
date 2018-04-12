@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet } from 'react-native';
+import { AsyncStorage, StyleSheet, Animated, Easing } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -36,7 +36,6 @@ import JobDetailScreen from '../screens/jobs/JobDetailScreen';
 //     gesturesEnabled:true,
 //     // initialRouteName : 'Jobs'
 //   });
-
 export const RegistrationNavigator = StackNavigator(
   {
     SignUp: {
@@ -83,6 +82,7 @@ export const HomeTabNavigator = TabNavigator(
     initialRouteName: 'Jobs',
     tabBarPosition: 'bottom',
     animationEnabled: false,
+    lazy: true,
     tabBarOptions: {
       // activeTintColor: '#e91e63',
     },
@@ -100,8 +100,7 @@ export const HomeStackNavigator = StackNavigator(
     Jobs: {
       screen: HomeTabNavigator,
       navigationOptions: {}
-    }
-    ,
+    },
     JobDetail: {
       screen: JobDetailScreen,
       navigationOptions: {}
@@ -117,6 +116,7 @@ export const HomeStackNavigator = StackNavigator(
   },
   {
     headerMode: 'none',
+    mode: 'card',
     initialRouteName: 'Jobs'
   }
 );
@@ -144,7 +144,7 @@ const AppRootNavigator = StackNavigator(
   },
   {
     headerMode: 'none',
-    mode: 'modal'
+    // mode: 'modal'
   }
 );
 
