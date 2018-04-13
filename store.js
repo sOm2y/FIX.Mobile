@@ -2,6 +2,7 @@ import { AsyncStorage } from 'react-native';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { reducer as formReducer } from 'redux-form';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import wizardPaginationReducer from './app/reducers/wizardPaginationReducer';
 import {
   persistCombineReducers,
@@ -63,7 +64,7 @@ const rootReducer = combineReducers({
 function configureStore() {
   let store = createStore(
     rootReducer,
-    applyMiddleware(middleware, sagaMiddleware)
+    composeWithDevTools(applyMiddleware(middleware, sagaMiddleware))
   );
 
   // store.subscribe(() => {
