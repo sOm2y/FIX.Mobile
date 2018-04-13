@@ -31,6 +31,7 @@ export class FooterBottomTab extends React.Component {
             <Button
                 vertical
                 active={navigationState.index === 0}
+                disabled={navigationState.index === 0}
                 onPress={() => navigation.navigate('Jobs')}
             >
                 <Icon ios='ios-home-outline' android='md-home' />
@@ -40,6 +41,7 @@ export class FooterBottomTab extends React.Component {
                 <Button
                 vertical
                 active={navigationState.index === 1}
+                disabled={navigationState.index === 1}
                 onPress={() => navigation.navigate('JobsOnMap')}
                 >
                     <Icon ios='ios-pin-outline' android='md-pin' />
@@ -49,6 +51,7 @@ export class FooterBottomTab extends React.Component {
             <Button
                 vertical
                 active={navigationState.index === 2}
+                disabled={navigationState.index === 2}
                 onPress={() => navigation.navigate('Notifications')}
                 >
                 <Icon ios='ios-notifications-outline' android='md-notifications' />
@@ -58,6 +61,7 @@ export class FooterBottomTab extends React.Component {
             <Button
                 vertical
                 active={navigationState.index === 3}
+                disabled={navigationState.index === 3}
                 onPress={() => navigation.navigate('Profile')}
                >
                 <Icon ios='ios-settings-outline' android='md-settings' />

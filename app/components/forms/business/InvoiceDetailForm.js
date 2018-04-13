@@ -10,7 +10,7 @@ import AddAddressForm from '../../forms/address/AddAddressForm';
 import { getBusinessCategories } from '../../../services/businessService';
 import { renderPhone } from '../../inputs/renderPhone';
 
-export class BusinessDetailForm extends React.Component {
+export class InvoiceDetailForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -19,20 +19,14 @@ export class BusinessDetailForm extends React.Component {
   }
 
   componentWillMount() {
-    getBusinessCategories().then(res => {
-      this.setState({ businessCategories: res });
-    });
+
   }
   componentDidMount() {
-    // change(this.props.form, 'businessPhone', this.props.user.phoneNumber);
-    // change(this.props.form, 'businessEmail', this.props.user.email);
+
   }
 
   static navigationOptions = ({ navigation }) => ({});
 
-  onSubmit = (address, dispatch, formName) => {
-    // change(formName,, uploadResponse);
-  };
 
   render() {
     const {
@@ -42,61 +36,31 @@ export class BusinessDetailForm extends React.Component {
       submitting,
       previousPage,
       pickerItems,
-      // user
+      user
     } = this.props;
 
     return (
       <Form>
         <Field
-          name="businessName"
+          name="taxNumber"
           type="text"
           component={renderName}
-          label="Business Name"
+          label="Company Tax Number"
         />
 
         <Field
-          name="businessLegalName"
+          name="businessBank"
           type="text"
           component={renderName}
-          label="Business Legal Name"
+          label="Business Bank Name"
         />
 
         <Field
-          name="businessAddress"
-          type="text"
-          component={renderAddress}
-          label="Your Business address"
+          name="businessBankAccount"
+          type="number"
+          component={renderPhone}
+          label="Business Bank Account"
         />
-        <Field
-          name="businessPhone"
-          type="text"
-          component={renderName}
-          label="Your Business phone"
-        />
-        <Field
-          name="businessEmail"
-          type="text"
-          component={renderName}
-          label="Your Business email"
-        />
-
-        <Field
-          label="Business Categories"
-          name="businessCategoryIds"
-          iosHeader="Select Business Category"
-          iosIcon={<Icon name="ios-arrow-down-outline" />}
-          style={{ flex: Platform.OS === 'ios' ? undefined : 1 }}
-          placeholder="Select Business Category"
-          placeholderStyle={{ color: '#bfc6ea' }}
-          mode="dropdown"
-          component={renderPicker}
-        >
-          {this.state.businessCategories &&
-            this.state.businessCategories[0] &&
-            this.state.businessCategories.map((value, key) => {
-              return <Item key={key} label={value.name} value={[value.id]} />;
-            })}
-        </Field>
 
         <Button
           block
@@ -105,7 +69,7 @@ export class BusinessDetailForm extends React.Component {
           onPress={handleSubmit}
           disabled={pristine || submitting}
         >
-          <Text>Next</Text>
+             {submitting ? <Spinner color='white' />: <Text>Register</Text>}
         </Button>
         <Button
           bordered
@@ -126,4 +90,4 @@ export default reduxForm({
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
-})(BusinessDetailForm);
+})(InvoiceDetailForm);

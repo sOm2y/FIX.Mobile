@@ -23,8 +23,9 @@ export class CreateJobScreen extends React.Component {
     this.setState({ isVisible: true });
 
     // return postJob(values)
-    this.props.submitJobDetail(values);
+  
     dispatch(reset('WizardJobForm'));
+    this.props.submitJobDetail(values);
 
     // .then(job => {
 

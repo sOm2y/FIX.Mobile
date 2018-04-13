@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import { registerSuccess } from "../../actions/actionCreator";
+import { login, setUserType } from "../../actions/actionCreator";
 import WizardCustomerForm from '../../components/wizards/WizardCustomerForm';
 
 
@@ -22,7 +22,10 @@ class CustomerScreen extends React.Component {
     return postUserAccount(values)
     .then(res => {
       dispatch(reset('WizardCustomerForm'));
-      this.props.registerSuccess();
+
+      this.props.setUserType(res.usertype);
+      this.props.login();
+     
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
       toastShow("SignIn Unsuccessfully", "danger", 3000); 
@@ -40,7 +43,8 @@ class CustomerScreen extends React.Component {
 }
 
 const mapDispatchToProps = {
-    registerSuccess
+    login,
+    setUserType
 };
 
 const CustomerRegister = connect(null, mapDispatchToProps)(CustomerScreen);

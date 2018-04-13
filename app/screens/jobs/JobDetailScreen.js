@@ -178,16 +178,32 @@ export class JobDetailScreen extends React.Component {
               );
             })}
 
-          {job.assignedBusiness === null &&
-            userType === 'Tradie' && (
-              <Button
-                block
-                style={styles.button}
-                onPress={this.props.showQuoteModal}
-              >
-                <Text>Quote this job</Text>
-              </Button>
-            )}
+          {(job.assignedBusiness === null &&
+            userType === 'Tradie' &&
+            job.jobStatus ===
+              'Open') &&
+                <Button
+                  block
+                  style={styles.button}
+                  onPress={this.props.showQuoteModal}
+                >
+                  <Text>Quote this job</Text>
+                </Button>
+              }
+
+          {(job.assignedBusiness === null &&
+            userType === 'Tradie' &&
+            job.jobStatus ===
+              'InProgress') &&
+                <Button
+                  block
+                  style={styles.button}
+                  onPress={this.props.showQuoteModal}
+                >
+                  <Text>Complete Job</Text>
+                </Button>
+              }
+
           <QuoteModal
             jobId={job.id}
             businessId={
