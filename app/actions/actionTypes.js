@@ -42,6 +42,11 @@ const SubmitQuote = 'SUBMIT_QUOTE';
 const SubmitQuoteSuccess = 'SUBMIT_QUOTE_SUCCESS';
 const SubmitQuoteFailed = 'SUBMIT_QUOTE_FAILED';
 
+/* Notification Action Type */
+const RefreshNotifications = 'REFRESH_NOTIFICATIONS';
+const RefreshNotificationsSuccess = 'REFRESH_NOTIFICATIONS_SUCCESS';
+const RefreshNotificationsFailed = 'REFRESH_NOTIFICATIONS_FAILED';
+
 export {
     NextPage,
     PreviousPage,
@@ -81,7 +86,12 @@ export {
     SetUserType,
     LoginAsCustomer,
     LoginAsTradie,
+
     SubmitQuote,
     SubmitQuoteSuccess,
-    SubmitQuoteFailed
+    SubmitQuoteFailed,
+
+    RefreshNotifications,
+    RefreshNotificationsSuccess,
+    RefreshNotificationsFailed
 };

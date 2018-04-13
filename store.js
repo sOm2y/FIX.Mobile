@@ -16,6 +16,7 @@ import businessReducer from './app/reducers/businessReducer';
 import profileReducer from './app/reducers/profileReducer';
 import jobReducer from './app/reducers/jobReducer';
 import quoteReducer from './app/reducers/quoteReducer';
+import notificationReducer from './app/reducers/notificationReducer';
 
 // config to not persist the *counterString* of the CounterReducer's slice of the global state.
 const config = {
@@ -58,7 +59,8 @@ const rootReducer = combineReducers({
   form: formReducer,
   page: wizardPaginationReducer,
   ProfileReducer: persistReducer(config1, profileReducer),
-  QuoteReducer: quoteReducer
+  QuoteReducer: quoteReducer,
+  NotificationReducer: notificationReducer,
 });
 
 function configureStore() {

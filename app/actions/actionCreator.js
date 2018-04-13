@@ -29,7 +29,8 @@ import {
   NavigationBackForLoggedIn,
   NavigationBackForLoggedOut,
   SubmitQuote,
-  UpdateQuote
+  UpdateQuote,
+  RefreshNotifications
 } from "./actionTypes";
 
 export const increment = () => {
@@ -186,6 +187,11 @@ const updateQuote = quoteStatus => ({
   payload: quoteStatus
 })
 
+/* Notifications Action */
+const refreshNotifications = () => ({
+  type: RefreshNotifications
+})
+
 export {
   nextPage,
   previousPage,
@@ -217,5 +223,7 @@ export {
   loginAsCustomer,
   loginAsTradie,
   submitQuote,
-  updateQuote
+  updateQuote,
+
+  refreshNotifications
 };

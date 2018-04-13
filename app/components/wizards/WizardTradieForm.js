@@ -71,7 +71,6 @@ class WizardTradieForm extends React.Component {
     if (Constants.isDevice) {
       pushToken = await Notifications.getExpoPushTokenAsync();
     }
-    values = Object.assign({ deviceToken: pushToken, userType: 1 }, values);
 
     console.log(values);
 
