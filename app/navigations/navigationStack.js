@@ -82,8 +82,11 @@ export const HomeTabNavigator = TabNavigator(
     initialRouteName: 'Jobs',
     tabBarPosition: 'bottom',
     animationEnabled: false,
+    swipeEnabled: false,
+    gesturesEnabled: false,
     lazy: true,
     tabBarOptions: {
+      
       // activeTintColor: '#e91e63',
     },
     tabBarComponent: ({ navigationState, navigation }) => (

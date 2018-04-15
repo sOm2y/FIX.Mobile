@@ -39,7 +39,7 @@ import {
 
 const deviceWidth = Dimensions.get('window').width;
 
-const logo = require('../../resource/images/xero.png');
+const logo = require('../../resource/images/job_thumbnail.png');
 const cardImage = require('../../resource/images/tradie.jpg');
 
 export class JobsScreen extends React.Component {

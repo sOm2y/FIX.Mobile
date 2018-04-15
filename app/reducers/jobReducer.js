@@ -38,7 +38,7 @@ const jobReducer = (state = initialState, action) => {
       return { ...state, searchResult: action.payload };
 
     case JobDetail:
-      return { ...state, isRefreshing: true };
+      return { ...state, isRefreshing: false };
 
     case JobDetailSuccess:
       return { ...state, isRefreshing: false, jobResult: action.payload };
