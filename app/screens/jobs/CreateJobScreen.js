@@ -27,6 +27,31 @@ export class CreateJobScreen extends React.Component {
     dispatch(reset('WizardJobForm'));
     this.props.submitJobDetail(values);
 
+    let businessQuery = {
+      categoryId: jobDetail.businessCategoryId,
+      latitude: jobDetail.location.latitude,
+      longitude: jobDetail.location.longitude,
+      take: 5
+    };
+
+    searchBusiness(businessQuery, jobDetail.id)
+      .then(businessList => {
+        // navigation.navigate("TradieFinder");
+        this.props.tradieFinder({
+          jobId: jobDetail.id,
+          businessList: businessList
+        });
+
+        toastShow('Search available tradies  Successfully', 'success', 3000);
+      })
+      .catch(err => {
+        toastShow(
+          'Search available tradies failed, Please try again.',
+          'danger',
+          3000
+        );
+      });
+
     // .then(job => {
 
     // }).catch( err => {
@@ -37,32 +62,7 @@ export class CreateJobScreen extends React.Component {
     const { navigation, jobDetail, isJobSubmitted } = this.props;
     const { navigate } = navigation;
 
-    if (isJobSubmitted) {
-      let businessQuery = {
-        categoryId: jobDetail.businessCategoryId,
-        latitude: jobDetail.location.latitude,
-        longitude: jobDetail.location.longitude,
-        take: 5
-      };
 
-      searchBusiness(businessQuery, jobDetail.id)
-        .then(businessList => {
-          // navigation.navigate("TradieFinder");
-          this.props.tradieFinder({
-            jobId: jobDetail.id,
-            businessList: businessList
-          });
-
-          toastShow('Search available tradies  Successfully', 'success', 3000);
-        })
-        .catch(err => {
-          toastShow(
-            'Search available tradies failed, Please try again.',
-            'danger',
-            3000
-          );
-        });
-    }
 
     return (
       <WizardJobForm

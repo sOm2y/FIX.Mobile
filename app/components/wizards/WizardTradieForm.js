@@ -73,8 +73,8 @@ class WizardTradieForm extends React.Component {
     }
 
     console.log(values);
-
-    return postUserAccount(values)
+  
+    return postUserAccount( Object.assign({userType:1},values))
       .then(res => {
         
         this.props.setUserType(res.usertype);
@@ -90,7 +90,8 @@ class WizardTradieForm extends React.Component {
 
   onPostBusiness = (business, dispatch) => {
     console.log(business);
-    postBusiness(business)
+
+    return postBusiness(business)
       .then(res => {
         dispatch(reset('businessForm'));
         dispatch(reset('WizardTradieForm'));

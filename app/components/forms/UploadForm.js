@@ -41,7 +41,7 @@ export class UploadForm extends React.Component {
           onPress={handleSubmit}
           disabled={pristine || submitting}
         >
-          {submitting ? <Spinner color="white" /> : <Text>Post Job</Text>}
+          {submitting ? <Spinner color="white" /> : <Text>Upload and Post Job</Text>}
         </Button>
         <Button
           bordered

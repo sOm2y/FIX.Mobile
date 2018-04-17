@@ -26,7 +26,6 @@ import {
   jobs
 } from '../../actions/actionCreator';
 import UploadForm from '../forms/UploadForm';
-import DetailForm from '../forms/register/DetailForm';
 
 const thirdIndicatorStyles = {
   stepIndicatorSize: 25,

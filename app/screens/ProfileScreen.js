@@ -29,7 +29,7 @@ import {
   setUserData
 } from '../actions/actionCreator';
 
-import CustomAnimatedHeader from '../components/headers/CustomAnimatedHeader'
+import CustomAnimatedHeader from '../components/headers/CustomAnimatedHeader';
 import { ChangePasswordModal } from '../components/modals/ChangePasswordModal';
 
 export class ProfileScreen extends React.Component {
@@ -59,12 +59,17 @@ export class ProfileScreen extends React.Component {
     const { isPasswordModalOpened, user } = this.props;
     return (
       <Container>
-  
+        {/* <Header>
+          <Body>
+            <Title>Profile</Title>
+          </Body>
+        </Header> */}
         <ChangePasswordModal
           showModal={isPasswordModalOpened}
           closeModal={this.props.hideChangePasswordModal}
         />
-        <CustomAnimatedHeader  {...this.props}/>
+        <CustomAnimatedHeader {...this.props} />
+     
       </Container>
     );
   }

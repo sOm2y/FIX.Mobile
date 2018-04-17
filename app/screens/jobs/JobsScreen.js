@@ -5,7 +5,8 @@ import {
   Dimensions,
   AsyncStorage,
   RefreshControl,
-  Platform
+  Platform,
+  View
 } from 'react-native';
 import { Notifications, Expo, Constants } from 'expo';
 import { connect } from 'react-redux';
@@ -27,6 +28,8 @@ import {
   Right,
   Icon
 } from 'native-base';
+import Moment from 'moment';
+import Swiper from 'react-native-swiper';
 import { getAccessToken, postDeviceInfo } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
 import {
@@ -57,6 +60,7 @@ export class JobsScreen extends React.Component {
       })
       .catch(err => {
         console.log(err);
+        this.props.logout();
         toastShow('Token expired, please login again', 'danger', 3000);
       });
   }
@@ -75,12 +79,11 @@ export class JobsScreen extends React.Component {
           </Body>
         </Header>
         <Content
-          padder={Platform.OS === 'ios' ? true:false }
+          padder={Platform.OS === 'ios' ? true : false}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
               onRefresh={() => this.props.refreshJobs(userType)}
-         
             />
           }
         >
@@ -98,7 +101,7 @@ export class JobsScreen extends React.Component {
 
           {jobs &&
             jobs.length > 0 &&
-            jobs.map((job, key) => {
+            jobs.reverse().map((job, key) => {
               return (
                 <Card style={styles.mb} key={key}>
                   <CardItem
@@ -109,35 +112,81 @@ export class JobsScreen extends React.Component {
                     <Left>
                       <Thumbnail source={logo} />
                       <Body>
-                        <Text>{job.title}</Text>
-                        <Text note>{job.jobDate}</Text>
+                        <Text uppercase>{job.title}</Text>
+                        <Text note>
+                          Post on {Moment(job.jobDate).format('DD MMM YYYY')}
+                        </Text>
                       </Body>
                     </Left>
-                    <Right>
+                    {/* <Right> */}
+             
                       <Icon name="ios-arrow-forward-outline" />
-                    </Right>
+                    {/* </Right> */}
                   </CardItem>
 
                   <CardItem>
                     <Body>
-                      {job.jobImages &&
-                        job.jobImages.length > 0 && (
-                          <Image
-                            style={{
-                              alignSelf: 'center',
-                              height: 150,
-                              resizeMode: 'cover',
-                              width: deviceWidth / 1.18,
-                              marginVertical: 5
-                            }}
-                            source={{
-                              uri:
-                                'https://smartgeoio.blob.core.windows.net/fix/' +
-                                job.jobImages[0].fileName
-                            }}
-                          />
-                        )}
-                      <Text>{job.description}</Text>
+                      <Swiper
+                        style={styles.wrapper}
+                        height={150}
+                        onMomentumScrollEnd={(e, state, context) =>
+                          console.log('index:', state.index)
+                        }
+                        // dot={
+                        //   <View
+                        //     style={{
+                        //       backgroundColor: 'rgba(0,0,0,.2)',
+                        //       width: 5,
+                        //       height: 5,
+                        //       borderRadius: 4,
+                        //       marginLeft: 3,
+                        //       marginRight: 3,
+                        //       marginTop: 3,
+                        //       marginBottom: 3
+                        //     }}
+                        //   />
+                        // }
+                        // activeDot={
+                        //   <View
+                        //     style={{
+                        //       backgroundColor: '#000',
+                        //       width: 8,
+                        //       height: 8,
+                        //       borderRadius: 4,
+                        //       marginLeft: 3,
+                        //       marginRight: 3,
+                        //       marginTop: 3,
+                        //       marginBottom: 3
+                        //     }}
+                        //   />
+                        // }
+                        paginationStyle={{
+                          bottom: -20,
+                        }}
+                      >
+                        {job.jobImages &&
+                          job.jobImages.length > 0 &&
+                          job.jobImages.map((image, key) => {
+                            return (
+                              <View
+                                key={key}
+                                style={styles.slide}
+                               
+                              >
+                                <Image
+                                  resizeMode="cover"
+                                  style={styles.image}
+                                  source={{
+                                    uri:
+                                      'https://smartgeoio.blob.core.windows.net/fix/' +
+                                      image.fileName
+                                  }}
+                                />
+                              </View>
+                            );
+                          })}
+                      </Swiper>
+                      <Text style={{marginTop:25}}>{job.description}</Text>
                     </Body>
                   </CardItem>
                   <CardItem style={{ paddingVertical: 0 }}>
@@ -171,6 +220,44 @@ const styles = StyleSheet.create({
     width: width,
     flex: 1,
     height: 200
+  },
+  container: {
+    flex: 1
+  },
+
+  wrapper: {},
+
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB'
+  },
+
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5'
+  },
+
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9'
+  },
+
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold'
   }
 });
 

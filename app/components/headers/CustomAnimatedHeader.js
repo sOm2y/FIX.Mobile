@@ -1,11 +1,14 @@
+/*
+ * This example demonstrates how to use ParallaxScrollView within a ScrollView component.
+ */
 import React, { Component } from 'react';
 import {
-  Animated,
-  Platform,
-  StatusBar,
+  Dimensions,
+  Image,
+  ListView,
+  PixelRatio,
   StyleSheet,
-  View,
-  RefreshControl
+  View
 } from 'react-native';
 import {
   Container,
@@ -24,37 +27,69 @@ import {
   Right,
   Switch
 } from 'native-base';
+import Moment from 'moment';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-
-const HEADER_MAX_HEIGHT = 300;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-
-export default class CustomAnimatedHeader extends Component {
+class CustomAnimatedHeader extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      scrollY: new Animated.Value(
-        // iOS has negative initial scroll value because content inset...
-        Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0
-      ),
-      refreshing: false
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }).cloneWithRows(['Simplicity Matters'])
     };
   }
 
-  _renderScrollViewContent() {
-
+  render() {
+    const { onScroll = () => {} } = this.props;
+    
     return (
-      <View>
-  
+      <ParallaxScrollView
+        onScroll={onScroll}
+        headerBackgroundColor="#333"
+        stickyHeaderHeight={STICKY_HEADER_HEIGHT}
+        parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
+        backgroundSpeed={10}
+        renderBackground={() => (
+          <View key="background">
+            <Image
+              source={require('../../resource/images/profile_bg.jpg')}
+              style={{
+                width: window.width,
+                height: PARALLAX_HEADER_HEIGHT
+              }}
+            />
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                width: window.width,
+                backgroundColor: 'rgba(0,0,0,.4)',
+                height: PARALLAX_HEADER_HEIGHT
+              }}
+            />
+          </View>
+        )}
+        renderForeground={() => (
+          <View key="parallax-header" style={styles.parallaxHeader}>
+            <Image
+              style={styles.avatar}
+              source={require('../../resource/images/user1.png')}
+            />
+            <Text style={styles.sectionSpeakerText}>Hi {this.props.user.userName}</Text>
+            <Text style={styles.sectionTitleText}>
+              First Join at {Moment(this.props.user.joinDate).format('DD MMM YYYY')}
+            </Text>
+          </View>
+        )}
+      >
         <List>
           <ListItem icon style={styles.listItem}>
             <Left>
-              <Icon name="person" />
+              <Icon name="user" type='FontAwesome'/>
             </Left>
             <Body>
-              <Text>User Name: {this.props.user.userName}</Text>
+              <Text>Full Name: {this.props.user.fullName}</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.listItem}>
@@ -63,6 +98,14 @@ export default class CustomAnimatedHeader extends Component {
             </Left>
             <Body>
               <Text>Email: {this.props.user.email}</Text>
+            </Body>
+          </ListItem>
+          <ListItem icon style={styles.listItem}>
+            <Left>
+              <Icon name="phone" type='FontAwesome' />
+            </Left>
+            <Body>
+              <Text>Phone: {this.props.user.phone}</Text>
             </Body>
           </ListItem>
 
@@ -74,182 +117,102 @@ export default class CustomAnimatedHeader extends Component {
             <Text>CHANGE PASSWORD</Text>
           </Button>
         </List>
-
-        {/* <Text>{t('title')}</Text>
-          <List>
-            <ListItem style={[styles.listItem]}>
-              <Button block
-              onPress={() => { i18n.changeLanguage('cn') }}>
-              <Text>{t('title')}</Text>
-              </Button>
-            </ListItem>
-            <ListItem style={[styles.listItem]}>
-              <Button block
-              onPress={() => { i18n.changeLanguage('en') }}>
-              <Text>{t('title')}</Text>
-              </Button>
-            </ListItem>
-          </List> */}
-
         <Button style={{ margin: 10 }} block onPress={this.props.logout}>
           <Text>SIGN OUT</Text>
         </Button>
-      </View>
-    );
-  }
+      </ParallaxScrollView>
 
-  render() {
-    // Because of content inset the scroll value will be negative on iOS so bring
-    // it back to 0.
-    const scrollY = Animated.add(
-      this.state.scrollY,
-      Platform.OS === 'ios' ? HEADER_MAX_HEIGHT : 0
-    );
-    const headerTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, -HEADER_SCROLL_DISTANCE],
-      extrapolate: 'clamp'
-    });
-
-    const imageOpacity = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [1, 1, 0],
-      extrapolate: 'clamp'
-    });
-    const imageTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 100],
-      extrapolate: 'clamp'
-    });
-
-    const titleScale = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [1, 1, 0.8],
-      extrapolate: 'clamp'
-    });
-    const titleTranslate = scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 0, -8],
-      extrapolate: 'clamp'
-    });
-
-    return (
-      <View style={styles.fill}>
-        <StatusBar
-          translucent
-          barStyle="light-content"
-          backgroundColor="rgba(0, 0, 0, 0.251)"
-        />
-        <Animated.ScrollView
-          style={styles.fill}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={() => {
-                this.setState({ refreshing: true });
-                setTimeout(() => this.setState({ refreshing: false }), 1000);
-              }}
-              // Android offset for RefreshControl
-              progressViewOffset={HEADER_MAX_HEIGHT}
-            />
-          }
-          // iOS offset for RefreshControl
-          contentInset={{
-            top: HEADER_MAX_HEIGHT
-          }}
-          contentOffset={{
-            y: -HEADER_MAX_HEIGHT
-          }}
-        >
-          {this._renderScrollViewContent()}
-        </Animated.ScrollView>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.header,
-            { transform: [{ translateY: headerTranslate }] }
-          ]}
-        >
-          <Animated.Image
-            style={[
-              styles.backgroundImage,
-              {
-                opacity: imageOpacity,
-                transform: [{ translateY: imageTranslate }]
-              }
-            ]}
-            source={require('../../resource/images/profile_bg.jpg')}
-          />
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.bar,
-            {
-              transform: [{ scale: titleScale }, { translateY: titleTranslate }]
-            }
-          ]}
-        >
-          <Text style={styles.title}>Profile</Text>
-        </Animated.View>
-      </View>
+      /* <Text>{t('title')}</Text>
+    <List>
+      <ListItem style={[styles.listItem]}>
+        <Button block
+        onPress={() => { i18n.changeLanguage('cn') }}>
+        <Text>{t('title')}</Text>
+        </Button>
+      </ListItem>
+      <ListItem style={[styles.listItem]}>
+        <Button block
+        onPress={() => { i18n.changeLanguage('en') }}>
+        <Text>{t('title')}</Text>
+        </Button>
+      </ListItem>
+    </List> */
     );
   }
 }
 
+const window = Dimensions.get('window');
+
+const AVATAR_SIZE = 120;
+const ROW_HEIGHT = 60;
+const PARALLAX_HEADER_HEIGHT = 350;
+const STICKY_HEADER_HEIGHT = 70;
+
 const styles = StyleSheet.create({
-  fill: {
-    flex: 1
+  container: {
+    flex: 1,
+    backgroundColor: 'black'
   },
-  content: {
-    flex: 1
-  },
-  header: {
+  background: {
     position: 'absolute',
     top: 0,
     left: 0,
-    right: 0,
-    backgroundColor: '#03A9F4',
-    overflow: 'hidden',
-    height: HEADER_MAX_HEIGHT
+    width: window.width,
+    height: PARALLAX_HEADER_HEIGHT
   },
-  backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    width: null,
-    height: HEADER_MAX_HEIGHT,
-    resizeMode: 'cover'
+  stickySection: {
+    height: STICKY_HEADER_HEIGHT,
+    width: 300,
+    justifyContent: 'flex-end'
   },
-  bar: {
-    backgroundColor: 'transparent',
-    marginTop: Platform.OS === 'ios' ? 28 : 38,
-    height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0
-  },
-  title: {
+  stickySectionText: {
     color: 'white',
-    fontSize: 18
+    fontSize: 20,
+    margin: 10
   },
-  scrollViewContent: {
-    // iOS uses content inset, which acts like padding.
-    paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0
+  fixedSection: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10
+  },
+  fixedSectionText: {
+    color: '#999',
+    fontSize: 20
+  },
+  parallaxHeader: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 100
+  },
+  avatar: {
+    marginBottom: 10,
+    borderRadius: AVATAR_SIZE / 2,
+    width: AVATAR_SIZE,
+    height: AVATAR_SIZE
+  },
+  sectionSpeakerText: {
+    color: 'white',
+    fontSize: 24,
+    paddingVertical: 5
+  },
+  sectionTitleText: {
+    color: 'white',
+    fontSize: 18,
+    paddingVertical: 5
   },
   row: {
-    height: 40,
-    margin: 16,
-    backgroundColor: '#D3D3D3',
-    alignItems: 'center',
+    overflow: 'hidden',
+    paddingHorizontal: 10,
+    height: ROW_HEIGHT,
+    backgroundColor: 'white',
+    borderColor: '#ccc',
+    borderBottomWidth: 1,
     justifyContent: 'center'
+  },
+  rowText: {
+    fontSize: 20
   }
 });
+
+export default CustomAnimatedHeader;

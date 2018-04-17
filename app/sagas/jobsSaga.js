@@ -8,7 +8,8 @@ import {
   JobDetailFailed,
   SubmitJobDetail,
   SubmitJobDetailSuccess,
-  SubmitJobDetailFailed
+  SubmitJobDetailFailed,
+  Logout
 } from '../actions/actionTypes';
 import {
   call,
@@ -62,7 +63,9 @@ function* getJobsSaga(action) {
 
   } catch (error) {
     const payload = error;
-
+    if(error.status === 401){
+      yield put({type: Logout});
+    }
     yield put({ type: RefreshJobsFailed, payload });
 
     yield call(toastShow, {

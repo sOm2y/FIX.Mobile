@@ -5,6 +5,7 @@ export default function(state=page, action){
       break;
     case "PREVIOUS_PAGE": page --;
       break;
+  
   }
   return page;
 }

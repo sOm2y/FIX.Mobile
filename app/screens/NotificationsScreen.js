@@ -56,24 +56,24 @@ class NotificationsScreen extends React.Component {
             <RefreshControl
               refreshing={isRefreshing}
               onRefresh={this.props.refreshNotifications}
-             
             />
           }
         >
           <List
-            dataArray={notifications}
+            dataArray={notifications.reverse()}
             renderRow={notification => (
-              <ListItem avatar style={styles.listItem}>
+              <ListItem thumbnail>
                 <Left>
                   <Thumbnail
-                    small
+                    size={55}
                     source={require('../resource/images/user1.png')}
                   />
                 </Left>
                 <Body>
                   <Text>{notification.content}</Text>
-                  {/*} <Text numberOfLines={1} note>{notification.daysAgo}</Text>*/}
-                  <Text note>{notification.daysAgo}</Text>
+                  <Text numberOfLines={1} note>
+                    {notification.daysAgo}
+                  </Text>
                 </Body>
                 <Right>
                   <Button
@@ -107,9 +107,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(
   NotificationsScreen
 );
 
-const styles = StyleSheet.create({
-  listItem: {
-    marginLeft: 0,
-    paddingLeft: 17
-  }
-});
+const styles = StyleSheet.create({});
