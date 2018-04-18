@@ -22,8 +22,6 @@ export class CreateJobScreen extends React.Component {
     const { jobDetail, isJobSubmitted } = this.props;
     this.setState({ isVisible: true });
 
-    // return postJob(values)
-  
     dispatch(reset('WizardJobForm'));
     this.props.submitJobDetail(values);
 
@@ -42,21 +40,18 @@ export class CreateJobScreen extends React.Component {
           businessList: businessList
         });
 
-        toastShow('Search available tradies  Successfully', 'success', 3000);
+        toastShow({ text:'Search available tradies  Successfully', type:'success', duration:3000});
       })
       .catch(err => {
         toastShow(
-          'Search available tradies failed, Please try again.',
-          'danger',
-          3000
+          {
+          text:'Search available tradies failed, Please try again.',
+          type:'danger',
+          duration: 3000
+          }
         );
       });
 
-    // .then(job => {
-
-    // }).catch( err => {
-    //   toastShow("Post job failed, Please try again.", "danger", 3000);
-    // });
   };
   render() {
     const { navigation, jobDetail, isJobSubmitted } = this.props;

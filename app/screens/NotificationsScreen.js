@@ -18,7 +18,7 @@ import {
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { jobDetail, refreshNotifications } from '../actions/actionCreator';
+import { jobDetail, refreshNotifications, logout } from '../actions/actionCreator';
 import { onSignOut } from '../services/authService';
 import { getNotifications } from '../services/notificationService';
 
@@ -27,8 +27,12 @@ class NotificationsScreen extends React.Component {
     super();
   }
 
-  componentDidMount() {
-    this.props.refreshNotifications();
+  async componentDidMount() {
+    try {
+      this.props.refreshNotifications();
+    } catch (error) {
+      this.props.logout();
+    }
   }
 
   static navigationOptions = ({ navigation }) => ({});
@@ -101,7 +105,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   jobDetail,
-  refreshNotifications
+  refreshNotifications,
+  logout
 };
 export default connect(mapStateToProps, mapDispatchToProps)(
   NotificationsScreen

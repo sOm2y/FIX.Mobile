@@ -23,7 +23,7 @@ import {
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
-  SetUserType,
+  SetUserAuth,
   LoginAsCustomer,
   LoginAsTradie,
   NavigationBackForLoggedIn,
@@ -163,9 +163,9 @@ const setUserData = (user) => ({
   payload: user
 });
 
-const setUserType = (userType) => ({
-  type: SetUserType,
-  payload: userType
+const setUserAuth = (userAuth) => ({
+  type: SetUserAuth,
+  payload: userAuth
 });
 
 const loginAsCustomer = () => ({
@@ -219,7 +219,7 @@ export {
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
-  setUserType,
+  setUserAuth,
   loginAsCustomer,
   loginAsTradie,
   submitQuote,

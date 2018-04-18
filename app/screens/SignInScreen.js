@@ -20,7 +20,7 @@ import {
 import { loginUserAccount, postDeviceInfo } from '../services/authService';
 import { toastShow } from '../services/toastService';
 import LoginForm from '../components/forms/LoginForm';
-import { login, register, setUserType } from '../actions/actionCreator';
+import { login, register, setUserAuth } from '../actions/actionCreator';
 
 class SignInScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -69,14 +69,15 @@ class SignInScreen extends React.Component {
                     .then(res => {
                       dispatch(reset('LoginForm'));
 
-                      this.props.setUserType(res.usertype);
+                      this.props.setUserAuth({userType:res.usertype, access_token:res.access_token});
+                      console.log(res.access_token);
                       this.props.login();
 
-                      toastShow('SignIn Successfully', 'success', 3000);
+                      toastShow({text:'Sign In Successfully', type:'success', duration:3000});
                     })
                     .catch(err => {
                       console.log(err);
-                      toastShow('SignIn Unsuccessfully', 'danger', 3000);
+                      toastShow({text:'Sign In failed', type:'danger', duration:3000});
                     });
                 }}
               />
@@ -111,7 +112,7 @@ SignInScreen.propTypes = {
 const mapDispatchToProps = {
   login,
   register,
-  setUserType
+  setUserAuth
 };
 
 const SignIn = connect(null, mapDispatchToProps)(SignInScreen);

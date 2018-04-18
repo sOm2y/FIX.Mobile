@@ -33,7 +33,7 @@ const HideQuoteDetailModal = 'HIDE_QUOTE_DETAIL_MODAL';
 const ShowChangePasswordModal = 'SHOW_CHANGE_PASSWORD_FORM';
 const HideChangePasswordModal = 'HIDE_CHANGE_PASSWORD_FORM';
 const SetUserData = 'SET_USER_DATA';
-const SetUserType = 'SET_USER_TYPE';
+const SetUserAuth = 'SET_USER_AUTH';
 const LoginAsCustomer = 'LOGIN_AS_CUSTOMER';
 const LoginAsTradie = 'LOGIN_AS_TRADIE';
 
@@ -83,7 +83,7 @@ export {
     ShowChangePasswordModal,
     HideChangePasswordModal,
     SetUserData,
-    SetUserType,
+    SetUserAuth,
     LoginAsCustomer,
     LoginAsTradie,
 

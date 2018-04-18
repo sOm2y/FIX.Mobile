@@ -51,6 +51,8 @@ export class ProfileScreen extends React.Component {
         this.props.setUserData(res.data);
       })
       .catch(err => {
+        if(err.status === 401)
+          this.props.logout();
         console.log(err);
       });
   }

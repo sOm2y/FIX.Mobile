@@ -36,7 +36,7 @@ function* postJobSaga(action) {
       text: TextHolder.POST_JOB_SUCCESSFUL,
       type: 'success',
       buttonText: 'Dismiss',
-      duration: 2000
+      duration: 3000
     });
   } catch (error) {
     yield put({ type: SubmitJobDetailFailed, payload: error });
@@ -44,7 +44,7 @@ function* postJobSaga(action) {
       text: TextHolder.POST_JOB_FAILED,
       type: 'danger',
       buttonText: 'Dismiss',
-      duration: 2000
+      duration: 3000
     });
   }
 }
@@ -52,6 +52,7 @@ function* postJobSaga(action) {
 function* getJobsSaga(action) {
   try {
     let jobs = null;
+    console.log(action);
     if (action.payload === 'Customer') {
       jobs = yield call(getJobs);
     } else if (action.payload === 'Tradie') {
@@ -60,19 +61,24 @@ function* getJobsSaga(action) {
     const payload = jobs;
 
     yield put({ type: RefreshJobsSuccess, payload });
-
   } catch (error) {
     const payload = error;
-    if(error.status === 401){
-      yield put({type: Logout});
-    }
+    // if (error.status === 401) {
+    //   yield put({ type: Logout });
+    //   yield call(toastShow, {
+    //     text: 'Token expired, please try login again',
+    //     type: 'danger',
+    //     buttonText: 'Dismiss',
+    //     duration: 3000
+    //   });
+    // }
     yield put({ type: RefreshJobsFailed, payload });
 
     yield call(toastShow, {
       text: TextHolder.FETCH_JOBS_FAILED,
       type: 'danger',
       buttonText: 'Dismiss',
-      duration: 2000
+      duration: 3000
     });
   }
 }
@@ -84,7 +90,6 @@ function* getJobByIdSaga(action) {
     console.log('job: ' + job);
     const payload = job;
     yield put({ type: JobDetailSuccess, payload });
-
   } catch (error) {
     const payload = error;
     yield put({ type: JobDetailFailed, payload });

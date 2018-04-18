@@ -66,9 +66,9 @@ export default class App extends React.Component {
       en: require('./app/locales/en'),
       zh: require('./app/locales/zh-Hans')
     };
-
-    this.setState({ isReady: true });
     sagaMiddleware.run(rootSaga);
+    this.setState({ isReady: true });
+  
   }
   render() {
     if (!this.state.isReady) {

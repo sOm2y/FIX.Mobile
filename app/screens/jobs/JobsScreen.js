@@ -47,22 +47,14 @@ const cardImage = require('../../resource/images/tradie.jpg');
 
 export class JobsScreen extends React.Component {
   componentDidMount() {
-    getAccessToken()
-      .then(value => {
-        if (value !== null) {
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + value;
-          console.log(axios.defaults.headers.common['Authorization']);
-          if (this.props.userType) {
-            this.props.refreshJobs(this.props.userType);
-            console.log(this.props.userType);
-          }
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        this.props.logout();
-        toastShow('Token expired, please login again', 'danger', 3000);
-      });
+    if (this.props.accessToken) {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + this.props.accessToken;
+
+      if (this.props.userType) {
+        this.props.refreshJobs(this.props.userType);
+      }
+    }
   }
 
   static navigationOptions = ({ navigation }) => ({});
@@ -119,8 +111,8 @@ export class JobsScreen extends React.Component {
                       </Body>
                     </Left>
                     {/* <Right> */}
-             
-                      <Icon name="ios-arrow-forward-outline" />
+
+                    <Icon name="ios-arrow-forward-outline" />
                     {/* </Right> */}
                   </CardItem>
 
@@ -161,18 +153,14 @@ export class JobsScreen extends React.Component {
                         //   />
                         // }
                         paginationStyle={{
-                          bottom: -20,
+                          bottom: -20
                         }}
                       >
                         {job.jobImages &&
                           job.jobImages.length > 0 &&
                           job.jobImages.map((image, key) => {
                             return (
-                              <View
-                                key={key}
-                                style={styles.slide}
-                               
-                              >
+                              <View key={key} style={styles.slide}>
                                 <Image
                                   resizeMode="cover"
                                   style={styles.image}
@@ -186,7 +174,7 @@ export class JobsScreen extends React.Component {
                             );
                           })}
                       </Swiper>
-                      <Text style={{marginTop:25}}>{job.description}</Text>
+                      <Text style={{ marginTop: 25 }}>{job.description}</Text>
                     </Body>
                   </CardItem>
                   <CardItem style={{ paddingVertical: 0 }}>
@@ -265,7 +253,8 @@ const mapStateToProps = (state, props) => {
   return {
     jobs: state.JobReducer.jobsResult,
     isRefreshing: state.JobReducer.isRefreshing,
-    userType: state.ProfileReducer.userType
+    userType: state.ProfileReducer.userType,
+    accessToken: state.ProfileReducer.access_token
     // form: props.wizardLabel
   };
 };

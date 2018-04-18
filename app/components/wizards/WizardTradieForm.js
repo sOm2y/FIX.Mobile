@@ -29,7 +29,7 @@ import {
   nextPage,
   previousPage,
   login,
-  setUserType,
+  setUserAuth,
   navigationBackLoggedOut
 } from '../../actions/actionCreator';
 import InvoiceDetailForm from '../forms/business/InvoiceDetailForm';
@@ -77,14 +77,14 @@ class WizardTradieForm extends React.Component {
     return postUserAccount( Object.assign({userType:1},values))
       .then(res => {
         
-        this.props.setUserType(res.usertype);
+        this.props.setUserAuth({userType:res.usertype,access_token:res.access_token});
         this.props.nextPage();
 
 
         // toastShow("Tradie account has been created", "success", 3000);
       })
       .catch(err => {
-        toastShow('Register failed, please try again', 'danger', 3000);
+        toastShow({text:'Register failed, please try again', type:'danger', duration:3000});
       });
   };
 
@@ -97,10 +97,10 @@ class WizardTradieForm extends React.Component {
         dispatch(reset('WizardTradieForm'));
 
         this.props.login();
-        toastShow('Add business Successfully', 'success', 3000);
+        toastShow({text:'Add business Successfully', type:'success', duration:3000});
       })
       .catch(err => {
-        toastShow('Add business unsuccessfully', 'success', 3000);
+        toastShow({text:'Add business unsuccessfully', type:'success', duration:3000});
       });
   };
 
@@ -213,7 +213,7 @@ const mapDispatchToProps = {
   previousPage,
   nextPage,
   login,
-  setUserType
+  setUserAuth
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WizardTradieForm);

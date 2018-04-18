@@ -4,7 +4,6 @@ import {
   ShowQuoteDetailModal,
   HideQuoteDetailModal,
   SetUserData,
-  SetUserType,
   Logout,
   SubmitQuoteSuccess,
   SubmitQuote,
