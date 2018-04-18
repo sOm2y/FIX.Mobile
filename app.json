@@ -3,7 +3,6 @@
     "sdkVersion": "25.0.0",
     "slug": "FIX-MOBILE",
     "name": "FIX.MOBILE",
-    "androidStatusBarColor": "#157EFC",
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#157EFC"

@@ -25,7 +25,8 @@ import {
   Left,
   Right,
   Icon,
-  Input
+  Input,
+  Badge
 } from 'native-base';
 import { getAccessToken, postDeviceInfo } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
@@ -35,9 +36,13 @@ import {
   navigateToJobs,
   navigationBackLoggedIn,
   showQuoteModal,
-  hideQuoteModal
+  hideQuoteModal,
+  showQuoteDetailModal,
+  hideQuoteDetailModal,
+  submitQuote
 } from '../../actions/actionCreator';
 import { QuoteModal } from '../../components/modals/QuoteModal';
+import { QuoteDetailModal } from '../../components/modals/QuoteDetailModal';
 
 export class JobDetailScreen extends React.Component {
   //TODO: Put job state to reducer
@@ -57,7 +62,15 @@ export class JobDetailScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
 
   render() {
-    const { navigation, isRefreshing, job, isQuoteModalOpened } = this.props;
+    const {
+      navigation,
+      isRefreshing,
+      job,
+      isQuoteModalOpened,
+      isQuoteDetailModalOpened,
+      userType,
+      user
+    } = this.props;
     const { navigate } = navigation;
 
     return (
@@ -84,7 +97,9 @@ export class JobDetailScreen extends React.Component {
                 </Body>
               </Left>
               <Right>
-                <Text>{job.jobStatus}</Text>
+                <Badge success>
+                  <Text>{job.jobStatus}</Text>
+                </Badge>
               </Right>
             </CardItem>
 
@@ -125,37 +140,86 @@ export class JobDetailScreen extends React.Component {
             job.quotes.reverse().map((quote, key) => {
               return (
                 <Card key={key}>
-                  <CardItem header>
-                    <Text>{quote.hours}</Text>
-                    <Text>{quote.amount}</Text>
-                    <Text>{quote.notes}</Text>
+                  <CardItem
+                    button
+                    header
+                    onPress={() => this.props.showQuoteDetailModal(quote)}
+                  >
+                    <Text>Quote From: {quote.businessName}</Text>
+
+                    {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
+                    {job.assignedBusiness &&
+                      job.assignedBusiness.id === quote.businessId && (
+                        <Right>
+                          <Badge success>
+                            <Text>Accepted</Text>
+                          </Badge>
+                        </Right>
+                      )}
+                  </CardItem>
+                  <CardItem
+                    button
+                    onPress={() => this.props.showQuoteDetailModal(quote)}
+                  >
+                    <Body>
+                      <Text>Estimate Cost ${quote.amount}</Text>
+                      <Text>Estimate Time {quote.hours}</Text>
+                    </Body>
                     <Right>
                       <Icon name="ios-arrow-forward-outline" />
                     </Right>
-                    {/*<Input disabled={!quote.canEdit} value={quote.notes} /> */}
                   </CardItem>
                   <CardItem footer>
                     <Body>
                       <Text note>{quote.startTime}</Text>
-                      <Text note>{quote.businessName}</Text>
                     </Body>
                   </CardItem>
                 </Card>
               );
             })}
 
-          {job.assignedBusiness === null && (
-            <Button
-              block
-              style={styles.button}
-              onPress={this.props.showQuoteModal}
-            >
-              <Text>Quote this job</Text>
-            </Button>
-          )}
+          {(job.assignedBusiness === null &&
+            userType === 'Tradie' &&
+            job.jobStatus ===
+              'Open') &&
+                <Button
+                  block
+                  style={styles.button}
+                  onPress={this.props.showQuoteModal}
+                >
+                  <Text>Quote this job</Text>
+                </Button>
+              }
+
+          {(job.assignedBusiness === null &&
+            userType === 'Tradie' &&
+            job.jobStatus ===
+              'InProgress') &&
+                <Button
+                  block
+                  style={styles.button}
+                  onPress={this.props.showQuoteModal}
+                >
+                  <Text>Complete Job</Text>
+                </Button>
+              }
+
           <QuoteModal
+            jobId={job.id}
+            businessId={
+              this.props.user.businesses &&
+              this.props.user.businesses.length > 0 &&
+              this.props.user.businesses[0].id
+            }
+            submitQuote={this.props.submitQuote}
             showModal={isQuoteModalOpened}
             closeModal={this.props.hideQuoteModal}
+          />
+
+          <QuoteDetailModal
+            submitQuote={this.props.submitQuoteDetail}
+            showModal={isQuoteDetailModalOpened}
+            closeModal={this.props.hideQuoteDetailModal}
           />
         </Content>
       </Container>
@@ -184,7 +248,10 @@ const mapStateToProps = (state, props) => {
   return {
     isRefreshing: state.JobReducer.isRefreshing,
     job: state.JobReducer.jobResult,
-    isQuoteModalOpened: state.QuoteReducer.isQuoteModalOpened
+    isQuoteModalOpened: state.QuoteReducer.isQuoteModalOpened,
+    isQuoteDetailModalOpened: state.QuoteReducer.isQuoteDetailModalOpened,
+    userType: state.ProfileReducer.userType,
+    user: state.ProfileReducer.user
     // form: props.wizardLabel
   };
 };
@@ -195,6 +262,9 @@ const mapDispatchToProps = {
   navigateToJobs,
   showQuoteModal,
   hideQuoteModal,
+  showQuoteDetailModal,
+  hideQuoteDetailModal,
+  submitQuote,
   logout
 };
 

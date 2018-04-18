@@ -2,14 +2,15 @@ import {
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
-  SetUserType,
+  SetUserAuth,
   Logout
-} from "../actions/actionTypes";
+} from '../actions/actionTypes';
 
 const initialState = {
   isPasswordModalOpened: false,
   user: {},
-  userType: ""
+  userType: undefined,
+  access_token: undefined
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -20,10 +21,14 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, isPasswordModalOpened: false };
     case SetUserData:
       return { ...state, user: action.payload };
-    case SetUserType:
-      return { ...state, userType: action.payload };
+    case SetUserAuth:
+      return {
+        ...state,
+        userType: action.payload.userType,
+        access_token: action.payload.access_token
+      };
     case Logout:
-      return { ...state, userType: '', user: {} };
+      return { ...state, userType: undefined, user: {}, access_token: undefined };
     default:
       return state;
   }

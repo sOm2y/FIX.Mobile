@@ -22,46 +22,42 @@ export class CreateJobScreen extends React.Component {
     const { jobDetail, isJobSubmitted } = this.props;
     this.setState({ isVisible: true });
 
-    // return postJob(values)
-    this.props.submitJobDetail(values);
     dispatch(reset('WizardJobForm'));
+    this.props.submitJobDetail(values);
 
-    // .then(job => {
+    let businessQuery = {
+      categoryId: jobDetail.businessCategoryId,
+      latitude: jobDetail.location.latitude,
+      longitude: jobDetail.location.longitude,
+      take: 5
+    };
 
-    // }).catch( err => {
-    //   toastShow("Post job failed, Please try again.", "danger", 3000);
-    // });
+    searchBusiness(businessQuery, jobDetail.id)
+      .then(businessList => {
+        // navigation.navigate("TradieFinder");
+        this.props.tradieFinder({
+          jobId: jobDetail.id,
+          businessList: businessList
+        });
+
+        toastShow({ text:'Search available tradies  Successfully', type:'success', duration:3000});
+      })
+      .catch(err => {
+        toastShow(
+          {
+          text:'Search available tradies failed, Please try again.',
+          type:'danger',
+          duration: 3000
+          }
+        );
+      });
+
   };
   render() {
     const { navigation, jobDetail, isJobSubmitted } = this.props;
     const { navigate } = navigation;
 
-    if (isJobSubmitted) {
-      let businessQuery = {
-        categoryId: jobDetail.businessCategoryId,
-        latitude: jobDetail.location.latitude,
-        longitude: jobDetail.location.longitude,
-        take: 5
-      };
 
-      searchBusiness(businessQuery, jobDetail.id)
-        .then(businessList => {
-          // navigation.navigate("TradieFinder");
-          this.props.tradieFinder({
-            jobId: jobDetail.id,
-            businessList: businessList
-          });
-
-          toastShow('Search available tradies  Successfully', 'success', 3000);
-        })
-        .catch(err => {
-          toastShow(
-            'Search available tradies failed, Please try again.',
-            'danger',
-            3000
-          );
-        });
-    }
 
     return (
       <WizardJobForm

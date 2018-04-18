@@ -1,22 +1,35 @@
-import React from "react";
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import StepIndicator from 'react-native-step-indicator';
 import PropTypes from 'prop-types';
-import { Container,Header, Body, Title, Content, Button, Left, Icon, Right} from "native-base";
-
+import {
+  Container,
+  Header,
+  Body,
+  Title,
+  Content,
+  Button,
+  Left,
+  Icon,
+  Right
+} from 'native-base';
 
 import JobDetailForm from '../forms/job/JobDetailForm';
 import AddrerssForm from '../forms/register/AddrerssForm';
 import ConfirmationForm from '../forms/register/ConfirmationForm';
-import { nextPage, previousPage, navigationBackLoggedIn,jobs } from '../../actions/actionCreator';
-import UploadForm  from "../forms/UploadForm";
-import DetailForm  from "../forms/register/DetailForm";
+import {
+  nextPage,
+  previousPage,
+  navigationBackLoggedIn,
+  jobs
+} from '../../actions/actionCreator';
+import UploadForm from '../forms/UploadForm';
 
 const thirdIndicatorStyles = {
   stepIndicatorSize: 25,
-  currentStepIndicatorSize:30,
+  currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
   stepStrokeCurrentColor: '#157efc',
@@ -36,18 +49,16 @@ const thirdIndicatorStyles = {
   labelColor: '#999999',
   labelSize: 13,
   currentStepLabelColor: '#157efc'
-}
-
+};
 
 class WizardJobForm extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-  });
+  static navigationOptions = ({ navigation }) => ({});
 
-  render(){
+  render() {
     const { t, i18n, navigation, page, onSubmit } = this.props;
-    const displayWizardTitle = (pageIndex) => {
-      let title = ''
-      switch(pageIndex){
+    const displayWizardTitle = pageIndex => {
+      let title = '';
+      switch (pageIndex) {
         case 0:
           title = 'Job Detail';
           break;
@@ -57,38 +68,57 @@ class WizardJobForm extends React.Component {
         case 2:
           title = 'Upload';
           break;
-        case 3:
-          title = 'Confirmation';
-          break;
+
         default:
           title = 'Job Detail';
       }
       return title;
-       
-    }
+    };
 
     return (
       <Container>
         <Header>
-            
-            {page === 0 &&
-              <Left>
-                <Button transparent onPress={this.props.navigationBackLoggedIn}>
-                    <Icon name="arrow-back" />
-                </Button>
-              </Left>
-            }
+          {page === 0 && (
+            <Left>
+              <Button transparent onPress={this.props.navigationBackLoggedIn}>
+                <Icon name="arrow-back" />
+              </Button>
+            </Left>
+          )}
           <Body>
             <Title>{displayWizardTitle(page)}</Title>
           </Body>
           {page === 0 && <Right />}
         </Header>
         <Content padder keyboardShouldPersistTaps={'always'}>
-        <StepIndicator stepCount={4} customStyles={thirdIndicatorStyles} currentPosition={page} labels={["Job Detail","Address","Upload","Confirmation"]} />
-        {page === 0 &&<JobDetailForm {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 1 &&<AddrerssForm  {...this.props} selectAddressName={'jobAddress'} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 2 &&<UploadForm  {...this.props} previousPage={this.props.previousPage} onSubmit={this.props.nextPage} />}
-        {page === 3 &&<ConfirmationForm  {...this.props} previousPage={this.props.previousPage}  onSubmit={onSubmit} />}
+          <StepIndicator
+            stepCount={3}
+            customStyles={thirdIndicatorStyles}
+            currentPosition={page}
+            labels={['Job Detail', 'Address', 'Upload']}
+          />
+          {page === 0 && (
+            <JobDetailForm
+              {...this.props}
+              previousPage={this.props.previousPage}
+              onSubmit={this.props.nextPage}
+            />
+          )}
+          {page === 1 && (
+            <AddrerssForm
+              {...this.props}
+              selectAddressName={'jobAddress'}
+              previousPage={this.props.previousPage}
+              onSubmit={this.props.nextPage}
+            />
+          )}
+          {page === 2 && (
+            <UploadForm
+              {...this.props}
+              previousPage={this.props.previousPage}
+              onSubmit={onSubmit}
+            />
+          )}
         </Content>
       </Container>
     );
@@ -102,19 +132,18 @@ WizardJobForm.propTypes = {
 
 //TODO: Bug from nativebase
 const styles = StyleSheet.create({
-  listItem:{
-    marginLeft: 0, 
+  listItem: {
+    marginLeft: 0,
     paddingLeft: 17
   }
- 
 });
 
-const mapStateToProps = (state, props) =>{
-  return{
-    page : state.page,
+const mapStateToProps = (state, props) => {
+  return {
+    page: state.page,
     form: props.wizardLabel
   };
-}
+};
 
 const mapDispatchToProps = {
   navigationBackLoggedIn,

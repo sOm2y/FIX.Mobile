@@ -1,10 +1,10 @@
 import React from "react";
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Constants } from 'expo';
 import { connect } from "react-redux";
 import { reset } from 'redux-form';
 import { postUserAccount } from '../../services/authService';
 import { toastShow } from '../../services/toastService';
-import { registerSuccess } from "../../actions/actionCreator";
+import { login, setUserAuth } from "../../actions/actionCreator";
 import WizardCustomerForm from '../../components/wizards/WizardCustomerForm';
 
 
@@ -13,13 +13,18 @@ class CustomerScreen extends React.Component {
   });
 
   onSubmit = async (values, dispatch) => {
-    console.log(values);
-    let pushToken = await Notifications.getExpoPushTokenAsync();
-    values = Object.assign({deviceToken:pushToken},values);
+
+    let pushToken = '';
+    if(Constants.isDevice){
+      pushToken = await Notifications.getExpoPushTokenAsync();
+    }
     return postUserAccount(values)
     .then(res => {
       dispatch(reset('WizardCustomerForm'));
-      this.props.registerSuccess();
+
+      this.props.setUserAuth({userType:res.usertype,access_token:res.access_token});
+      this.props.login();
+     
       toastShow("SignIn Successfully", "success", 3000); 
     }).catch( err => {
       toastShow("SignIn Unsuccessfully", "danger", 3000); 
@@ -37,7 +42,8 @@ class CustomerScreen extends React.Component {
 }
 
 const mapDispatchToProps = {
-    registerSuccess
+    login,
+    setUserAuth
 };
 
 const CustomerRegister = connect(null, mapDispatchToProps)(CustomerScreen);

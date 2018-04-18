@@ -3,6 +3,7 @@ import { Button, Text, Form, Spinner } from 'native-base';
 import { Field, reduxForm } from 'redux-form';
 import validate from '../../../helpers/validateHelper';
 import { renderPhone } from '../../inputs/renderPhone';
+import { renderTextarea } from '../../inputs/renderTextarea';
 
 export class QuoteForm extends React.Component {
   static navigationOptions = ({ navigation }) => ({});
@@ -23,6 +24,12 @@ export class QuoteForm extends React.Component {
           type="number"
           component={renderPhone}
           label="How many hours can work be done?"
+        />
+        <Field
+          name="note"
+          type="text"
+          component={renderTextarea}
+          label="Note for customer"
         />
 
         <Button

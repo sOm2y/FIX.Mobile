@@ -142,7 +142,9 @@ const navigationReducer = (state = initialState, action) => {
       return {
         ...state,
         stateForLoggedIn: AppRootNavigator.router.getStateForAction(
-          NavigationActions.back(),
+          NavigationActions.back({
+            key: 'Home/Jobs'
+          }),
           stateForLoggedIn
         )
       };

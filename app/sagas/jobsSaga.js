@@ -8,7 +8,8 @@ import {
   JobDetailFailed,
   SubmitJobDetail,
   SubmitJobDetailSuccess,
-  SubmitJobDetailFailed
+  SubmitJobDetailFailed,
+  Logout
 } from '../actions/actionTypes';
 import {
   call,
@@ -24,31 +25,61 @@ import {
   getJobById,
   getAssignedJobs
 } from '../services/jobService';
+import { toastShow } from '../services/toastService';
+import { TextHolder } from '../constants/textHolder';
 
 function* postJobSaga(action) {
   try {
     const job = yield call(postJob, action.payload);
     yield put({ type: SubmitJobDetailSuccess, payload: job });
+    yield call(toastShow, {
+      text: TextHolder.POST_JOB_SUCCESSFUL,
+      type: 'success',
+      buttonText: 'Dismiss',
+      duration: 3000
+    });
   } catch (error) {
     yield put({ type: SubmitJobDetailFailed, payload: error });
+    yield call(toastShow, {
+      text: TextHolder.POST_JOB_FAILED,
+      type: 'danger',
+      buttonText: 'Dismiss',
+      duration: 3000
+    });
   }
 }
 
 function* getJobsSaga(action) {
   try {
     let jobs = null;
+    console.log(action);
     if (action.payload === 'Customer') {
       jobs = yield call(getJobs);
     } else if (action.payload === 'Tradie') {
       jobs = yield call(getAssignedJobs);
     }
-    console.log('jobs: ' + jobs);
-    //Change the name of parameter to payload as reducer defined
     const payload = jobs;
+
     yield put({ type: RefreshJobsSuccess, payload });
   } catch (error) {
     const payload = error;
+    // if (error.status === 401) {
+    //   yield put({ type: Logout });
+    //   yield call(toastShow, {
+    //     text: 'Token expired, please try login again',
+    //     type: 'danger',
+    //     buttonText: 'Dismiss',
+    //     duration: 3000
+    //   });
+    // }
     yield put({ type: RefreshJobsFailed, payload });
+
+    yield call(toastShow, {
+      text: TextHolder.FETCH_JOBS_FAILED,
+      type: 'danger',
+      buttonText: 'Dismiss',
+      duration: 3000
+    });
   }
 }
 
@@ -62,6 +93,12 @@ function* getJobByIdSaga(action) {
   } catch (error) {
     const payload = error;
     yield put({ type: JobDetailFailed, payload });
+    yield call(toastShow, {
+      text: TextHolder.FETCH_JOBS_BY_ID_FAILED,
+      type: 'danger',
+      buttonText: 'Dismiss',
+      duration: 2000
+    });
   }
 }
 

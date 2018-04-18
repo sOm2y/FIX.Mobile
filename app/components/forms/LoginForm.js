@@ -16,19 +16,22 @@ export class LoginForm extends React.Component{
         return (
             <Form>
                 <Field
+                    style={{color:'white'}}
                     name="username"
                     type="text"
+                    fontColor={{color:'white'}}
                     component={renderName}
                     label="Username"
                 />
                 <Field
                     name="password"
                     type="password"
+                    fontColor={{color:'white'}}
                     component={renderPassword}
                     label="Password"
                 />
    
-                <Button block primary
+                <Button block light
                 style={{ marginTop: 10 }}
                 onPress={handleSubmit}
                 disabled={submitting}>

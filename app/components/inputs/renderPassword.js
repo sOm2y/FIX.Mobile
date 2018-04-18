@@ -1,15 +1,16 @@
 import React from 'react';
 import { Item, Input, Icon, Label } from 'native-base';
 
-export const renderPassword = ({ input, label, type, meta: { touched, error, warning } }) => {
+export const renderPassword = ({ input, label, type, meta: { touched, error, warning }, fontColor }) => {
     var hasError= false;
     if(error !== undefined){
         hasError= true;
     }
     return ( 
         <Item floatingLabel style= {{ margin: 10, flexDirection: 'row-reverse' }} error= {hasError} success={!hasError&&touched&&input.value.length>0}>
-            <Label>{label}</Label>
+            <Label style={fontColor}>{label}</Label>
             <Input type={type} 
+                style={fontColor}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry={true} {...input}/>

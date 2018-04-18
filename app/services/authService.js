@@ -28,10 +28,10 @@ export const loginUserAccount = ( loginUser ) =>{
       if(res.status === 400 || res.status === 403){
         reject(res);
       }
-      console.log(res.data.access_token);
+
       axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.access_token;
-      AsyncStorage.setItem(USER_KEY, res.data.access_token);
-      resolve(res);
+
+      resolve(res.data);
     
     })
     .catch(err => {
@@ -51,9 +51,9 @@ export const postUserAccount = ( postUser ) => {
       data: postUser
     })
     .then(res => {
-      // console.log(res.data.access_token);
+      console.log(res.data);
       axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.access_token;
-      AsyncStorage.setItem(USER_KEY, res.data.access_token);
+
       resolve(res.data);
     })
     .catch(err => {

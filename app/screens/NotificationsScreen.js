@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import { StyleSheet, RefreshControl } from 'react-native';
 import {
   Container,
   Content,
@@ -15,36 +15,37 @@ import {
   Thumbnail,
   Left,
   Right
-} from "native-base";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import {
-  jobDetail
-} from "../actions/actionCreator";
-import { onSignOut } from "../services/authService";
-import { getNotifications } from "../services/notificationService";
+} from 'native-base';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { jobDetail, refreshNotifications, logout } from '../actions/actionCreator';
+import { onSignOut } from '../services/authService';
+import { getNotifications } from '../services/notificationService';
 
 class NotificationsScreen extends React.Component {
   constructor() {
     super();
-    this.state = {
-      notifications: []
-    };
   }
 
-  componentDidMount() {
-    getNotifications()
-      .then(res => {
-        this.setState({ notifications: res });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  async componentDidMount() {
+    try {
+      this.props.refreshNotifications();
+    } catch (error) {
+      this.props.logout();
+    }
   }
 
   static navigationOptions = ({ navigation }) => ({});
   render() {
-    const { t, i18n, navigation, count } = this.props;
+    const {
+      t,
+      i18n,
+      navigation,
+      count,
+      isRefreshing,
+      userType,
+      notifications
+    } = this.props;
     const { navigate } = navigation;
 
     return (
@@ -54,21 +55,29 @@ class NotificationsScreen extends React.Component {
             <Title>Notifications</Title>
           </Body>
         </Header>
-        <Content>
+        <Content
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={this.props.refreshNotifications}
+            />
+          }
+        >
           <List
-            dataArray={this.state.notifications}
+            dataArray={notifications.reverse()}
             renderRow={notification => (
-              <ListItem avatar style={styles.listItem}>
+              <ListItem thumbnail>
                 <Left>
                   <Thumbnail
-                    small
-                    source={require("../resource/images/user1.png")}
+                    size={55}
+                    source={require('../resource/images/user1.png')}
                   />
                 </Left>
                 <Body>
                   <Text>{notification.content}</Text>
-                  {/*} <Text numberOfLines={1} note>{notification.daysAgo}</Text>*/}
-                  <Text note>{notification.daysAgo}</Text>
+                  <Text numberOfLines={1} note>
+                    {notification.daysAgo}
+                  </Text>
                 </Body>
                 <Right>
                   <Button
@@ -89,19 +98,18 @@ class NotificationsScreen extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    count: state.count
+    count: state.count,
+    isRefreshing: state.NotificationReducer.isRefreshing,
+    notifications: state.NotificationReducer.notifications
   };
 }
 const mapDispatchToProps = {
-  jobDetail
-}
+  jobDetail,
+  refreshNotifications,
+  logout
+};
 export default connect(mapStateToProps, mapDispatchToProps)(
   NotificationsScreen
 );
 
-const styles = StyleSheet.create({
-  listItem: {
-    marginLeft: 0,
-    paddingLeft: 17
-  }
-});
+const styles = StyleSheet.create({});

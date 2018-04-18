@@ -18,14 +18,19 @@ import {
   HideBusinessModal,
   ShowQuoteModal,
   HideQuoteModal,
+  ShowQuoteDetailModal,
+  HideQuoteDetailModal,
   ShowChangePasswordModal,
   HideChangePasswordModal,
   SetUserData,
-  SetUserType,
+  SetUserAuth,
   LoginAsCustomer,
   LoginAsTradie,
   NavigationBackForLoggedIn,
-  NavigationBackForLoggedOut
+  NavigationBackForLoggedOut,
+  SubmitQuote,
+  UpdateQuote,
+  RefreshNotifications
 } from "./actionTypes";
 
 export const increment = () => {
@@ -136,6 +141,15 @@ const hideQuoteModal = () => ({
   type: HideQuoteModal
 });
 
+const showQuoteDetailModal = (quote) => ({
+  type: ShowQuoteDetailModal,
+  payload: quote
+});
+
+const hideQuoteDetailModal = () => ({
+  type: HideQuoteDetailModal
+});
+
 const showChangePasswordModal = () => ({
   type: ShowChangePasswordModal
 });
@@ -149,9 +163,9 @@ const setUserData = (user) => ({
   payload: user
 });
 
-const setUserType = (userType) => ({
-  type: SetUserType,
-  payload: userType
+const setUserAuth = (userAuth) => ({
+  type: SetUserAuth,
+  payload: userAuth
 });
 
 const loginAsCustomer = () => ({
@@ -162,6 +176,21 @@ const loginAsTradie = () => ({
   type: LoginAsTradie
 });
 
+/* Quote Action */
+const submitQuote = (quote) => ({
+  type:SubmitQuote,
+  payload: quote
+});
+
+const updateQuote = quoteStatus => ({
+  type: UpdateQuote,
+  payload: quoteStatus
+})
+
+/* Notifications Action */
+const refreshNotifications = () => ({
+  type: RefreshNotifications
+})
 
 export {
   nextPage,
@@ -185,10 +214,16 @@ export {
   hideBusinessModal,
   showQuoteModal,
   hideQuoteModal,
+  showQuoteDetailModal,
+  hideQuoteDetailModal,
   showChangePasswordModal,
   hideChangePasswordModal,
   setUserData,
-  setUserType,
+  setUserAuth,
   loginAsCustomer,
-  loginAsTradie
+  loginAsTradie,
+  submitQuote,
+  updateQuote,
+
+  refreshNotifications
 };

@@ -33,11 +33,8 @@ class AppNavigation extends Component {
     return true;
   };
 
-  getUserType(){ 
-    return this.props.userType;
-  }
   render() {
-    const { navigationState, dispatch, isLoggedIn, userType } = this.props;
+    const { navigationState, dispatch, isLoggedIn, } = this.props;
     const state = isLoggedIn
       ? navigationState.stateForLoggedIn
       : navigationState.stateForLoggedOut;
@@ -51,7 +48,6 @@ class AppNavigation extends Component {
 
 const mapStateToProps = state => {
   return {
-    userType: state.ProfileReducer.userType,
     isLoggedIn: state.AuthReducer.isLoggedIn,
     navigationState: state.NavigationReducer
   };

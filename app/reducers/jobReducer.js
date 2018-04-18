@@ -8,8 +8,9 @@ import {
   JobDetailFailed,
   SubmitJobDetail,
   SubmitJobDetailSuccess,
-  SubmitJobDetailFailed
-} from "../actions/actionTypes";
+  SubmitJobDetailFailed,
+  Logout
+} from '../actions/actionTypes';
 
 const initialState = { searchResult: {}, jobResult: {}, isRefreshing: true };
 
@@ -29,7 +30,7 @@ const jobReducer = (state = initialState, action) => {
 
     case SubmitJobDetailSuccess:
       return { ...state, isJobSubmitted: true, jobDetail: action.payload };
-    
+
     case SubmitJobDetailFailed:
       return { ...state, isJobSubmitted: false, errorResult: action.payload };
 
@@ -37,7 +38,7 @@ const jobReducer = (state = initialState, action) => {
       return { ...state, searchResult: action.payload };
 
     case JobDetail:
-      return { ...state, isRefreshing: true };
+      return { ...state, isRefreshing: false };
 
     case JobDetailSuccess:
       return { ...state, isRefreshing: false, jobResult: action.payload };
@@ -45,6 +46,9 @@ const jobReducer = (state = initialState, action) => {
     case JobDetailFailed:
       return { ...state, isRefreshing: false, errorResult: action.payload };
 
+    case Logout:
+      return { ...state, isRefreshing: false, jobResult: {} };
+      
     default:
       return state;
   }
