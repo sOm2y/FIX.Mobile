@@ -1,8 +1,10 @@
 import React from 'react';
-import Expo from 'expo';
+import  * as Expo from 'expo';
 
 import { Provider } from 'react-redux';
-import { Font, AppLoading } from 'expo';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font'
+import { Ionicons } from '@expo/vector-icons';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import I18n from 'ex-react-native-i18n';
 import { Root } from 'native-base';
@@ -21,21 +23,18 @@ export default class App extends React.Component {
       isReady: false
     };
   }
-  async componentWillMount() {
+  async componentDidMount() {
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
-      Entypo: require('@expo/vector-icons/fonts/Entypo.ttf'),
-      FontAwesome: require('@expo/vector-icons/fonts/FontAwesome.ttf'),
-      MaterialCommunityIcons: require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf')
+      ...Ionicons.font,
 
     });
 
     await Promise.all([
       I18n.initAsync(),
-      Expo.Util.getCurrentDeviceCountryAsync(),
-      Expo.Util.getCurrentTimeZoneAsync()
+      // Expo.Util.getCurrentDeviceCountryAsync(),
+      // Expo.Util.getCurrentTimeZoneAsync()
     ]);
     const deviceLocale = I18n.locale;
 

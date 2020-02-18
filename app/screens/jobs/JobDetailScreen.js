@@ -118,7 +118,7 @@ export class JobDetailScreen extends React.Component {
                       source={{
                         uri:
                           'https://smartgeoio.blob.core.windows.net/fix/' +
-                          job.jobImages[0].fileName
+                          job.jobImages[0].fileName&&job.jobImages[0].fileName
                       }}
                     />
                   )}

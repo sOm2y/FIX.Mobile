@@ -167,7 +167,7 @@ export class JobsScreen extends React.Component {
                                   source={{
                                     uri:
                                       'https://smartgeoio.blob.core.windows.net/fix/' +
-                                      image.fileName
+                                      image.fileName&&image.fileName
                                   }}
                                 />
                               </View>
