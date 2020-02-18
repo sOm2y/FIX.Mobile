@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, Image } from 'react-native';
-import { BlurView } from 'expo';
+import { BlurView } from 'expo-blur';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { reset } from 'redux-form';
