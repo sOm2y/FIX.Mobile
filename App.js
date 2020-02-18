@@ -72,7 +72,7 @@ export default class App extends React.Component {
   }
   render() {
     if (!this.state.isReady) {
-      return <AppLoading />;
+      return <AppLoading />
     }
     return (
       <Provider store={store}>
