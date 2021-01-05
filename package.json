@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "ex-react-native-i18n": "0.0.6",
     "expo": "^36.0.1",
     "i18next": "^10.2.1",
